@@ -11,7 +11,7 @@
 .vagrant
 vendor
 
-www/lib/Override.js
-www/img/categories/
-www/img/services/
-www/img/wallets/
+*.zip
+*.app
+*.jar
+chromedriver
