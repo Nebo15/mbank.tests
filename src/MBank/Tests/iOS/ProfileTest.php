@@ -63,17 +63,18 @@ class ProfileTest extends BaseIOSTest
         $this->byName('X')->click();
 
     }
-    public function testAddCards()
-    {
-        $this->testSkipPin();
-        $this->byName('Profile')->click();
-        $this->byName('My cards')->click();
-        sleep(1);
-        $this->byName('Add new card')->click();
-        sleep(3);
-        $this->fillCardVisaForm();
 
-    }
+//    public function testAddCards()
+//    {
+//        $this->testSkipPin();
+//        $this->byName('Profile')->click();
+//        $this->byName('My cards')->click();
+//        sleep(1);
+//        $this->byName('Add new card')->click();
+//        sleep(3);
+//        $this->fillCardVisaForm();
+//
+//    }
 
 
     public function checkCodeScreen()
@@ -86,58 +87,28 @@ class ProfileTest extends BaseIOSTest
     {
         //add card number
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-            ->click();
-        $this->byName('4')->click();
-        $this->byName('6')->click();
-        $this->byName('5')->click();
-        $this->byName('2')->click();
-        $this->byName('0')->click();
-        $this->byName('6')->click();
-        $this->byName('0')->click();
-        $this->byName('7')->click();
-        $this->byName('2')->click();
-        $this->byName('4')->click();
-        $this->byName('9')->click();
-        $this->byName('2')->click();
-        $this->byName('2')->click();
-        $this->byName('3')->click();
-        $this->byName('3')->click();
-        $this->byName('8')->click();
+            ->value('4652060724922339');
 
         //add MM
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[2]')
-             ->click();
-        $this->byName('0')->click();
-        $this->byName('1')->click();
+            ->value('01');
 
         //add YY
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[3]')
-             ->click();
-        $this->byName('1')->click();
-        $this->byName('7')->click();
+            ->value('17');
 
         //add CVV code
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[4]')
-            ->click();
-        $this->byName('9')->click();
-        $this->byName('8')->click();
-        $this->byName('9')->click();
+            ->value('989');
 
         //add cardHolder
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[5]')
-             ->click();
-        $this->byName('t')->click();
-        $this->byName('e')->click();
-        $this->byName('s')->click();
-        $this->byName('t')->click();
-        $this->byName('a')->click();
-        $this->byName('k')->click();
+            ->value('testtest');
 
         //add Card
         $this->byName('Add new card')->click();
         $this->byName('Add card')->click();
         sleep(3);
-
 
     }
 }

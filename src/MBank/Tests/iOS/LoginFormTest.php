@@ -14,8 +14,8 @@ class LoginFormTest extends BaseIOSTest
         //accept alert
         sleep(2);
         $this->byName('OK')->click();
+
         sleep(1);
-        //submit Sign form
         $this->byName('Sign in')->click();
 
         //check forgot password window displayed
@@ -31,6 +31,7 @@ class LoginFormTest extends BaseIOSTest
         sleep(1);
         $this->byName('Sign in')->click();
         sleep(3);
+        //enter pin code
         $this->pinCode();
 
         $secondPIN = $this->byName('Enter the PIN once again');
@@ -61,6 +62,7 @@ class LoginFormTest extends BaseIOSTest
         sleep(1);
         $this->byName('Sign in')->click();
         sleep(3);
+        //skip pin code
         $this->byName('Skip')->click();
         sleep(1);
 
@@ -91,49 +93,43 @@ class LoginFormTest extends BaseIOSTest
 
     }
 
+    public function testLoginInvalid()
+    {
+        sleep(2);
+        $this->byName('OK')->click();
+        sleep(1);
+        //submit Sign form
+        $this->byName('Sign in')->click();
+        $this->fillPassword();
+        sleep(1);
+        $this->byName('Sign in')->click();
+
+        $AlertMessage = $this->byName('Phone number invalid');
+        $this->assertTrue($AlertMessage->displayed());
+
+    }
+
 
     public function fillPhoneNumber()
     {
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')
             ->click();
         $this->byName('Delete')->click();
-        $this->byName('3')->click();
-        $this->byName('8')->click();
-        $this->byName('0')->click();
-        $this->byName('9')->click();
-        $this->byName('3')->click();
-        $this->byName('1')->click();
-        $this->byName('2')->click();
-        $this->byName('5')->click();
-        $this->byName('4')->click();
-        $this->byName('2')->click();
-        $this->byName('1')->click();
-        $this->byName('2')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')
+            ->value('380931254212');
     }
 
     public function fillPassword()
     {
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIASecureTextField[1]')
-            ->click();
-
-        $this->byName('q')->click();
-        $this->byName('w')->click();
-        $this->byName('e')->click();
-        $this->byName('r')->click();
-        $this->byName('t')->click();
-        $this->byName('y')->click();
+            ->value('qwerty');
     }
 
     public function fillIncorrectPassword()
     {
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIASecureTextField[1]')
-            ->click();
+            ->value('wasted');
 
-        $this->byName('w')->click();
-        $this->byName('w')->click();
-        $this->byName('a')->click();
-        $this->byName('s')->click();
-        $this->byName('d')->click();
     }
 
     public function pinCode()
