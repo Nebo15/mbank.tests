@@ -1,14 +1,8 @@
 {
-    "name": "vendor_name/package_name",
-    "description": "description_text",
+    "name": "Nebo15/mbank.ios.tests",
+    "description": "Test for MBank iOS Application",
     "minimum-stability": "stable",
     "license": "proprietary",
-    "authors": [
-        {
-            "name": "author's name",
-            "email": "email@example.com"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "MBank\\" : ["src/MBank/"]
@@ -21,10 +15,10 @@
         "phpunit/phpunit-story": "dev-master",
         "phpunit/php-invoker": "dev-master",
         "facebook/webdriver": "dev-master",
-        "fzaninotto/faker": "dev-master",
+        "fzaninotto/faker": "~1.4",
         "alexandresalome/mailcatcher": "dev-master",
         "appium/php-client": "dev-master",
-        "sauce/sausage": "0.6.0"
-
+        "sauce/sausage": "0.6.0",
+        "guzzlehttp/guzzle": "~5.2"
     }
 }

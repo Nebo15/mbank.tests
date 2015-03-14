@@ -1,11 +1,9 @@
 <?php
-
 namespace MBank\Tests\iOS;
 
+// TODO move everything to Payments*Test
 
-use MBank\Tests\BaseIOSTest;
-
-class TransferTest extends BaseIOSTest
+class PaymentsTest extends \MBank\Tests\MBankiOSTestCase
 {
     public function testTransfer()
     {

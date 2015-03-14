@@ -1,10 +1,7 @@
 <?php
 namespace MBank\Tests\iOS;
 
-
-use MBank\Tests\BaseIOSTest;
-
-class ProfileTest extends BaseIOSTest
+class ProfileTest extends \MBank\Tests\MBankiOSTestCase
 {
 
     public function testProfile()
