@@ -21,19 +21,19 @@ class WalletGenerationService
 
     public function getSSN()
     {
-        $fake_ssns = [05624286562, 12943643682, 02928055571];
+        $fake_ssns = ['05624286562', '12943643682', '02928055571'];
         return $fake_ssns[rand(0, count($fake_ssns)-1)];
     }
 
     public function getITN()
     {
-        $fake_itns = [772807592836, 500100732259, 745105884167, 526317984688];
+        $fake_itns = ['772807592836', '500100732259', '745105884167', '526317984688'];
         return $fake_itns[rand(0, count($fake_itns)-1)];
     }
 
     public function getPassportSeriesNumber()
     {
-        $fake_passports = [515302956, 700795731, 514221125];
+        $fake_passports = ['515302956', '700795731', '514221125'];
         return $fake_passports[rand(0, count($fake_passports)-1)];
     }
 

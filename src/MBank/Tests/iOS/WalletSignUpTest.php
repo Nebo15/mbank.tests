@@ -1,7 +1,9 @@
 <?php
 namespace MBank\Tests\iOS;
 
-class WalletSignUpTest extends \MBank\Tests\MBankiOSTestCase
+use MBank\Tests\MBankiOSTestCase;
+
+class WalletSignUpTest extends MBankiOSTestCase
 {
     protected $wallet;
 
