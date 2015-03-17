@@ -15,11 +15,26 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Empty list');
         $this->waitForElementDisplayedByName('Add new card');
         $this->byName('Add new card')->click();
-        $this->fillCardVisaForm();
+        $this->fillCardVisaForm1();
+        $this->fillCardVisaForm2();
+
+        // Remove One Card
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]/UIAButton[1]')
+             ->click();
+        $this->byName('Да')->click();
+
+        // Assert Card2 is removed
+        sleep(2);
+        $card2Deleted = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]')->text();
+        $this->assertEquals('row 1 of 1', $card2Deleted);
+
+        // Assert Card1 is present
+        $card1Present = $this->byName('4652 06** **** 2338');
+        $this->assertTrue($card1Present->displayed());
 
     }
 
-    protected function fillCardVisaForm()
+    protected function fillCardVisaForm1()
     {
         // Add card number
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]');
@@ -47,6 +62,37 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
 
         // Assert Card Is Added
         $this->waitForElementDisplayedByName('4652 06** **** 2338');
+    }
+
+    protected function fillCardVisaForm2()
+    {
+        // Add card number
+        $this->byName('Add new card')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
+            ->value('5417150396276825');
+
+        // Add MM
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[2]')
+            ->value('01');
+
+        // Add YY
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[3]')
+            ->value('17');
+
+        // Add CVV code
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[4]')
+            ->value('789');
+
+        // Add CardHolder
+        $this->byName('Done')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[5]')
+            ->value('testtestd');
+
+        $this->byName('Add card')->click();
+
+        // Assert Card Is Added
+        $this->waitForElementDisplayedByName('5417 15** **** 6825');
     }
 
 }
