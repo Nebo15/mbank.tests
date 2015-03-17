@@ -3,7 +3,7 @@ namespace MBank\Tests\iOS;
 
 use MBank\Tests\MBankiOSTestCase;
 
-class WalletSignUpTest extends MBankiOSTestCase
+class SignUpTest extends MBankiOSTestCase
 {
     protected $wallet;
 
