@@ -21,13 +21,13 @@ class WalletGenerationService
 
     public function getSSN()
     {
-        $fake_ssns = ['05624286562', '12943643682', '02928055571'];
+        $fake_ssns = ['11625484952', '12706363948', '14601471834'];
         return $fake_ssns[rand(0, count($fake_ssns)-1)];
     }
 
     public function getITN()
     {
-        $fake_itns = ['772807592836', '500100732259', '745105884167', '526317984688'];
+        $fake_itns = ['602701490561', '602701490561', '071002233173', '056112700701'];
         return $fake_itns[rand(0, count($fake_itns)-1)];
     }
 
