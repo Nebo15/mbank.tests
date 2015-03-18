@@ -33,7 +33,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
     }
-    
+
 // TODO Crashed on validation
 //    public function testTransferP2P()
 //    {
