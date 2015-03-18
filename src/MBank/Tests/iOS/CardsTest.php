@@ -73,4 +73,18 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('5417 15** **** 6825');
     }
 
+    public function testCashDisplayed()
+    {
+        $this->createWalletAndLoadDashboard();
+        $this->byName('Add funds')->click();
+
+        // Check Cash Field
+        $this->waitForElementDisplayedByName('Add card');
+        $this->byName('Cash')->click();
+
+        // Assert The Map Is Displayed
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAMapView[1]/UIAElement[1]');
+
+    }
+
 }

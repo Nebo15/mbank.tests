@@ -27,13 +27,13 @@ class WalletGenerationService
 
     public function getITN()
     {
-        $fake_itns = ['602701490561', '602701490561', '071002233173', '056112700701'];
+        $fake_itns = ['602701490561', '071002233173', '056112700701'];
         return $fake_itns[rand(0, count($fake_itns)-1)];
     }
 
     public function getPassportSeriesNumber()
     {
-        $fake_passports = ['515302956', '700795731', '514221125'];
+        $fake_passports = ['4506081571', '4512770818', '6908279493'];
         return $fake_passports[rand(0, count($fake_passports)-1)];
     }
 
