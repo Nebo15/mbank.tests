@@ -19,7 +19,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
     }
 
 
-
 //TODO add tests for all settings
 //        $this->waitForElementDisplayedByName('Public Offer');
 //        $this->byName('Public Offer')->click();

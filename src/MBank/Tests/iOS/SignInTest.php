@@ -57,9 +57,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Ok')->click();
 
         // We should stay on login screen
-        $this->markTestSkipped("Issue not resolved MBNK-1795");
-        // $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
-        // $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
+        $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
     }
 
     public function testSignInWithWalletNotExists()
@@ -77,9 +76,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Ok')->click();
 
         // We should stay on login screen
-        $this->markTestSkipped("Issue not resolved MBNK-1795");
-        // $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
-        // $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
+        $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
     }
 
     // public function testResetPassword()
@@ -92,7 +90,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
 
     // }
 
-    // public function testResetPasswordWithRetyLimitExceeded()
+    // public function testResetPasswordWithRetryLimitExceeded()
     // {
 
     // }

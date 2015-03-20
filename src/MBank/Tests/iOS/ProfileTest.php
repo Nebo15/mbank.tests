@@ -29,13 +29,13 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[2]');
 
         // Check that photo was actually uploaded
-        sleep(4);
+        sleep(5);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
     }
 
 // TODO Crashed on validation
-//    public function testTransferP2P()
+//    public function testTransferP2PConfirmation()
 //    {
 //        $wallet = $this->createWalletAndLoadDashboard();
 //        $this->byName('Transfer')->click();
@@ -81,7 +81,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')->value('test');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')->value('furman');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-            ->value($wallet->person->passport_issued_at);
+             ->value($wallet->person->passport_issued_at);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')->value("44/444");
 
         $this->byName('Next')->click();

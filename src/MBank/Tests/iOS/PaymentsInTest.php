@@ -11,6 +11,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('My cards');
         $this->waitForElementDisplayedByName('Empty list');
         $this->waitForElementDisplayedByName('Add new card');
+        sleep(1);
         $this->byName('Add new card')->click();
         $this->fillCardVisaForm();
 

@@ -13,10 +13,9 @@ class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Your balance');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[7]')
              ->click();
-        $this->byName('retry button')->click();
 
         // Assert conversations display
-        $Support = $this->byName('error label');
+        $Support = $this->byXPath('//UIAApplication[1]/UIAWindow[4]/UIAStaticText[1]');
         $this->assertTrue($Support->displayed());
 
         // Back to Dashboard
