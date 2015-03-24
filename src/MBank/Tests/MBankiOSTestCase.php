@@ -115,6 +115,22 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         return $wallet;
     }
 
+    protected function createWalletAndLoadDashboardWithPIN() {
+        $wallet = $this->generateWalletData();
+
+        // Create wallet over API
+        $this->getAPIService()->createActiveWallet($wallet->phone, $wallet->password);
+
+        $this->loadDashboardPinCreate($wallet->phone, $wallet->password);
+
+        return $wallet;
+    }
+
+    protected function loadDashboardPinCreate($phone, $password)
+    {
+        $this->signIn($phone, $password);
+    }
+
     protected function generateWalletData()
     {
         $generator = new \MBank\Services\WalletGenerationService();

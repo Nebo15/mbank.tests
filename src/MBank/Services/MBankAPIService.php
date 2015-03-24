@@ -69,6 +69,30 @@ class MBankAPIService
         return $request->json()['meta']['code'] == 200;
     }
 
+    public function changePassword($phone)
+    {
+        $request_url = $this->api_url . 'v1/wallet/send_password_reset_code';
+
+        $request_body = [
+            'phone' => $phone,
+        ];
+
+        $request = $this->client->post($request_url, [
+            'body' => json_encode($request_body),
+        ]);
+
+        return $this->getResetCode($request->json());
+
+    }
+
+    private function getResetCode($json)
+    {
+        if (!array_key_exists('dev', $json) || !array_key_exists('security_code', $json['dev'])) {
+            exit("Can't get reset code from response");
+        }
+        return $json['dev']['security_code'];
+    }
+
     public function createActiveWallet($phone, $password)
     {
         $wallet = $this->createWallet($phone, $password);

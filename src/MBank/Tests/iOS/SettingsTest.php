@@ -19,16 +19,37 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
     }
 
 
-//TODO add tests for all settings
-//        $this->waitForElementDisplayedByName('Public Offer');
-//        $this->byName('Public Offer')->click();
-//
-//        $this->waitForElementDisplayedByName('Back to Settings icon');
-//        $this->byName('Back to Settings icon')->click();
-//
-//        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIAButton[2]');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIAButton[2]')
-//            ->click();
-//
-//        $this->waitForElementDisplayedByName('Sign in');
+    public function testPublicOfferAndPrivacyPolicy()
+    {
+        $this->createWalletAndLoadDashboard();
+
+        $this->byName('Profile')->click();
+        $this->byName('Settings')->click();
+        // Check Public Offer Displayed
+        $this->waitForElementDisplayedByName('Public Offer');
+        $this->byName('Public Offer')->click();
+
+        $this->waitForElementDisplayedByName('Back to Settings icon');
+        $this->byName('Back to Settings icon')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIAButton[2]');
+        // Check Privacy Policy Displayed
+        $this->byName('Privacy Policy')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAWebView[1]');
+        $this->waitForElementDisplayedByName('Back to Settings icon');
+
+        $this->waitForElementDisplayedByName('Log out');
+    }
+
+    public function testLimits()
+    {
+        $this->createWalletAndLoadDashboard();
+
+        $this->byName('Profile')->click();
+        // Check the limits is displayed
+        $this->byName('View limits')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableGroup[1]');
+
+
+    }
+
 }

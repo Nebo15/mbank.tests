@@ -15,7 +15,6 @@
                 <file>src/MBank/Tests/iOS/PaymentsInTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
-                <file>src/MBank/Tests/iOS/PaymentsTest.php</file>
                 <file>src/MBank/Tests/iOS/PINCodeTest.php</file>
                 <file>src/MBank/Tests/iOS/ProfileTest.php</file>
                 <file>src/MBank/Tests/iOS/ServicesTest.php</file>
@@ -28,7 +27,6 @@
                 <file>src/MBank/Tests/iOS/CardsTest.php</file>
                 <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
-                <file>src/MBank/Tests/iOS/PaymentsTest.php</file>
                 <file>src/MBank/Tests/iOS/PINCodeTest.php</file>
                 <file>src/MBank/Tests/iOS/ProfileTest.php</file>
                 <file>src/MBank/Tests/iOS/SettingsTest.php</file>

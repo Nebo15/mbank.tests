@@ -80,18 +80,107 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
     }
 
-    // public function testResetPassword()
-    // {
+     public function testResetPassword()
+     {
+         // Create wallet
+         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
+         // SignIn
+         $this->signIn($this->wallet->phone, $this->wallet->password);
+         // Skip Pin
+         $this->waitForElementDisplayedByName('Skip');
+         $this->byName('Skip')->click();
+         // Get New Password
+         $code = $this->getAPIService()->changePassword($this->wallet->phone);
+         // Change Pin
+         $this->waitForElementDisplayedByName('Profile');
+         $this->byName('Profile')->click();
+         $this->byName('Settings')->click();
+         $this->byName('Change password')->click();
+         $this->waitForElementDisplayedByName('Request password');
+         $this->byName('Yes')->click();
+         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
+         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
+              ->value('jdsfhjkfsdhfkjs');
+         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
+              ->value($code);
+         $this->byName('Confirm')->click();
+         // Assert the password is changed
+         $this->waitForElementDisplayedByName('Password changed');
+         $this->byName('OK')->click();
+         $this->waitForElementDisplayedByName('Sign in');
+     }
 
-    // }
+    public function testResetPasswordWithWrongCode()
+    {
+        // Create wallet
+        $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
+        // SignIn
+        $this->signIn($this->wallet->phone, $this->wallet->password);
+        // Skip Pin
+        $this->waitForElementDisplayedByName('Skip');
+        $this->byName('Skip')->click();
+        // Change Pin
+        $this->waitForElementDisplayedByName('Profile');
+        $this->byName('Profile')->click();
+        $this->byName('Settings')->click();
+        $this->byName('Change password')->click();
+        $this->waitForElementDisplayedByName('Request password');
+        $this->byName('Yes')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
+            ->value('jdsfhjkfsdhfkjs');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
+            ->value('4321234');
+        $this->byName('Confirm')->click();
+        // Assert the password is changed
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+    }
 
-    // public function testResetPasswordWithWrongCode()
-    // {
+     public function testResetPasswordWithRetryLimitExceeded()
+     {
+         // Create wallet
+         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
+         // SignIn
+         $this->signIn($this->wallet->phone, $this->wallet->password);
+         // Skip Pin
+         $this->waitForElementDisplayedByName('Skip');
+         $this->byName('Skip')->click();
+         // Try Change Pin
+         $this->waitForElementDisplayedByName('Profile');
+         $this->byName('Profile')->click();
+         $this->byName('Settings')->click();
+         $this->byName('Change password')->click();
+         $this->waitForElementDisplayedByName('Request password');
+         $this->byName('Yes')->click();
+         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
+         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
+             ->value('jdsfhjkfsdhfkjs');
+         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
+             ->value('4321234');
+         $this->byName('Confirm')->click();
+         // Check retry limit
+         $this->checkRetryLimits();
+         // Assert limit message
+         $this->waitForElementDisplayedByName('превышен лимит попыток ввода кода безопасности');
+     }
 
-    // }
-
-    // public function testResetPasswordWithRetryLimitExceeded()
-    // {
-
-    // }
+    public function checkRetryLimits()
+    {
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+    }
 }

@@ -27,6 +27,36 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         $this->assertEquals('10010', $wallet_data['data']['amount']);
     }
 
+    public function testPayInNegativeSum()
+    {
+        $this->createWalletAndLoadDashboard();
+
+        $this->byName('Profile')->click();
+        $this->byName('My cards')->click();
+        $this->waitForElementDisplayedByName('My cards');
+        $this->waitForElementDisplayedByName('Empty list');
+        $this->waitForElementDisplayedByName('Add new card');
+        sleep(1);
+        $this->byName('Add new card')->click();
+        $this->fillCardVisaForm();
+
+        // Back to DashBoard
+        $this->byName('Back to Profile icon')->click();
+        $this->byName('Menu icon')->click();
+        // Pay Zero Sum
+        $this->walletPayZeroSum();
+        // Assert Alert Message
+        $this->waitForElementDisplayedByName('Enter the amount');
+        // Pay Incorrect Sum
+        $this->byName('OK')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->clear();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->value('10000');
+        $this->byName('Done')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]')->click();
+        // Assert Alert Message
+        $this->waitForElementDisplayedByName('превышен лимит на остаток на счете кошелька');
+    }
+
     protected function fillCardVisaForm()
     {
         // Add card number
@@ -44,6 +74,16 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Add card')->click();
         // Assert Card Is Added
         $this->waitForElementDisplayedByName('4652 06** **** 2338');
+    }
+
+    public function walletPayZeroSum()
+    {
+        $this->byName('Add funds')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[3]');
+        // Pay Zero Sum
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->value('0');
+        $this->byName('Done')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]')->click();
     }
 
     public function walletPayAndCheckBalance()
