@@ -59,6 +59,17 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Retry Pay Wallet With Changes
     }
 
+    public function testServicesViews()
+    {
+        $this->createWalletAndLoadDashboard();
+        // Check services
+        $this->gamesDirectory();
+        $this->telephonyDirectory();
+        $this->securitySystemsDirectory();
+
+    //TODO check services view
+    }
+
     public function walletPayServices()
     {
         $this->byName('Pay')->click();
@@ -243,5 +254,55 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         sleep(1);
+    }
+
+    public function gamesDirectory()
+    {
+        $this->waitForElementDisplayedByName('Pay');
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByName('Games and social networks');
+        $this->byName('Games and social networks')->click();
+        $this->byName('Steam')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('Steam');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[2]')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('ВКонтакте');
+        $this->byName('ВКонтакте')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('Одноклассники');
+        $this->byName('Одноклассники')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->byName('icon gallery')->click();
+        $this->waitForElementDisplayedByName('Steam');
+        $this->waitForElementDisplayedByName('Одноклассники');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[1]')->click();
+    }
+
+    public function telephonyDirectory()
+    {
+        $this->byName('Telephony')->click();
+        $this->byName('МГТС')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('МГТС');
+        $this->byName('Back from Provider Select')->click();
+    }
+
+    public function securitySystemsDirectory()
+    {
+        $this->byName('Security systems')->click();
+        $this->byName('Эшелон Охранная Система')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('Эшелон Охранная Система');
+        $this->byName('Цезарь Сателлит')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->byName('Back from Provider Select')->click();
     }
 }
