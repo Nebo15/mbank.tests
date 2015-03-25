@@ -69,7 +69,7 @@ class MBankAPIService
         return $request->json()['meta']['code'] == 200;
     }
 
-    public function changePassword($phone)
+    public function getNewPassword($phone)
     {
         $request_url = $this->api_url . 'v1/wallet/send_password_reset_code';
 

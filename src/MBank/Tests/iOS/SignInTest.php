@@ -90,7 +90,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          $this->waitForElementDisplayedByName('Skip');
          $this->byName('Skip')->click();
          // Get New Password
-         $code = $this->getAPIService()->changePassword($this->wallet->phone);
+         $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
          // Change Pin
          $this->waitForElementDisplayedByName('Profile');
          $this->byName('Profile')->click();

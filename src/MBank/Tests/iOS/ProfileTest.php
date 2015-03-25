@@ -34,38 +34,41 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
     }
 
-// TODO Crashed on validation
-//    public function testTransferP2PConfirmation()
-//    {
-//        $wallet = $this->createWalletAndLoadDashboard();
-//        $this->byName('Transfer')->click();
-//
-//        $this->waitForElementDisplayedByName('Attention!');
-//
-//        $this->byName('Next')->click();
-//
-//        // Set Valid Data
-//        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
-//            ->value($wallet->person->family_name);
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
-//            ->value($wallet->person->given_name);
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
-//            ->value($wallet->person->patronymic_name);
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
-//            ->value($wallet->person->passport_series_number);
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-//            ->value($wallet->person->passport_issued_at);
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-//            ->value($wallet->person->itn);
+    public function testSetIdentificationUserData()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->byName('Transfer')->click();
 
+        $this->waitForElementDisplayedByName('Attention!');
 
-//        $this->byName('Next')->click();
+        $this->byName('Next')->click();
 
-//        sleep(111);
-//    }
+        // Set Valid Data
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
+             ->value($wallet->person->family_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
+             ->value($wallet->person->given_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
+             ->value($wallet->person->patronymic_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
+             ->value($wallet->person->passport_series_number);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
+             ->value('1970.11.01');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+             ->value($wallet->person->itn);
+        $this->byName('Next')->click();
+        // Check alert messages before personalisation of user data
+        $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
+        $this->byName('Back')->click();
+        $this->waitForElementDisplayedByName('Attention!');
+        $this->byName('Вернуться')->click();
+        $this->waitForElementDisplayedByName('Profile');
 
-    public function testTransferInvalidData()
+        //TODO Create a confirmation class for confirm user date
+    }
+
+    public function testSetInvalidIdentificationUserData()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
