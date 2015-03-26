@@ -28,7 +28,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Public Offer Displayed
         $this->waitForElementDisplayedByName('Public Offer');
         $this->byName('Public Offer')->click();
-
         $this->waitForElementDisplayedByName('Back to Settings icon');
         $this->byName('Back to Settings icon')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIAButton[2]');
@@ -36,7 +35,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Privacy Policy')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAWebView[1]');
         $this->waitForElementDisplayedByName('Back to Settings icon');
-
         $this->waitForElementDisplayedByName('Log out');
     }
 
@@ -48,8 +46,5 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         // Check the limits is displayed
         $this->byName('View limits')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableGroup[1]');
-
-
     }
-
 }

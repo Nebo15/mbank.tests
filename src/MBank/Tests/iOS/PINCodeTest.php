@@ -17,7 +17,6 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillPin();
         $this->waitForElementDisplayedByName('PIN created');
-
     }
 
     public function testPinOnLoginPage()
@@ -30,7 +29,6 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillPin();
         $this->waitForElementDisplayedByName('Pin created');
         $this->waitForElementDisplayedByName('Your balance');
-
     }
 
     public function testCanSkipOnSecondStep()
@@ -95,7 +93,6 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         // Fill The Pin
         $this->fillPin();
         $this->waitForElementDisplayedByName('Settings');
-
     }
 
     public function testPinReset()

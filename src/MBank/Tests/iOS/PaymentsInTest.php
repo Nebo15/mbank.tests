@@ -14,13 +14,10 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byName('Add new card')->click();
         $this->fillCardVisaForm();
-
         // Back to DashBoard
         $this->byName('Back to Profile icon')->click();
         $this->byName('Menu icon')->click();
-
         $this->walletPayAndCheckBalance();
-
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -39,7 +36,6 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byName('Add new card')->click();
         $this->fillCardVisaForm();
-
         // Back to DashBoard
         $this->byName('Back to Profile icon')->click();
         $this->byName('Menu icon')->click();
@@ -90,30 +86,23 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->byName('Add funds')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[3]');
-
         // Check Balance
         $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[3]')->text();
         $this->assertEquals('10000.00a', $Balance);
-
         // Pay
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->value('10');
         $this->byName('Done')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]')->click();
-
         // Check Transactions
         $this->waitForElementDisplayedByName('OK');
         $this->byName('OK')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
-
         // Back to DashBoard and check the balance
         $this->byName('Menu icon')->click();
         $this->waitForElementDisplayedByName('Your balance');
-
         // Check Balance
         $Balance2 = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
         $this->assertEquals('10010.00a', $Balance2);
-
     }
-
 }
 

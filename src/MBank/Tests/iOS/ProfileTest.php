@@ -6,28 +6,22 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     public function testProfilePhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-
         // Add photo in profile
         $this->byName('Profile')->click();
         $this->byName('Add photo')->click();
         $this->byName('From gallery')->click();
-
         $this->waitForElementDisplayedByName('OK');
         $this->byName('OK')->click();
         // Load photo
         $this->waitForElementDisplayedByName('Moments');
         $this->byName('Moments')->click();
-
         // Check photo directory
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIACollectionView[1]/UIACollectionCell[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIACollectionView[1]/UIACollectionCell[1]')->click();
-
         $this->waitForElementDisplayedByName('OK');
         $this->byName('OK')->click();
-
         // Check photo was actually uploaded in app
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[2]');
-
         // Check that photo was actually uploaded
         sleep(5);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -38,11 +32,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
-
         $this->waitForElementDisplayedByName('Attention!');
-
         $this->byName('Next')->click();
-
         // Set Valid Data
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
@@ -53,6 +44,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
              ->value($wallet->person->patronymic_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
              ->value($wallet->person->passport_series_number);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+             ->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
              ->value('1970.11.01');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
@@ -64,19 +57,18 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Attention!');
         $this->byName('Вернуться')->click();
         $this->waitForElementDisplayedByName('Profile');
-
-        //TODO Create a confirmation class for confirm user date
+        //TODO Fix Confirm User Data
+        $this->getAPIService()->personifiedUserData($wallet->phone);
+        // Check P2P Button
+        $this->byName('Transfer')->click();
     }
 
     public function testSetInvalidIdentificationUserData()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
-
         $this->waitForElementDisplayedByName('Attention!');
-
         $this->byName('Next')->click();
-
         // Set Invalid Data
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')->value('lol');
@@ -86,10 +78,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
              ->value($wallet->person->passport_issued_at);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')->value("44/444");
-
         $this->byName('Next')->click();
-
         $this->waitForElementDisplayedByName('Invalid personal number');
-
     }
 }

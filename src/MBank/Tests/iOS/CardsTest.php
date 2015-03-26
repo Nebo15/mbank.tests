@@ -18,21 +18,17 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Add new card')->click();
         $this->fillCardVisaForm1();
         $this->fillCardVisaForm2();
-
         // Remove One Card
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]/UIAButton[1]')
              ->click();
         $this->byName('Да')->click();
-
         // Assert Card2 is removed
         sleep(2);
         $card2Deleted = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]')->text();
         $this->assertEquals('row 1 of 1', $card2Deleted);
-
         // Assert Card1 is present
         $card1Present = $this->byName('4652 06** **** 2338');
         $this->assertTrue($card1Present->displayed());
-
     }
 
     protected function fillCardVisaForm1()
@@ -78,14 +74,10 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->createWalletAndLoadDashboard();
         $this->byName('Add funds')->click();
-
         // Check Cash Field
         $this->waitForElementDisplayedByName('Add card');
         $this->byName('Cash')->click();
-
         // Assert The Map Is Displayed
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAMapView[1]/UIAElement[1]');
-
     }
-
 }

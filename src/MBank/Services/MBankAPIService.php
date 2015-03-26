@@ -4,7 +4,7 @@ namespace MBank\Services;
 class MBankAPIService
 {
     protected $client;
-    protected $api_url = 'http://api.mbank.nebo15.me/';
+    protected $api_url = 'http://sandbox.wallet.best/';
     protected $admin_login = 'reaper';
     protected $admin_password = 'AefGYU7343';
 
@@ -93,6 +93,25 @@ class MBankAPIService
         return $json['dev']['security_code'];
     }
 
+    public function personifiedUserData($phone)
+    {
+        // TODO not working, need fix
+        $token = sha1('mserverKbHmgYWND.jy5-a5R~3x48dU');
+        $request_url = $this->api_url . 'v1/wallet/status?webhook_client_id=mserver&webhook_client_token=' . $token;
+
+        $request_body = [
+            'phone' => $phone,
+            'verified' => true,
+            'personified' => true,
+        ];
+
+        $request = $this->client->post($request_url, [
+            'body' => json_encode($request_body),
+        ]);
+
+        return $request->json()['meta']['code'] == 200;
+    }
+
     public function createActiveWallet($phone, $password)
     {
         $wallet = $this->createWallet($phone, $password);
@@ -115,4 +134,5 @@ class MBankAPIService
         $request_url = $this->api_url . 'adm/wallet/' . $phone;
         return $this->client->delete($request_url, ['auth' => [$this->admin_login, $this->admin_password], 'debug' => true])->json();
     }
+
 }

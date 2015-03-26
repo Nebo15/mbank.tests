@@ -62,12 +62,12 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testServicesViews()
     {
         $this->createWalletAndLoadDashboard();
-        // Check services
+        // Check services views
         $this->gamesDirectory();
         $this->telephonyDirectory();
         $this->securitySystemsDirectory();
-
-    //TODO check services view
+        $this->paymentSystems();
+        $this->internetProviders();
     }
 
     public function walletPayServices()
@@ -75,15 +75,16 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Pay')->click();
         // Select Service
         $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('MLM')->click();
-        $this->byName('Faberlic')->click();
+        $this->byName('Games and social networks')->click();
+        $this->waitForElementDisplayedByName('Steam');
+        $this->byName('Steam')->click();
         // Wait pay screen
         $this->waitForElementDisplayedByName('hex transparent');
         // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $setValue = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $setValue->click();
-        $setValue->value('66');
+        $setValue->value('633336');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
              ->value('10');
         $this->byName('Pay')->click();
@@ -93,7 +94,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByName('OK');
         $this->acceptAlert();
-        $this->waitForElementDisplayedByName('Faberlic');
+        $this->waitForElementDisplayedByName('Steam');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]/UIAStaticText[4]');
     }
 
@@ -105,7 +106,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Card2Card')->click();
         // Submit Multibank service
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[6]')->click();
-
         // Wait pay screen
         $this->waitForElementDisplayedByName('hex transparent');
         // Pay1
@@ -136,7 +136,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Wallet');
         sleep(2);
         $this->byName('Pay')->click();
-
         // Check Transaction Log
         $this->waitForElementDisplayedByName('OK');
         $this->acceptAlert();
@@ -148,15 +147,16 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Pay')->click();
         // Select Service
         $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('MLM')->click();
-        $this->byName('Faberlic')->click();
+        $this->byName('Games and social networks')->click();
+        $this->waitForElementDisplayedByName('Steam');
+        $this->byName('Steam')->click();
         // Wait pay screen
         $this->waitForElementDisplayedByName('hex transparent');
         // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $setValue1 = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $setValue1->click();
-        $setValue1->value('50');
+        $setValue1->value('50444');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
              ->value('11');
         $this->byName('Pay')->click();
@@ -191,7 +191,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Wallet');
         sleep(1);
         $this->byName('Pay')->click();
-
         // Check Transaction Log
         $this->waitForElementDisplayedByName('OK');
         $this->acceptAlert();
@@ -303,6 +302,50 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Цезарь Сателлит')->click();
         $this->waitForElementDisplayedByName('hex transparent');
         $this->byName('Back from Pay Mobile')->click();
+        $this->byName('Back from Provider Select')->click();
+    }
+
+    public function paymentSystems()
+    {
+        $this->byName('Payment systems')->click();
+        $this->byName('MГТС с возвратом задолженности')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('MГТС с возвратом задолженности');
+        $this->byName('FarPost (Владивосток)')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->byName('Back from Provider Select')->click();
+    }
+
+    public function internetProviders()
+    {
+        $this->waitForElementDisplayedByName('Internet providers');
+        $this->byName('Internet providers')->click();
+        $this->byName('Rline Махачкала')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('Rline Махачкала');
+        $this->byName('Ru-center')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('Ru-center');
+        $this->byName('Subnet Махачкала')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('Subnet Махачкала');
+        $this->byName('LovePlanet')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('LovePlanet');
+        $this->byName('АВК Оператор Связи (Люберцы)')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('АВК Оператор Связи (Люберцы)');
+        $this->byName('KaspNet (Каспийск)')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->byName('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByName('KaspNet (Каспийск)');
         $this->byName('Back from Provider Select')->click();
     }
 }

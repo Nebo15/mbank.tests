@@ -42,6 +42,14 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         }, $timeout);
     }
 
+    protected function waitForElementDisplayedById($id, $timeout = 20000)
+    {
+        $this->waitUntil(function () use ($id) {
+            $el = $this->byXPath($id);
+            return $el && $el->displayed();
+        }, $timeout);
+    }
+
     protected function fillPhoneNumberField($phone_number)
     {
         // Remove + sign in the beginning of phone number
