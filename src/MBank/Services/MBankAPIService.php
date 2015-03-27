@@ -95,21 +95,19 @@ class MBankAPIService
 
     public function personifiedUserData($phone)
     {
-        // TODO not working, need fix
-        $token = sha1('mserverKbHmgYWND.jy5-a5R~3x48dU');
-        $request_url = $this->api_url . 'v1/wallet/status?webhook_client_id=mserver&webhook_client_token=' . $token;
+        $phone = urlencode($phone);
+        $request_url = "https://www.synq.ru/mserver2-dev/admin/persons/".$phone."/update_status";
 
         $request_body = [
-            'phone' => $phone,
-            'verified' => true,
-            'personified' => true,
+            'status' => 'data_verified',
         ];
 
-        $request = $this->client->post($request_url, [
+        $response = $this->client->post($request_url, [
             'body' => json_encode($request_body),
+            'auth' => ['admin', 'admin'],
         ]);
 
-        return $request->json()['meta']['code'] == 200;
+        return $response->json()['meta']['code'] == 200;
     }
 
     public function createActiveWallet($phone, $password)
@@ -130,7 +128,6 @@ class MBankAPIService
 
     public function deleteWallet($phone)
     {
-        // TODO this is not working, fixme
         $request_url = $this->api_url . 'adm/wallet/' . $phone;
         return $this->client->delete($request_url, ['auth' => [$this->admin_login, $this->admin_password], 'debug' => true])->json();
     }

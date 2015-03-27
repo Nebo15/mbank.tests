@@ -27,6 +27,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // SignIn and skip to Dashboard
         $this->loadDashboard($this->wallet->phone, $this->wallet->password);
+//TODO try delete wallet works for me
+//        $this->getAPIService()->deleteWallet($this->wallet->phone);
+
     }
 
     public function testSignInWithIncorrectPassword()

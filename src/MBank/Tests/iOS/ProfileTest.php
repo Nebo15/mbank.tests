@@ -57,10 +57,13 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Attention!');
         $this->byName('Вернуться')->click();
         $this->waitForElementDisplayedByName('Profile');
-        //TODO Fix Confirm User Data
+        // Personified User
         $this->getAPIService()->personifiedUserData($wallet->phone);
         // Check P2P Button
+        $this->byName('Your balance')->click();
+        sleep(1);
         $this->byName('Transfer')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]');
     }
 
     public function testSetInvalidIdentificationUserData()
