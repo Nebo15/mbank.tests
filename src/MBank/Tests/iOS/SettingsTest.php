@@ -5,6 +5,12 @@ namespace MBank\Tests\iOS;
 
 class SettingsTest extends \MBank\Tests\MBankiOSTestCase
 {
+    protected $wallet;
+
+    public function setUp()
+    {
+        $this->wallet = $this->generateWalletData();
+    }
 
     public function testDeleteTempData()
     {
@@ -16,6 +22,8 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Delete temporary data')->click();
         $this->byName('Yes')->click();
         $this->waitForElementDisplayedByName('Temporary data deleted');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
 
@@ -36,6 +44,8 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAWebView[1]');
         $this->waitForElementDisplayedByName('Back to Settings icon');
         $this->waitForElementDisplayedByName('Log out');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     public function testLimits()
@@ -46,5 +56,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         // Check the limits is displayed
         $this->byName('View limits')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableGroup[1]');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 }

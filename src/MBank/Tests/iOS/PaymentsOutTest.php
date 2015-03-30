@@ -3,6 +3,13 @@ namespace MBank\Tests\iOS;
 
 class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 {
+    protected $wallet;
+
+    public function setUp()
+    {
+        $this->wallet = $this->generateWalletData();
+    }
+
     public function testPayOutWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -11,6 +18,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals('9990', $wallet_data['data']['amount']);
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
     public function testPayOutCard()
@@ -27,13 +36,15 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillCardVisaForm();
         // Back to DashBoard
         $this->byName('Back to Profile icon')->click();
-        $this->byName('Menu icon')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[1]')->click();
         // Pay from Card
         $this->cardPayServices();
         // Assert Transactions Log
         $this->waitForElementDisplayedByName('Repeat');
         // Pay from card retry
         $this->retryPayCard();
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     public function testPayOutMultibankWallet()
@@ -46,6 +57,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->assertEquals('9939', $wallet_data['data']['amount']);
         // Retry Pay Wallet With Changes
         $this->retryPayWallet();
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
     public function testPayOutTricolorWallet()
@@ -56,7 +69,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals('9999', $wallet_data['data']['amount']);
-        // Retry Pay Wallet With Changes
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
     public function testServicesViews()
@@ -68,6 +82,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->securitySystemsDirectory();
         $this->paymentSystems();
         $this->internetProviders();
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     public function walletPayServices()
@@ -189,7 +205,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Confirm Pay
         $this->waitForElementDisplayedByName('Payment method');
         $this->waitForElementDisplayedByName('Wallet');
-        sleep(1);
+        sleep(4);
         $this->byName('Pay')->click();
         // Check Transaction Log
         $this->waitForElementDisplayedByName('OK');
@@ -237,6 +253,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('hex transparent');
         $this->byName('Pay')->click();
         $this->waitPayDisplay();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
              ->click();
         $this->byName('Pay')->click();
@@ -249,7 +266,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function waitPayDisplay()
     {
-        sleep(11);
+        sleep(12);
         $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         sleep(1);

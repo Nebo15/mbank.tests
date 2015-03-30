@@ -5,6 +5,12 @@ namespace MBank\Tests\iOS;
 
 class CardsTest extends \MBank\Tests\MBankiOSTestCase
 {
+    protected $wallet;
+
+    public function setUp()
+    {
+        $this->wallet = $this->generateWalletData();
+    }
 
     public function testAddCard()
     {
@@ -29,6 +35,8 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Card1 is present
         $card1Present = $this->byName('4652 06** **** 2338');
         $this->assertTrue($card1Present->displayed());
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     protected function fillCardVisaForm1()
@@ -77,7 +85,10 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Cash Field
         $this->waitForElementDisplayedByName('Add card');
         $this->byName('Cash')->click();
+        sleep(5);
         // Assert The Map Is Displayed
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAMapView[1]/UIAElement[1]');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 }

@@ -26,6 +26,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         sleep(5);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
     public function testSetIdentificationUserData()
@@ -64,6 +66,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byName('Transfer')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
     public function testSetInvalidIdentificationUserData()
@@ -83,5 +87,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')->value("44/444");
         $this->byName('Next')->click();
         $this->waitForElementDisplayedByName('Invalid personal number');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 }

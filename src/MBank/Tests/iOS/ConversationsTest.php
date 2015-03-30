@@ -5,6 +5,13 @@ namespace MBank\Tests\iOS;
 
 class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
 {
+    protected $wallet;
+
+    public function setUp()
+    {
+        $this->wallet = $this->generateWalletData();
+    }
+
     public function testConversations()
     {
         $this->createWalletAndLoadDashboard();
@@ -18,5 +25,7 @@ class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
         // Back to Dashboard
         $this->byName('intercom close button')->click();
         $this->waitForElementDisplayedByName('Your balance');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 }

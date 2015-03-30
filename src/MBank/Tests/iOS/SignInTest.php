@@ -19,6 +19,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // PIN should appear
         $this->waitForElementDisplayedByName('Skip');
         $this->byName('Skip');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     public function testLoadDashboard()
@@ -27,9 +29,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // SignIn and skip to Dashboard
         $this->loadDashboard($this->wallet->phone, $this->wallet->password);
-//TODO try delete wallet works for me
-//        $this->getAPIService()->deleteWallet($this->wallet->phone);
-
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     public function testSignInWithIncorrectPassword()
@@ -53,6 +54,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // We should stay on login screen
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
         $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     public function testSignInWithWalletNotExists()
@@ -101,6 +104,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          $this->waitForElementDisplayedByName('Password changed');
          $this->byName('OK')->click();
          $this->waitForElementDisplayedByName('Sign in');
+         // Delete wallet
+         $this->getAPIService()->deleteWallet($this->wallet->phone);
      }
 
     public function testResetPasswordWithWrongCode()
@@ -128,6 +133,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Assert the password is changed
         $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
         $this->byName('OK')->click();
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
      public function testResetPasswordWithRetryLimitExceeded()
@@ -156,7 +163,20 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          $this->checkRetryLimits();
          // Assert limit message
          $this->waitForElementDisplayedByName('превышен лимит попыток ввода кода безопасности');
+         // Delete wallet
+         $this->getAPIService()->deleteWallet($this->wallet->phone);
      }
+
+    public function testDeleteWallet()
+    {
+        // Create wallet over API
+        $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
+        // SignIn and skip to Dashboard
+        $this->loadDashboard($this->wallet->phone, $this->wallet->password);
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
+
+    }
 
     public function checkRetryLimits()
     {

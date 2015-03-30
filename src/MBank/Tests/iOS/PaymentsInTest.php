@@ -3,6 +3,13 @@ namespace MBank\Tests\iOS;
 
 class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
 {
+    protected $wallet;
+
+    public function setUp()
+    {
+        $this->wallet = $this->generateWalletData();
+    }
+
     public function testPayIn()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -22,6 +29,8 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals('10010', $wallet_data['data']['amount']);
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
     public function testPayInNegativeSum()
@@ -51,6 +60,8 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]')->click();
         // Assert Alert Message
         $this->waitForElementDisplayedByName('превышен лимит на остаток на счете кошелька');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     protected function fillCardVisaForm()
