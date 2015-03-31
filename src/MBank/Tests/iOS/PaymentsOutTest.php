@@ -290,13 +290,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('ВКонтакте')->click();
         $this->waitForElementDisplayedByName('hex transparent');
         $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('Одноклассники');
-        $this->byName('Одноклассники')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
-        $this->byName('Back from Pay Mobile')->click();
         $this->byName('icon gallery')->click();
         $this->waitForElementDisplayedByName('Steam');
-        $this->waitForElementDisplayedByName('Одноклассники');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[4]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[1]')->click();
     }
 
