@@ -31,7 +31,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('My cards');
         $this->waitForElementDisplayedByName('Empty list');
         $this->waitForElementDisplayedByName('Add new card');
-        sleep(1);
+        $this->waitForElementDisplayedByName('Back to Profile icon');
+        // Add Card
         $this->byName('Add new card')->click();
         $this->fillCardVisaForm();
         // Back to DashBoard
@@ -200,7 +201,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
              ->value('1234567890');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('1');
+             ->value('1');
         $this->byName('Pay')->click();
         // Confirm Pay
         $this->waitForElementDisplayedByName('Payment method');

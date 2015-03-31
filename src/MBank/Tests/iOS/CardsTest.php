@@ -20,7 +20,8 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('My cards');
         $this->waitForElementDisplayedByName('Empty list');
         $this->waitForElementDisplayedByName('Add new card');
-        sleep(1);
+        $this->waitForElementDisplayedByName('Back to Profile icon');
+        // Add Card
         $this->byName('Add new card')->click();
         $this->fillCardVisaForm1();
         $this->fillCardVisaForm2();
@@ -85,7 +86,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Cash Field
         $this->waitForElementDisplayedByName('Add card');
         $this->byName('Cash')->click();
-        sleep(5);
+        sleep(4);
         // Assert The Map Is Displayed
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAMapView[1]/UIAElement[1]');
         // Delete wallet

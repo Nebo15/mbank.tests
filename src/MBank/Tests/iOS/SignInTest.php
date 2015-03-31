@@ -87,7 +87,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          $this->byName('Skip')->click();
          // Get New Password
          $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
-         // Change Pin
+         // Change Password
          $this->waitForElementDisplayedByName('Profile');
          $this->byName('Profile')->click();
          $this->byName('Settings')->click();
@@ -146,7 +146,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          // Skip Pin
          $this->waitForElementDisplayedByName('Skip');
          $this->byName('Skip')->click();
-         // Try Change Pin
+         // Try Change Password
          $this->waitForElementDisplayedByName('Profile');
          $this->byName('Profile')->click();
          $this->byName('Settings')->click();
@@ -175,7 +175,6 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->loadDashboard($this->wallet->phone, $this->wallet->password);
         // Delete wallet
         $this->getAPIService()->deleteWallet($this->wallet->phone);
-
     }
 
     public function checkRetryLimits()

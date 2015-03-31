@@ -37,22 +37,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Attention!');
         $this->byName('Next')->click();
         // Set Valid Data
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
-             ->value($wallet->person->family_name);
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
-             ->value($wallet->person->given_name);
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
-             ->value($wallet->person->patronymic_name);
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
-             ->value($wallet->person->passport_series_number);
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-             ->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-             ->value('1970.11.01');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-             ->value($wallet->person->itn);
-        $this->byName('Next')->click();
+        $this->identFillForm($wallet);
         // Check alert messages before personalisation of user data
         $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
         $this->byName('Back')->click();
@@ -63,7 +48,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->personifiedUserData($wallet->phone);
         // Check P2P Button
         $this->byName('Your balance')->click();
-        sleep(1);
+        $this->byName('Profile')->click();
+        $this->byName('Menu icon')->click();
         $this->byName('Transfer')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]');
         // Delete wallet
@@ -89,5 +75,28 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Invalid personal number');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
+    }
+
+    /**
+     * @param $wallet
+     */
+    public function identFillForm($wallet)
+    {
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
+            ->value($wallet->person->family_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
+            ->value($wallet->person->given_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
+            ->value($wallet->person->patronymic_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
+            ->value($wallet->person->passport_series_number);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+            ->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
+            ->value('1970.11.01');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+            ->value($wallet->person->itn);
+        $this->byName('Next')->click();
     }
 }
