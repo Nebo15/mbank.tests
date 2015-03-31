@@ -17,7 +17,6 @@
                 <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
                 <file>src/MBank/Tests/iOS/PINCodeTest.php</file>
                 <file>src/MBank/Tests/iOS/ProfileTest.php</file>
-                <file>src/MBank/Tests/iOS/ServicesTest.php</file>
                 <file>src/MBank/Tests/iOS/SettingsTest.php</file>
                 <file>src/MBank/Tests/iOS/SignInTest.php</file>
                 <file>src/MBank/Tests/iOS/SignUpTest.php</file>
