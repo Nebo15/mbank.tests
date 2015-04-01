@@ -11,27 +11,27 @@ class SignUpTest extends MBankiOSTestCase
     {
         $this->wallet = $this->generateWalletData();
     }
-//TODO Виснет регистрация при вводе кода подтверждения
-//    public function testSignUp()
-//    {
-//        // Sign up
-//        $this->acceptAlert();
-//        $this->byName('Registration')->click();
-//        $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
-//        $this->byName('Registration')->click();
-//        // Getting and filling out activation code for created wallet
-//        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
-//        $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
-//        $code_field = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
-//        $code_field->click();
-//        $code_field->clear();
-//        $code_field->value($code);
-//
-//        $this->byName('Confirm')->click();
-          // PIN should appear
-//        $this->waitForElementDisplayedByName('Skip');
-//        $this->byName('Skip');
-//    }
+
+    public function testSignUp()
+    {
+        // Sign up
+        $this->acceptAlert();
+        $this->byName('Registration')->click();
+        $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
+        $this->byName('Registration')->click();
+        // Getting and filling out activation code for created wallet
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
+        $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
+        $code_field = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
+        $code_field->click();
+        $code_field->clear();
+        $code_field->value($code);
+
+        $this->byName('Confirm')->click();
+        // Assert the wallet created
+        $this->getAPIService()->getWallet($this->wallet->phone, $this->wallet->password);
+        //TODO Wallet status
+    }
 
     public function testSignUpWithWalletExists()
     {
