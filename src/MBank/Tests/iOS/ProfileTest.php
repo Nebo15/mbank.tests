@@ -84,19 +84,19 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
-            ->value($wallet->person->family_name);
+             ->value($wallet->person->family_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
-            ->value($wallet->person->given_name);
+             ->value($wallet->person->given_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
-            ->value($wallet->person->patronymic_name);
+             ->value($wallet->person->patronymic_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
-            ->value($wallet->person->passport_series_number);
+             ->value($wallet->person->passport_series_number);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-            ->click();
+             ->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-            ->value('1970.11.01');
+             ->value('1970.11.01');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-            ->value($wallet->person->itn);
+             ->value($wallet->person->itn);
         $this->byName('Next')->click();
     }
 }

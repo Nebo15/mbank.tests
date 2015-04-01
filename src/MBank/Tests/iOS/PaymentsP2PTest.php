@@ -76,13 +76,14 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $phone_number = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
         $phone_number->click();
         $phone_number->clear();
-        $phone_number->value('+380988112249');
+        $phone_number->value('+15662868526');
         // Fill pay form
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')->value('10');
         $this->byName('Done')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]')->click();
         // Assert Wallet Not Indent
-        $this->waitForElementDisplayedByName('адресат перевода не существует');
+        $this->waitForElementDisplayedByName('для совершения этого действия требуется идентификация пользователя кошелька');
+        $this->byName('Cancel')->click();
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -168,6 +169,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
              ->value('10');
         $this->byName('Done')->click();
+        // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         sleep(2);
@@ -207,6 +209,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
              ->value('10');
         $this->byName('Done')->click();
+        // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         sleep(2);
@@ -217,7 +220,6 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
-
     }
 
     /**
@@ -227,19 +229,19 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
-            ->value($wallet->person->family_name);
+             ->value($wallet->person->family_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
-            ->value($wallet->person->given_name);
+             ->value($wallet->person->given_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
-            ->value($wallet->person->patronymic_name);
+             ->value($wallet->person->patronymic_name);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
-            ->value($wallet->person->passport_series_number);
+             ->value($wallet->person->passport_series_number);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-            ->click();
+             ->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-            ->value('1970.11.01');
+             ->value('1970.11.01');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
-            ->value($wallet->person->itn);
+             ->value($wallet->person->itn);
         $this->byName('Next')->click();
         // Check alert messages before personalisation of user data
         $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');

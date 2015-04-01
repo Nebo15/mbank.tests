@@ -126,9 +126,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Yes')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
-            ->value('jdsfhjkfsdhfkjs');
+             ->value('jdsfhjkfsdhfkjs');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-            ->value('4321234');
+             ->value('4321234');
         $this->byName('Confirm')->click();
         // Assert the password is changed
         $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
@@ -155,9 +155,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          $this->byName('Yes')->click();
          $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
          $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
-             ->value('jdsfhjkfsdhfkjs');
+              ->value('jdsfhjkfsdhfkjs');
          $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-             ->value('4321234');
+              ->value('4321234');
          $this->byName('Confirm')->click();
          // Check retry limit
          $this->checkRetryLimits();

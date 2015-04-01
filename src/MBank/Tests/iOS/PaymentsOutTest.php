@@ -74,6 +74,44 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
+    public function testPayService()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->byName('Transfer')->click();
+        $this->waitForElementDisplayedByName('Attention!');
+        $this->byName('Next')->click();
+        // Set Valid Data
+        $this->fillIndentForm($wallet);
+        // Personified User
+        $this->getAPIService()->personifiedUserData($wallet->phone);
+        // Check P2P Button
+        $this->byName('Your balance')->click();
+        $this->byName('Profile')->click();
+        $this->byName('Menu icon')->click();
+        // Pay Into service
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByName('Utility bills');
+        $this->byName('Payment systems')->click();
+        $this->byName('Яндекс.Деньги')->click();
+        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
+            ->value('1234567');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
+            ->value('1');
+        // Pay
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByName('Payment method');
+        sleep(2);
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByName('OK');
+        $this->acceptAlert();
+        // Assert Transactions List
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
+    }
+
     public function testServicesViews()
     {
         $this->createWalletAndLoadDashboard();
@@ -271,6 +309,35 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         sleep(1);
+    }
+
+    /**
+     * @param $wallet
+     */
+    public function fillIndentForm($wallet)
+    {
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
+            ->value($wallet->person->family_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
+            ->value($wallet->person->given_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
+            ->value($wallet->person->patronymic_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
+            ->value($wallet->person->passport_series_number);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+            ->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
+            ->value('1970.11.01');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+            ->value($wallet->person->itn);
+        $this->byName('Next')->click();
+        // Check alert messages before personalisation of user data
+        $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
+        $this->byName('Back')->click();
+        $this->waitForElementDisplayedByName('Attention!');
+        $this->byName('Вернуться')->click();
+        $this->waitForElementDisplayedByName('Profile');
     }
 
     public function gamesDirectory()
