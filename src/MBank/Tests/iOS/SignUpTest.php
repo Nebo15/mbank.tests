@@ -28,9 +28,10 @@ class SignUpTest extends MBankiOSTestCase
         $code_field->value($code);
 
         $this->byName('Confirm')->click();
-        // Assert the wallet created
-        $this->getAPIService()->getWallet($this->wallet->phone, $this->wallet->password);
+        // Assert wallet status is true
         //TODO Wallet status
+        $wallet_data = $this->getAPIService()->getWallet($this->wallet->phone, $this->wallet->password);
+//        $this->assertEquals(true, $wallet_data['data']['verified']);
     }
 
     public function testSignUpWithWalletExists()
@@ -60,6 +61,6 @@ class SignUpTest extends MBankiOSTestCase
         // Long password
         $this->fillCredentialsForm($this->wallet->phone, '11111111111111111111');
         $this->byName('Registration')->click();
-        $this->waitForElementDisplayedByName('Password invalid');
+        $this->waitForElementDisplayedByName('You have entered invalid password. It should be at least 6 characters long. Please, try again.');
     }
 }

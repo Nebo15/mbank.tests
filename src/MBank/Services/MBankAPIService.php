@@ -131,5 +131,4 @@ class MBankAPIService
         $request_url = $this->api_url . 'adm/wallet/' . $phone;
         return $this->client->delete($request_url, ['auth' => [$this->admin_login, $this->admin_password], 'debug' => true])->json();
     }
-
 }

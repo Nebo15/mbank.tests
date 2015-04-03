@@ -106,7 +106,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillPin();
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillIncorrectPin();
-        $this->waitForElementDisplayedByName('Code entered is invalid');
+        $this->waitForElementDisplayedByName('Invalid PIN-code');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -128,7 +128,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         // Lock Phone
         $this->backgroundApp(11);
         // Unlock And Check Code Screen
-        $this->waitForElementDisplayedByName('Enter code');
+        $this->waitForElementDisplayedByName('Enter PIN-code');
         // Fill The Pin
         $this->fillPin();
         $this->waitForElementDisplayedByName('Settings');
@@ -149,7 +149,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         // Lock Phone
         $this->backgroundApp(11);
         // Unlock And Check Code Screen
-        $this->waitForElementDisplayedByName('Enter code');
+        $this->waitForElementDisplayedByName('Enter PIN-code');
         // Fill Incorrect Pin
         $this->fillIncorrectPin();
         $this->waitForElementDisplayedByName('Invalid code. You have 4 attempts');

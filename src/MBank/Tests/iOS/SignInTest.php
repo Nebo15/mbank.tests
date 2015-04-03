@@ -48,9 +48,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
         // Checking error message
         $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
-        $this->assertEquals($error_message->text(), "Please, enter your login and password again");
+        $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
         $this->assertTrue($error_message->displayed(), "Login error is not visible");
-        $this->byName('Ok')->click();
+        $this->byName('OK')->click();
         // We should stay on login screen
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
         $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
@@ -68,9 +68,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
 
         $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
-        $this->assertEquals($error_message->text(), "Please, enter your login and password again");
+        $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
         $this->assertTrue($error_message->displayed(), "Login error is not visible");
-        $this->byName('Ok')->click();
+        $this->byName('OK')->click();
         // We should stay on login screen
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
         $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());

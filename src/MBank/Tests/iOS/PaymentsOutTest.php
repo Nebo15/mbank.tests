@@ -78,7 +78,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Attention!');
+        $this->waitForElementDisplayedByName('Verification');
         $this->byName('Next')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
@@ -335,7 +335,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check alert messages before personalisation of user data
         $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
         $this->byName('Back')->click();
-        $this->waitForElementDisplayedByName('Attention!');
+        $this->waitForElementDisplayedByName('Verification');
         $this->byName('Вернуться')->click();
         $this->waitForElementDisplayedByName('Profile');
     }

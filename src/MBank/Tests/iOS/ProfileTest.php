@@ -34,14 +34,14 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Attention!');
+        $this->waitForElementDisplayedByName('Verification');
         $this->byName('Next')->click();
         // Set Valid Data
         $this->identFillForm($wallet);
         // Check alert messages before personalisation of user data
         $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
         $this->byName('Back')->click();
-        $this->waitForElementDisplayedByName('Attention!');
+        $this->waitForElementDisplayedByName('Verification');
         $this->byName('Вернуться')->click();
         $this->waitForElementDisplayedByName('Profile');
         // Personified User
@@ -60,7 +60,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Attention!');
+        $this->waitForElementDisplayedByName('Verification');
         $this->byName('Next')->click();
         // Set Invalid Data
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
