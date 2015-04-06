@@ -28,26 +28,32 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function waitForElementDisplayedByName($name, $timeout = 20000)
     {
-        $this->waitUntil(function () use ($name) {
-            $el = $this->byName($name);
-            return $el && $el->displayed();
-        }, $timeout);
+        $this->waitUntil(
+            function () use ($name) {
+                $el = $this->byName($name);
+                return $el && $el->displayed();
+            }, $timeout
+        );
     }
 
     protected function waitForElementDisplayedByXPath($xpath, $timeout = 20000)
     {
-        $this->waitUntil(function () use ($xpath) {
-            $el = $this->byXPath($xpath);
-            return $el && $el->displayed();
-        }, $timeout);
+        $this->waitUntil(
+            function () use ($xpath) {
+                $el = $this->byXPath($xpath);
+                return $el && $el->displayed();
+            }, $timeout
+        );
     }
 
     protected function waitForElementDisplayedById($id, $timeout = 20000)
     {
-        $this->waitUntil(function () use ($id) {
-            $el = $this->byXPath($id);
-            return $el && $el->displayed();
-        }, $timeout);
+        $this->waitUntil(
+            function () use ($id) {
+                $el = $this->byXPath($id);
+                return $el && $el->displayed();
+            }, $timeout
+        );
     }
 
     protected function fillPhoneNumberField($phone_number)
@@ -111,7 +117,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         $this->skipPinCode();
     }
 
-    protected function createWalletAndLoadDashboard() {
+    protected function createWalletAndLoadDashboard()
+    {
         $wallet = $this->generateWalletData();
 
         // Create wallet over API
@@ -123,20 +130,16 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         return $wallet;
     }
 
-    protected function createWalletAndLoadDashboardWithPIN() {
+    protected function createWalletAndLoadDashboardWithPIN()
+    {
         $wallet = $this->generateWalletData();
 
         // Create wallet over API
         $this->getAPIService()->createActiveWallet($wallet->phone, $wallet->password);
 
-        $this->loadDashboardPinCreate($wallet->phone, $wallet->password);
+        $this->signIn($wallet->phone, $wallet->password);
 
         return $wallet;
-    }
-
-    protected function loadDashboardPinCreate($phone, $password)
-    {
-        $this->signIn($phone, $password);
     }
 
     protected function generateWalletData()
