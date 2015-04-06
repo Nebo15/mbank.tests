@@ -10,7 +10,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->wallet = $this->generateWalletData();
     }
 
-    public function testPayOutWallet()
+    public function testOutFromWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->walletPayServices();
@@ -22,7 +22,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    public function testPayOutCard()
+    public function testOutFromCard()
     {
         $this->createWalletAndLoadDashboard();
         // Add Card
@@ -112,7 +112,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    public function testServicesViews()
+    public function testServicesLoad()
     {
         $this->createWalletAndLoadDashboard();
         // Check services views

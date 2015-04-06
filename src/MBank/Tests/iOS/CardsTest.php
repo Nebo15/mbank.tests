@@ -5,15 +5,18 @@ namespace MBank\Tests\iOS;
 
 class CardsTest extends \MBank\Tests\MBankiOSTestCase
 {
+    // TODO: это не используется
     protected $wallet;
 
     public function setUp()
     {
+        // TODO: это не используется
         $this->wallet = $this->generateWalletData();
     }
 
     public function testAddCard()
     {
+        // TODO: удалять нужно этот кошелек, {code}$wallet = $this->createWalletAndLoadDashboard();{/code}
         $this->createWalletAndLoadDashboard();
         $this->byName('Profile')->click();
         $this->byName('My cards')->click();
@@ -37,9 +40,11 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $card1Present = $this->byName('4652 06** **** 2338');
         $this->assertTrue($card1Present->displayed());
         // Delete wallet
+        // TODO: удаляется не тот кошелек
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
+    // TODO: дубликация кода, нужен один метод с параметрами, кроме того он дублируется в разных классах
     protected function fillCardVisaForm1()
     {
         // Add card number

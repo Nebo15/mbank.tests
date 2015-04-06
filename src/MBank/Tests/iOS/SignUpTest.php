@@ -12,6 +12,9 @@ class SignUpTest extends MBankiOSTestCase
         $this->wallet = $this->generateWalletData();
     }
 
+    /**
+     * @group SignUp
+     */
     public function testSignUp()
     {
         // Sign up
@@ -29,11 +32,16 @@ class SignUpTest extends MBankiOSTestCase
 
         $this->byName('Confirm')->click();
         // Assert wallet status is true
-        //TODO Wallet status
         $wallet_data = $this->getAPIService()->getWallet($this->wallet->phone, $this->wallet->password);
-//        $this->assertEquals(true, $wallet_data['data']['verified']);
+        // $this->assertTrue($wallet_data['data']['verified']);
+
+        // TODO: Check that initial PIN setup shows after SignUp
+        // $this->byName('Skip')->click();
     }
 
+    /**
+     * @group SignUp
+     */
     public function testSignUpWithWalletExists()
     {
         // Sign up
@@ -44,7 +52,10 @@ class SignUpTest extends MBankiOSTestCase
         $this->waitForElementDisplayedByName('пользователь с таким номером телефона уже зарегистрирован');
     }
 
-     public function testSignUpShortPasswordStrengthChecker()
+    /**
+     * @group SignUp
+     */
+     public function testSignUpWithShortPassword()
      {
          $this->acceptAlert();
          $this->byName('Registration')->click();
@@ -52,15 +63,43 @@ class SignUpTest extends MBankiOSTestCase
          $this->fillCredentialsForm($this->wallet->phone, '1111');
          $this->byName('Registration')->click();
          $this->waitForElementDisplayedByName('пароль должен быть не короче 6 символов');
-     }
+    }
 
-    public function testSignUpLongPasswordStrengthChecker()
+    /**
+     * @group SignUp
+     */
+    public function testSignUpPasswordStrengthChecker()
     {
+        $passwords = [
+            'very_weak' => [
+                'password' => '111111',
+                'text' => 'очень слабый',
+            ],
+            'weak' => [
+                'password' => 'querty',
+                'text' => 'слабый',
+            ],
+            'average' => [
+                'password' => '123querty',
+                'text' => 'средний',
+            ],
+            'medium' => [
+                'password' => '123quertyA@',
+                'text' => 'сильный',
+            ],
+            'strong' => [
+                'password' => '123quertyA@zasftrhfkfid',
+                'text' => 'очень сильный',
+            ],
+        ];
         $this->acceptAlert();
         $this->byName('Registration')->click();
-        // Long password
-        $this->fillCredentialsForm($this->wallet->phone, '11111111111111111111');
-        $this->byName('Registration')->click();
-        $this->waitForElementDisplayedByName('You have entered invalid password. It should be at least 6 characters long. Please, try again.');
+
+        foreach($passwords as $stength => $data) {
+            $this->fillCredentialsForm($this->wallet->phone, $data['password']);
+            // TODO: проверять текст "силы пароля"
+            // $strength_text = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAStaticText[1]')
+            // $this->assertEqual($strength_text, $data['text']);
+        }
     }
 }

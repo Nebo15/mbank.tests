@@ -3,7 +3,10 @@ namespace MBank\Tests\iOS;
 
 class ProfileTest extends \MBank\Tests\MBankiOSTestCase
 {
-    public function testProfilePhoto()
+    /**
+     * @group Profile
+     */
+    public function testUploadPhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         // Add photo in profile
@@ -30,14 +33,17 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    public function testSetIdentificationUserData()
+    /**
+     * @group Profile
+     */
+    public function testVerify()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
         $this->waitForElementDisplayedByName('Verification');
         $this->byName('Next')->click();
         // Set Valid Data
-        $this->identFillForm($wallet);
+        $this->fillVerificationForm($wallet);
         // Check alert messages before personalisation of user data
         $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
         $this->byName('Back')->click();
@@ -56,7 +62,10 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    public function testSetInvalidIdentificationUserData()
+    /**
+     * @group Profile
+     */
+    public function testVerifyWithIncorrectData()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
@@ -78,9 +87,24 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     }
 
     /**
+     * @group Profile
+     */
+    public function testLimits()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+
+        $this->byName('Profile')->click();
+        // Check the limits is displayed
+        $this->byName('View limits')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableGroup[1]');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
+    }
+
+    /**
      * @param $wallet
      */
-    public function identFillForm($wallet)
+    protected function fillVerificationForm($wallet)
     {
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')

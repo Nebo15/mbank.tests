@@ -1,20 +1,14 @@
 <?php
-
 namespace MBank\Tests\iOS;
-
 
 class SettingsTest extends \MBank\Tests\MBankiOSTestCase
 {
-    protected $wallet;
-
-    public function setUp()
-    {
-        $this->wallet = $this->generateWalletData();
-    }
-
+    /**
+     * @group Settings
+     */
     public function testDeleteTempData()
     {
-        $this->createWalletAndLoadDashboard();
+        $wallet = $wallet = $this->createWalletAndLoadDashboard();
 
         $this->byName('Profile')->click();
         $this->byName('Settings')->click();
@@ -23,13 +17,15 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Yes')->click();
         $this->waitForElementDisplayedByName('Temporary data deleted');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-
+    /**
+     * @group Settings
+     */
     public function testPublicOfferAndPrivacyPolicy()
     {
-        $this->createWalletAndLoadDashboard();
+        $wallet = $this->createWalletAndLoadDashboard();
 
         $this->byName('Profile')->click();
         $this->byName('Settings')->click();
@@ -45,18 +41,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Back to Settings icon');
         $this->waitForElementDisplayedByName('Log out');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
-    }
-
-    public function testLimits()
-    {
-        $this->createWalletAndLoadDashboard();
-
-        $this->byName('Profile')->click();
-        // Check the limits is displayed
-        $this->byName('View limits')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableGroup[1]');
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        $this->getAPIService()->deleteWallet($wallet->phone);
     }
 }

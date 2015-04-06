@@ -10,7 +10,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->wallet = $this->generateWalletData();
     }
 
-    public function testWalletToWalletPay()
+    public function testP2PFromWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
@@ -56,7 +56,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    public function testWalletToWalletPayNegative()
+    public function testP2PPayToNotVerifiedWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->byName('Transfer')->click();
@@ -65,8 +65,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
-        $this->getAPIService()->personifiedUserData($wallet->phone);
+        $this->getAPIService()->personifiedUserData($wallet->phone); // TODO: rename to verifyWallet
         // Check P2P Button
+        // TODO: move to positive tests
         $this->byName('Your balance')->click();
         $this->byName('Profile')->click();
         $this->byName('Menu icon')->click();
@@ -88,7 +89,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    public function testCardToWalletPay()
+    // public function testP2PPayToYouself(){}
+
+    public function testP2PFromCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         // Add card
@@ -137,6 +140,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
+    // TODO: это OUT
     public function testPayCardToCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -183,6 +187,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
+    // TODO: это OUT
     public function testPayWalletToCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -223,6 +228,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     }
 
     /**
+     * TODO: верицифировать в платежах нужно через API
      * @param $wallet
      */
     public function fillIndentForm($wallet)
@@ -278,6 +284,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('4652 06** **** 2338');
     }
 
+    // TODO: Это отдельный тест TransactionsTest.php
     public function repeatPay()
     {
         $this->byName('Repeat')->click();

@@ -10,6 +10,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->wallet = $this->generateWalletData();
     }
 
+    /**
+     * @group SignIn
+     */
     public function testSignIn()
     {
         // Create wallet over API, if would fail if wallet is not created
@@ -23,6 +26,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
+    /**
+     * @group SignIn
+     */
     public function testLoadDashboard()
     {
         // Create wallet over API
@@ -33,6 +39,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
+    /**
+     * @group SignIn
+     */
     public function testSignInWithIncorrectPassword()
     {
         // Create wallet over API
@@ -58,6 +67,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
+    /**
+     * @group SignIn
+     */
     public function testSignInWithWalletNotExists()
     {
         $this->acceptAlert();
@@ -72,12 +84,15 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->assertTrue($error_message->displayed(), "Login error is not visible");
         $this->byName('OK')->click();
         // We should stay on login screen
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]');
         $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
     }
 
-     public function testResetPassword()
-     {
+    /**
+     * @group SignIn
+     */
+    public function testResetPassword()
+    {
          // Create wallet
          $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
          // SignIn
@@ -106,8 +121,11 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
          $this->waitForElementDisplayedByName('Sign in');
          // Delete wallet
          $this->getAPIService()->deleteWallet($this->wallet->phone);
-     }
+    }
 
+    /**
+     * @group SignIn
+     */
     public function testResetPasswordWithWrongCode()
     {
         // Create wallet
@@ -137,62 +155,50 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
-     public function testResetPasswordWithRetryLimitExceeded()
-     {
-         // Create wallet
-         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-         // SignIn
-         $this->signIn($this->wallet->phone, $this->wallet->password);
-         // Skip Pin
-         $this->waitForElementDisplayedByName('Skip');
-         $this->byName('Skip')->click();
-         // Try Change Password
-         $this->waitForElementDisplayedByName('Profile');
-         $this->byName('Profile')->click();
-         $this->byName('Settings')->click();
-         $this->byName('Change password')->click();
-         $this->waitForElementDisplayedByName('Request password');
-         $this->byName('Yes')->click();
-         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
-         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
-              ->value('jdsfhjkfsdhfkjs');
-         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-              ->value('4321234');
-         $this->byName('Confirm')->click();
-         // Check retry limit
-         $this->checkRetryLimits();
-         // Assert limit message
-         $this->waitForElementDisplayedByName('превышен лимит попыток ввода кода безопасности');
-         // Delete wallet
-         $this->getAPIService()->deleteWallet($this->wallet->phone);
-     }
-
-    public function testDeleteWallet()
+    /**
+     * @group ResetPassword
+     */
+    public function testResetPasswordWithRetryLimitExceeded()
     {
-        // Create wallet over API
+        // Create wallet
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-        // SignIn and skip to Dashboard
-        $this->loadDashboard($this->wallet->phone, $this->wallet->password);
+        // SignIn
+        $this->signIn($this->wallet->phone, $this->wallet->password);
+        // Skip Pin
+        $this->waitForElementDisplayedByName('Skip');
+        $this->byName('Skip')->click();
+        // Try Change Password
+        $this->waitForElementDisplayedByName('Profile');
+        $this->byName('Profile')->click();
+        $this->byName('Settings')->click();
+        $this->byName('Change password')->click();
+        $this->waitForElementDisplayedByName('Request password');
+        $this->byName('Yes')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
+          ->value('jdsfhjkfsdhfkjs');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
+          ->value('4321234');
+        $this->byName('Confirm')->click();
+        // Check retry limit
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->byName('OK')->click();
+        $this->byName('Confirm')->click();
+        // Assert limit message
+        $this->waitForElementDisplayedByName('превышен лимит попыток ввода кода безопасности');
         // Delete wallet
         $this->getAPIService()->deleteWallet($this->wallet->phone);
-    }
-
-    public function checkRetryLimits()
-    {
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
     }
 }
