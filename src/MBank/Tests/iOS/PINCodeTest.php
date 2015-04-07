@@ -3,6 +3,7 @@ namespace MBank\Tests\iOS;
 
 class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
 {
+
     public function testSetPinCodeInSettings()
     {
         $wallet = $this->createWalletAndLoadDashboard();

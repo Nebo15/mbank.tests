@@ -93,7 +93,7 @@ class MBankAPIService
         return $json['dev']['security_code'];
     }
 
-    public function personifiedUserData($phone)
+    public function verifyWallet($phone)
     {
         $phone = urlencode($phone);
         $request_url = "https://www.synq.ru/mserver2-dev/admin/persons/".$phone."/update_status";
@@ -131,4 +131,26 @@ class MBankAPIService
         $request_url = $this->api_url . 'adm/wallet/' . $phone;
         return $this->client->delete($request_url, ['auth' => [$this->admin_login, $this->admin_password], 'debug' => true])->json();
     }
+//TODO Доделать метод загрузки данных клиента и верификации
+//    public function getLoadUserData($wallet)
+//    {
+//        $request_url = $this->api_url . 'v1/wallet/person';
+//
+//        $request =
+//               ['family_name' => $wallet->person->family_name,
+//                'given_name' => $wallet->person->given_name,
+//                'patronymic_name' => $wallet->person->patronymic_name,
+//                'passport_series_number' => $wallet->person->passport_series_number,
+//                'passport_issued_at' => '1970.11.01',
+//                'itn' => $wallet->person->itn,
+//                'ssn' => $wallet->person->ssn,
+//                ];
+//
+//        $response = $this->client->post($request_url, [
+//            'body' => json_encode($request),
+//            'auth' => [$wallet->phone, $wallet->password],
+//        ]);
+//
+//        return $response->json()['meta']['code'] == 200;
+//    }
 }

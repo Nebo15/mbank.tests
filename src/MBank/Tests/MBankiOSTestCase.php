@@ -77,6 +77,23 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         $password_field->value($password);
     }
 
+    protected function fillCardForm($card, $mm, $yy, $cvv, $cardHolder)
+    {
+        // Add card number
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->value($card);
+        // Add MM
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[2]')->value($mm);
+        // Add YY
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[3]')->value($yy);
+        // Add CVV code
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[4]')->value($cvv);
+        // Add CardHolder
+        $this->byName('Done')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[5]')->value($cardHolder);
+        $this->byName('Add card')->click();
+    }
+
     protected function fillCredentialsForm($login, $password)
     {
         $this->fillPhoneNumberField($login);

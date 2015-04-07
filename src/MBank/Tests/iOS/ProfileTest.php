@@ -3,9 +3,7 @@ namespace MBank\Tests\iOS;
 
 class ProfileTest extends \MBank\Tests\MBankiOSTestCase
 {
-    /**
-     * @group Profile
-     */
+
     public function testUploadPhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -33,9 +31,6 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-    /**
-     * @group Profile
-     */
     public function testVerify()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -51,7 +46,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Вернуться')->click();
         $this->waitForElementDisplayedByName('Profile');
         // Personified User
-        $this->getAPIService()->personifiedUserData($wallet->phone);
+        $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
         $this->byName('Your balance')->click();
         $this->byName('Profile')->click();
