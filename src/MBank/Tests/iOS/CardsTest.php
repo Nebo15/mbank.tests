@@ -35,7 +35,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Second Is Removed
         sleep(2);
         $card2Deleted = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]')->text();
-        $this->assertEquals('row 1 of 1', $card2Deleted);
+        $this->assertEquals('moved to row 1 of 1', $card2Deleted);
         // Assert First Card Is Present
         $card1Present = $this->byName('4652 06** **** 2338');
         $this->assertTrue($card1Present->displayed());
