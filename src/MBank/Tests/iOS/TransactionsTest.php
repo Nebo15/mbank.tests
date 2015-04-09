@@ -91,47 +91,32 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
-//    public function testPayOutMultibankWallet()
-//    {
-//        $wallet = $this->createWalletAndLoadDashboard();
-//        $this->walletPayServiceMultibank();
-//        // Check Balance in Wallet (API)
-//        sleep(1);
-//        $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-//        $this->assertEquals('9939', $wallet_data['data']['amount']);
-//        // Retry Pay Wallet With Changes
-//        $this->retryPayWallet();
-//        // Delete wallet
-//        $this->getAPIService()->deleteWallet($wallet->phone);
-//    }
-
-//    public function retryPayWallet()
-//    {
-//        $this->byName('Repeat')->click();
-//        $this->waitForElementDisplayedByName('Repeat payment?');
-//        $this->byName('Yes, with changes')->click();
-//        $this->waitForElementDisplayedByName('hex transparent');
-//        $this->byName('Pay')->click();
-//        $this->waitPayDisplay();
-//        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
-//            ->click();
-//        $this->byName('Pay')->click();
-//        $this->waitForElementDisplayedByName('Payment method');
-//        $this->waitForElementDisplayedByName('Wallet');
-//        sleep(2);
-//        $this->byName('Pay')->click();
-//        $this->waitForElementDisplayedByXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
-//    }
-
-    public function waitPayDisplay()
+    public function testPayOutMultibankWallet()
     {
-        sleep(12);
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        sleep(1);
-        // Back To DashBoard
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->walletPayServiceMultibank($wallet);
+        // Retry Pay Wallet With Changes
+        $this->retryPayWallet();
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
+    }
+
+    public function retryPayWallet()
+    {
+        $this->byName('Repeat')->click();
+        $this->waitForElementDisplayedByName('Repeat payment?');
+        $this->byName('Yes, with changes')->click();
+        sleep(2);
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
+             ->click();
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByName('Payment method');
+        $this->waitForElementDisplayedByName('Wallet');
+        sleep(2);
+        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
     }
 
     public function cardPayServices()
@@ -144,18 +129,10 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Steam')->click();
         // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
+             ->value('50444');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('1');
-        $this->byName('Done')->click();
-        $this->byName('Pay')->click();
-        $this->byName('more, numbers')->click();
-        $this->byName('5')->click();
-        $this->byName('more, numbers')->click();
-        $this->byName('0')->click();
-        $this->byName('4')->click();
-        $this->byName('4')->click();
-        $this->byName('4')->click();
+             ->value('1');
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         $this->waitForElementDisplayedByName('Пополнение');
@@ -167,69 +144,67 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
     }
 
-//TODO доделать после правок метода верификации в APIService
-//    public function walletPayServiceMultibank()
-//    {
-//        $wallet = $this->createWalletAndLoadDashboard();
-//        $this->byName('Transfer')->click();
-//        $this->waitForElementDisplayedByName('Verification');
-//        $this->byName('Next')->click();
-//        // Set Valid Data
-//        $this->fillIndentForm($wallet);
-//        // Personified User
-//        $this->getAPIService()->verifyWallet($wallet->phone);
-//        // Check P2P Button
-//        $this->byName('Your balance')->click();
-//        $this->byName('Profile')->click();
-//        $this->byName('Menu icon')->click();
-//        // Pay Card to Card
-//        $this->byName('Pay')->click();
-//        // Select Service
-//        $this->waitForElementDisplayedByName('Utility bills');
-//        $this->byName('Card2Card')->click();
-//        // Submit Multibank service
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[6]')->click();
-//        // Wait pay screen
-//        $this->byName('Пополнение Visa/MasterCard')->click();
-//        $this->waitForElementDisplayedByName('hex transparent');
-//        // Pay1
-//        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-//            ->value('0931254212');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-//            ->value('044583151');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[10]/UIATextField[1]')
-//            ->value('1');
-//        $this->byName('Pay')->click();
-//        // Pay2
-//        $this->waitPayDisplay();
-//        $setValue2 = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-//        $setValue2->click();
-//        $setValue2->value('testlol');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-//            ->value('random');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[10]/UIATextField[1]')
-//            ->value('11111');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[11]/UIATextField[1]')
-//            ->value('test');
-//        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
-//             ->value('tested');
-//        $this->byXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-//            ->value('10');
-//        $this->byName('Done')->click();
-//        // Pay
-//        $this->byName('Pay')->click();
-//        // Confirm Pay
-//        $this->waitForElementDisplayedByName('Payment method');
-//        $this->waitForElementDisplayedByName('Wallet');
-//        sleep(2);
-//        $this->byName('Pay')->click();
-//        // Check Transaction Log
-//        $this->waitForElementDisplayedByName('OK');
-//        $this->acceptAlert();
-//        // Assert Transactions List
-//        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
-//    }
+    public function walletPayServiceMultibank($wallet)
+    {
+        $this->byName('Transfer')->click();
+        $this->waitForElementDisplayedByName('Verification');
+        $this->byName('Next')->click();
+        // Set Valid Data
+        $this->fillIndentForm($wallet);
+        // Personified User
+        $this->getAPIService()->verifyWallet($wallet->phone);
+        // Check P2P Button
+        $this->byName('Your balance')->click();
+        $this->byName('Profile')->click();
+        $this->byName('Menu icon')->click();
+        // Pay Card to Card
+        $this->byName('Pay')->click();
+        // Select Service
+        $this->waitForElementDisplayedByName('Utility bills');
+        $this->byName('Card2Card')->click();
+        // Submit Multibank service
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[6]')->click();
+        // Pay1
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
+        $this->byName('Pay')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
+             ->value('0931254212');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
+            ->value('044583151');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[10]/UIATextField[1]')
+            ->value('1');
+        $this->byName('Pay')->click();
+        // Pay2
+        sleep(13);
+        $setValue = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
+        $setValue->click();
+        $setValue->value('testlol');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
+            ->value('random');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[10]/UIATextField[1]')
+            ->value('11111');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[11]/UIATextField[1]')
+            ->value('test');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
+             ->value('tested');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
+            ->value('10');
+        $this->byName('Done')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
+            ->click();
+        // Pay
+        $this->byName('Pay')->click();
+        // Confirm Pay
+        $this->waitForElementDisplayedByName('Payment method');
+        $this->waitForElementDisplayedByName('Wallet');
+        sleep(2);
+        $this->byName('Pay')->click();
+        // Check Transaction Log
+        $this->waitForElementDisplayedByName('OK');
+        $this->acceptAlert();
+        // Assert Transactions List
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+    }
 
     public function retryPayCard()
     {
