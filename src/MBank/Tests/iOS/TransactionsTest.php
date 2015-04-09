@@ -97,6 +97,15 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->walletPayServiceMultibank($wallet);
         // Retry Pay Wallet With Changes
         $this->retryPayWallet();
+        // Back To DashBoard
+        $this->byName('Menu icon')->click();
+        $this->waitForElementDisplayedByName('Your balance');
+        // Check Balance In Wallet
+        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        // Check Balance in Wallet (API)
+        sleep(1);
+        $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -175,20 +184,17 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
             ->value('1');
         $this->byName('Pay')->click();
         // Pay2
-        sleep(13);
-        $setValue = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue->click();
-        $setValue->value('testlol');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
+             ->value('testlol');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('random');
+             ->value('random');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[10]/UIATextField[1]')
-            ->value('11111');
+             ->value('11111');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[11]/UIATextField[1]')
-            ->value('test');
+             ->value('test');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
              ->value('tested');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('10');
         $this->byName('Done')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]')
             ->click();

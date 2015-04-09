@@ -38,6 +38,15 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->acceptAlert();
         // Assert Transactions List
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        // Back To DashBoard
+        $this->byName('Menu icon')->click();
+        $this->waitForElementDisplayedByName('Your balance');
+        // Check Balance In Wallet
+        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        // Check Balance in Wallet (API)
+        sleep(1);
+        $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }

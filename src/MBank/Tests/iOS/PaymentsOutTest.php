@@ -90,6 +90,15 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->acceptAlert();
         // Assert Transactions List
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        // Back To DashBoard
+        $this->byName('Menu icon')->click();
+        $this->waitForElementDisplayedByName('Your balance');
+        // Check Balance In Wallet
+        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        // Check Balance in Wallet (API)
+        sleep(1);
+        $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -195,6 +204,15 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->acceptAlert();
         // Assert Transactions List
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        // Back To DashBoard
+        $this->byName('Menu icon')->click();
+        $this->waitForElementDisplayedByName('Your balance');
+        // Check Balance In Wallet
+        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        // Check Balance in Wallet (API)
+        sleep(1);
+        $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -213,7 +231,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
              ->value('11111');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('10');
+             ->value('10');
         // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
@@ -241,9 +259,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-            ->value('1111111');
+             ->value('1111111');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('10');
+             ->value('10');
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         $this->waitForElementDisplayedByName('Пополнение');
