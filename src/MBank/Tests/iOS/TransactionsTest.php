@@ -127,7 +127,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
     public function waitPayDisplay()
     {
         sleep(12);
-        $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         sleep(1);
         // Back To DashBoard
@@ -143,15 +142,20 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Games and social networks')->click();
         $this->waitForElementDisplayedByName('Steam');
         $this->byName('Steam')->click();
-        // Wait pay screen
-        $this->waitForElementDisplayedByName('hex transparent');
         // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue1 = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue1->click();
-        $setValue1->value('50444');
+        $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('11');
+            ->value('1');
+        $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        $this->byName('more, numbers')->click();
+        $this->byName('5')->click();
+        $this->byName('more, numbers')->click();
+        $this->byName('0')->click();
+        $this->byName('4')->click();
+        $this->byName('4')->click();
+        $this->byName('4')->click();
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         $this->waitForElementDisplayedByName('Пополнение');
@@ -252,5 +256,34 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(2);
         $this->byName('ui radiobutton off')->click();
         $this->byName('Pay')->click();
+    }
+
+    /**
+     * @param $wallet //TODO выпилить после правок метода в файлике APIService
+     */
+    public function fillIndentForm($wallet)
+    {
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]')
+            ->value($wallet->person->family_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')
+            ->value($wallet->person->given_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]')
+            ->value($wallet->person->patronymic_name);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[4]')
+            ->value($wallet->person->passport_series_number);
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+            ->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
+            ->value('1970.11.01');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
+            ->value($wallet->person->itn);
+        $this->byName('Next')->click();
+        // Check alert messages before personalisation of user data
+        $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
+        $this->byName('Back')->click();
+        $this->waitForElementDisplayedByName('Verification');
+        $this->byName('Вернуться')->click();
+        $this->waitForElementDisplayedByName('Profile');
     }
 }

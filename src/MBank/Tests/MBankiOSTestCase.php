@@ -11,7 +11,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             'browserName' => '',
             'desiredCapabilities' => array(
                 'deviceName' => 'iPhone 6',
-                'platformVersion' => '8.2',
+                'platformVersion' => '8.3',
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
                 'newCommandTimeout' => 160,

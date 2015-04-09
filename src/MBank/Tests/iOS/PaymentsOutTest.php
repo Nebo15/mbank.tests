@@ -75,12 +75,19 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Utility bills');
         $this->byName('Payment systems')->click();
         $this->byName('Яндекс.Деньги')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-            ->value('1234567');
+        $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
             ->value('1');
+        $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        $this->byName('more, numbers')->click();
+        $this->byName('1')->click();
+        $this->byName('more, numbers')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
         // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
@@ -141,13 +148,28 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Utility bills');
         $this->byName('Card2Card')->click();
         $this->byName('Пополнение Visa/MasterCard')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-            ->value('1111111111111111');
-        $this->byXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('10');
+        $this->byName('Pay')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
+             ->value('10');
         $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
         // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
@@ -181,13 +203,28 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Utility bills');
         $this->byName('Card2Card')->click();
         $this->byName('Пополнение Visa/MasterCard')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-            ->value('1111111111111111');
-        $this->byXPath(' //UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
+        $this->byName('Pay')->click();
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
             ->value('10');
         $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
         // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
@@ -209,15 +246,16 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Games and social networks')->click();
         $this->waitForElementDisplayedByName('Steam');
         $this->byName('Steam')->click();
-        // Wait pay screen
-        $this->waitForElementDisplayedByName('hex transparent');
         // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue->click();
-        $setValue->value('633336');
+        $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
              ->value('10');
+        $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        $this->byName('q')->click();
+        $this->byName('q')->click();
+        $this->byName('q')->click();
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         $this->waitForElementDisplayedByName('Пополнение');
@@ -240,15 +278,16 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Games and social networks')->click();
         $this->waitForElementDisplayedByName('Steam');
         $this->byName('Steam')->click();
-        // Wait pay screen
-        $this->waitForElementDisplayedByName('hex transparent');
         // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue1 = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $setValue1->click();
-        $setValue1->value('50444');
+        $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('11');
+            ->value('10');
+        $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        $this->byName('q')->click();
+        $this->byName('q')->click();
+        $this->byName('q')->click();
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
         $this->waitForElementDisplayedByName('Пополнение');
@@ -267,14 +306,28 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Utility bills');
         $this->byName('Cable networks')->click();
         $this->byName('НТВ Плюс')->click();
-        // Wait pay screen
-        $this->waitForElementDisplayedByName('hex transparent');
-        // Pay1
+        // Pay
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-             ->value('1234567890');
+        $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('1');
+            ->value('10');
+        $this->byName('Done')->click();
+        $this->byName('Pay')->click();
+        // После того как выпилили картинки сервисов стали падать тесты, т.к. тест ждал
+        // пока появиться картинка и после заполнит поля, сейчас невозможно заполнить поле потому что оно не активно
+        // пока решил избавиться от этого таким способом
+        $this->byName('more, numbers')->click();
+        $this->byName('1')->click();
+        $this->byName('more, numbers')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
+        $this->byName('1')->click();
         $this->byName('Pay')->click();
         // Confirm Pay
         $this->waitForElementDisplayedByName('Payment method');
@@ -326,15 +379,15 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Games and social networks');
         $this->byName('Games and social networks')->click();
         $this->byName('Steam')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('Steam');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[2]')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('ВКонтакте');
         $this->byName('ВКонтакте')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->byName('icon gallery')->click();
         $this->waitForElementDisplayedByName('Steam');
@@ -346,7 +399,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->byName('Telephony')->click();
         $this->byName('МГТС')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('МГТС');
         $this->byName('Back from Provider Select')->click();
@@ -356,11 +409,11 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->byName('Security systems')->click();
         $this->byName('Эшелон Охранная Система')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('Эшелон Охранная Система');
         $this->byName('Цезарь Сателлит')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->byName('Back from Provider Select')->click();
     }
@@ -369,11 +422,11 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->byName('Payment systems')->click();
         $this->byName('MГТС с возвратом задолженности')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('MГТС с возвратом задолженности');
         $this->byName('FarPost (Владивосток)')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->byName('Back from Provider Select')->click();
     }
@@ -383,27 +436,26 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Internet providers');
         $this->byName('Internet providers')->click();
         $this->byName('Rline Махачкала')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('Rline Махачкала');
         $this->byName('Ru-center')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('Ru-center');
         $this->byName('Subnet Махачкала')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('Subnet Махачкала');
         $this->byName('LovePlanet')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('LovePlanet');
         $this->byName('АВК Оператор Связи (Люберцы)')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('АВК Оператор Связи (Люберцы)');
         $this->byName('KaspNet (Каспийск)')->click();
-        $this->waitForElementDisplayedByName('hex transparent');
+        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByName('KaspNet (Каспийск)');
         $this->byName('Back from Provider Select')->click();
