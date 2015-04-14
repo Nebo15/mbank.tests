@@ -43,4 +43,20 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
+
+    public function testSetMail()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+
+        $this->byName('Profile')->click();
+        $this->byName('Settings')->click();
+        // Set Mail
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATableView[1]/UIATableCell[6]/UIATextField[1]')
+             ->value('sad-nu@mail.ru');
+        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]')->click();
+        $this->byName('Menu icon')->click();
+        $this->waitForElementDisplayedByName('Your balance');
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($wallet->phone);
+    }
 }
