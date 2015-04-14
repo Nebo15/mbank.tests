@@ -78,9 +78,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
         $this->byName('Pay')->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-            ->value('1111111');
+             ->value('1111111');
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('10');
+             ->value('10');
         // Pay
         $this->byName('Pay')->click();
         $this->waitForElementDisplayedByName('Payment method');
