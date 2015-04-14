@@ -7,6 +7,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     public function testUploadPhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
+//        $this->getAPIService()->getLoadUserData($wallet);
         // Add photo in profile
         $this->byName('Profile')->click();
         $this->byName('Add photo')->click();
@@ -113,7 +114,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
              ->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-             ->value('1970.11.01');
+             ->value($wallet->person->passport_issued_at);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
              ->value($wallet->person->itn);
         $this->byName('Next')->click();

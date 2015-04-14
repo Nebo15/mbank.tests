@@ -321,7 +321,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
              ->click();
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[5]')
-             ->value('1970.11.01');
+             ->value($wallet->person->passport_issued_at);
         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[6]')
              ->value($wallet->person->itn);
         $this->byName('Next')->click();

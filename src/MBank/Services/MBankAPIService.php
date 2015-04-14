@@ -133,25 +133,25 @@ class MBankAPIService
     }
 
 //TODO Доделать метод загрузки данных клиента и верификации
-//    public function getLoadUserData($wallet)
-//    {
-//        $request_url = $this->api_url . 'v1/wallet/person';
-//
-//        $request =
-//               ['family_name' => $wallet->person->family_name,
-//                'given_name' => $wallet->person->given_name,
-//                'patronymic_name' => $wallet->person->patronymic_name,
-//                'passport_series_number' => $wallet->person->passport_series_number,
-//                'passport_issued_at' => '1970.11.01',
-//                'itn' => $wallet->person->itn,
-//                'ssn' => $wallet->person->ssn,
-//                ];
-//
-//        $response = $this->client->post($request_url, [
-//            'body' => json_encode($request),
-//            'auth' => [$wallet->phone, $wallet->password],
-//        ]);
-//
-//        return $response->json()['meta']['code'] == 200;
-//    }
+    public function getLoadUserData($wallet)
+    {
+        $request_url = $this->api_url . 'v1/wallet/person';
+
+        $request =
+               ['family_name' => $wallet->person->family_name,
+                'given_name' => $wallet->person->given_name,
+                'patronymic_name' => $wallet->person->patronymic_name,
+                'passport_series_number' => $wallet->person->passport_series_number,
+                'passport_issued_at' => $wallet->person->passport_issued_at,
+                'itn' => $wallet->person->itn,
+                'ssn' => $wallet->person->ssn,
+                ];
+
+        $response = $this->client->post($request_url, [
+            'body' => json_encode($request),
+            'auth' => [$wallet->phone, $wallet->password],
+        ]);
+
+        return $response->json()['meta']['code'] == 200;
+    }
 }

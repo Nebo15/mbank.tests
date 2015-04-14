@@ -62,7 +62,7 @@ class WalletGenerationService
         $wallet->person->given_name = $faker->firstName('male');
         $wallet->person->patronymic_name = $faker->middleName('male');
         $wallet->person->passport_series_number = $this->getPassportSeriesNumber();
-        $wallet->person->passport_issued_at = $faker->date('d.m.Y');
+        $wallet->person->passport_issued_at = $faker->date('Y.m.d');
         $wallet->person->itn = $this->getITN();
         $wallet->person->ssn = $this->getSSN();
 
