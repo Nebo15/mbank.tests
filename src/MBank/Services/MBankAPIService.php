@@ -133,7 +133,7 @@ class MBankAPIService
     }
 
 //TODO Доделать метод загрузки данных клиента и верификации
-    public function getLoadUserData($wallet)
+    public function setLoadUserData($wallet)
     {
         $request_url = $this->api_url . 'v1/wallet/person';
 
@@ -149,7 +149,23 @@ class MBankAPIService
 
         $response = $this->client->post($request_url, [
             'body' => json_encode($request),
-            'auth' => [$wallet->phone, $wallet->password],
+            'auth' => ['admin', 'admin'],
+        ]);
+
+        return $response->json()['meta']['code'] == 200;
+    }
+
+//TODO
+    public function setWalletStatus()
+    {
+        $request_url = $this->api_url . 'v1/wallet/status?webhook_client_id=mserver&webhook_client_token=KbHmgYWND.jy5-a5R~3x48dU';
+
+        $request_body = [
+            'personified' => true,
+        ];
+
+        $response = $this->client->post($request_url, [
+            'body' => json_encode($request_body),
         ]);
 
         return $response->json()['meta']['code'] == 200;

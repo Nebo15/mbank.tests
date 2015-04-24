@@ -7,7 +7,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     public function testUploadPhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-//        $this->getAPIService()->getLoadUserData($wallet);
+//        $this->getAPIService()->setLoadUserData($wallet);
         // Add photo in profile
         $this->byName('Profile')->click();
         $this->byName('Add photo')->click();

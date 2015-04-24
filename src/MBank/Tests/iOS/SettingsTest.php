@@ -44,6 +44,9 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
+    /**
+     * @group Settings
+     */
     public function testSetMail()
     {
         $wallet = $this->createWalletAndLoadDashboard();
