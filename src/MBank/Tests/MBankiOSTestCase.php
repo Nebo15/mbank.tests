@@ -21,6 +21,16 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         )
     );
 
+    public function byElement($elementName)
+    {
+        $element = $this->getConfig()[$elementName];
+        return $this->by($element['type'], $element['selector']);
+    }
+    public function getConfig()
+    {
+        return (new \MBank\Config())->getConfig();
+    }
+
     protected function assertWalletCreated($response, $message = "Failed to create wallet")
     {
         $this->assertTrue($response['meta']['code'] == 200, $message, $response);

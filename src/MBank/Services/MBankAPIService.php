@@ -149,7 +149,8 @@ class MBankAPIService
 
         $response = $this->client->post($request_url, [
             'body' => json_encode($request),
-            'auth' => ['admin', 'admin'],
+            'auth' => [$wallet->phone, $wallet->password],
+
         ]);
 
         return $response->json()['meta']['code'] == 200;
