@@ -12,6 +12,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     public function testAddCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
+//        $this->markTestSkipped("Issue not resolved WEB_APP");
         $this->byElement('Profile_Button')->click();
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByName('My cards');
