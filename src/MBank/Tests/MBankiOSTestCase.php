@@ -3,6 +3,11 @@ namespace MBank\Tests;
 
 abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 {
+    protected function getConfig()
+    {
+        return (new \MBank\Config())->getConfig();
+    }
+
     public static $browsers = array(
         array(
             'local' => true,
@@ -15,21 +20,11 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
                 'newCommandTimeout' => 160,
-                'sendKeyStrategy' => 'setValue',
+//                'sendKeyStrategy' => 'setValue',
                 'launchTimeout' => 15000,
             )
         )
     );
-
-    public function byElement($elementName)
-    {
-        $element = $this->getConfig()[$elementName];
-        return $this->by($element['type'], $element['selector']);
-    }
-    public function getConfig()
-    {
-        return (new \MBank\Config())->getConfig();
-    }
 
     protected function assertWalletCreated($response, $message = "Failed to create wallet")
     {
@@ -44,6 +39,12 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 return $el && $el->displayed();
             }, $timeout
         );
+    }
+
+    public function byElement($elementName)
+    {
+        $element = $this->getConfig()[$elementName];
+        return $this->by($element['type'], $element['selector']);
     }
 
     protected function waitForElementDisplayedByXPath($xpath, $timeout = 20000)
@@ -66,6 +67,17 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         );
     }
 
+    protected function waitForElementDisplayedByElement($elementName, $timeout = 20000)
+    {
+        $self = $this;
+        $this->waitUntil(
+            function () use ($elementName, $self) {
+               $el = $self->byElement($elementName);
+               return $el && $el->displayed();
+            }, $timeout
+         );
+    }
+
     protected function fillPhoneNumberField($phone_number)
     {
         // Remove + sign in the beginning of phone number
@@ -73,7 +85,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $phone_number = substr($phone_number, 1);
         }
 
-        $phone_number_field = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]');
+        $phone_number_field = $this->byElement('Phone_Field_Button');
         $phone_number_field->click();
         $phone_number_field->clear();
         $phone_number_field->value($phone_number);
@@ -81,7 +93,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function fillPasswordField($password)
     {
-        $password_field = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIASecureTextField[1]');
+        $password_field = $this->byElement('Password_Field_Button');
         $password_field->click();
         $password_field->clear();
         $password_field->value($password);
@@ -90,18 +102,18 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
     protected function fillCardForm($card, $mm, $yy, $cvv, $cardHolder)
     {
         // Add card number
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->value($card);
+        $this->waitForElementDisplayedByElement('Add_card_number_Button');
+        $this->byElement('Add_card_number_Button')->value($card);
         // Add MM
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[2]')->value($mm);
+        $this->byElement('Add_MM_Button')->value($mm);
         // Add YY
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[3]')->value($yy);
+        $this->byElement('Add_YY_Button')->value($yy);
         // Add CVV code
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[4]')->value($cvv);
+        $this->byElement('CVV_Button')->value($cvv);
         // Add CardHolder
-        $this->byName('Done')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[5]')->value($cardHolder);
-        $this->byName('Add card')->click();
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Cardholder_Button')->value($cardHolder);
+        $this->byElement('Add_Card_Button')->click();
     }
 
     protected function fillCredentialsForm($login, $password)
@@ -126,22 +138,37 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function skipPinCode()
     {
-        $this->waitForElementDisplayedByName('Skip');
-        $this->byName('Skip')->click();
+        $this->waitForElementDisplayedByElement('Skip_Button');
+        $this->byElement('Skip_Button')->click();
     }
 
     protected function signIn($phone, $password)
     {
-        $this->acceptAlert();
-        $this->byName('Sign in')->click();
-        $this->fillCredentialsForm($phone, $password);
-        $this->byName('Sign in')->click();
+        if (APP_ENV == 'web')
+        {
+            $this->byElement('Sign_in_Button')->click();
+            $this->fillCredentialsForm($phone, $password);
+            $this->byElement('GO_Button')->click();
+
+        } elseif (APP_ENV == 'ios')
+        {
+            $this->acceptAlert();
+            $this->byElement('Sign_in_Button')->click();
+            $this->fillCredentialsForm($phone, $password);
+            $this->byElement('GO_Button')->click();
+        }
     }
 
     protected function loadDashboard($phone, $password)
     {
-        $this->signIn($phone, $password);
-        $this->skipPinCode();
+        if (APP_ENV == 'web')
+        {
+            $this->signIn($phone, $password);
+        } elseif (APP_ENV == 'ios')
+        {
+            $this->signIn($phone, $password);
+            $this->skipPinCode();
+        }
     }
 
     protected function createWalletAndLoadDashboard()

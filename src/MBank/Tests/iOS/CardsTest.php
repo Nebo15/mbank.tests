@@ -12,8 +12,8 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     public function testAddCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Profile')->click();
-        $this->byName('My cards')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByName('My cards');
         $this->waitForElementDisplayedByName('Empty list');
         $this->waitForElementDisplayedByName('Add new card');
