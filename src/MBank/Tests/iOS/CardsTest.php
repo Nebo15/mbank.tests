@@ -11,37 +11,43 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testAddCard()
     {
-        $wallet = $this->createWalletAndLoadDashboard();
-//        $this->markTestSkipped("Issue not resolved WEB_APP");
-        $this->byElement('Profile_Button')->click();
-        $this->byElement('Cards_Button')->click();
-        $this->waitForElementDisplayedByName('My cards');
-        $this->waitForElementDisplayedByName('Empty list');
-        $this->waitForElementDisplayedByName('Add new card');
-        $this->waitForElementDisplayedByName('Back to Profile icon');
-        // Add First Card
-        $this->byName('Add new card')->click();
-        $this->fillCardForm('4652060724922338','01','17','989','testtest');
-        // Assert First Card Is Added
-        $this->waitForElementDisplayedByName('4652 06** **** 2338');
-        // Add Second Card
-        $this->byName('Add new card')->click();
-        $this->fillCardForm('5417150396276825','01','17','789','testtestd');
-        // Assert Second Card Is Added
-        $this->waitForElementDisplayedByName('5417 15** **** 6825');
-        // Remove Second Card
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]/UIAButton[1]')
-             ->click();
-        $this->byName('Да')->click();
-        // Assert Second Is Removed
-        sleep(2);
-        $card2Deleted = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]')->text();
-        $this->assertEquals('moved to row 1 of 1', $card2Deleted);
-        // Assert First Card Is Present
-        $card1Present = $this->byName('4652 06** **** 2338');
-        $this->assertTrue($card1Present->displayed());
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (APP_ENV == 'ios')
+        {
+            $wallet = $this->createWalletAndLoadDashboard();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->byElement('Profile_Button')->click();
+            $this->byElement('Cards_Button')->click();
+            $this->waitForElementDisplayedByElement('Cards_Button');
+            $this->waitForElementDisplayedByElement('Empty_list_Button');
+            $this->waitForElementDisplayedByElement('Add_New_card_Button');
+            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
+            // Add First Card
+            $this->byElement('Add_New_card_Button')->click();
+            $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
+            // Assert First Card Is Added
+            $this->waitForElementDisplayedByElement('First_Card_Assert');
+            // Add Second Card
+            $this->byElement('Add_New_card_Button')->click();
+            $this->fillCardForm('5417150396276825', '01', '17', '789', 'testtestd');
+            // Assert Second Card Is Added
+            $this->waitForElementDisplayedByElement('Second_Card_Assert');
+            // Remove Second Card
+            $this->byElement('Remove_Card_Button')->click();
+            $this->byElement('DA_Button')->click();
+            // Assert Second Is Removed
+            sleep(2);
+            $cardDelete = $this->byElement('Delete_Card_Assert')->text();
+            $this->assertEquals('moved to row 1 of 1', $cardDelete);
+            // Assert First Card Is Present
+            $this->waitForElementDisplayedByElement('First_Card_Assert');
+            // Delete wallet
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        } elseif (APP_ENV == 'web')
+        {
+            //TODO for WEB_APP
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
+
     }
 
     /**
@@ -50,13 +56,15 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     public function testCashDisplayed()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Add funds')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Add_funds_Button');
+        $this->byElement('Add_funds_Button')->click();
         // Check Cash Field
-        $this->waitForElementDisplayedByName('Add card');
-        $this->byName('Cash')->click();
+        $this->waitForElementDisplayedByElement('Cash_Button');
+        $this->byElement('Cash_Button')->click();
         sleep(4);
         // Assert The Map Is Displayed
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAMapView[1]/UIAElement[1]');
+        $this->waitForElementDisplayedByElement('Map_Assert');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }

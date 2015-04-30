@@ -13,15 +13,11 @@ class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         // Check conversations link
-        $this->waitForElementDisplayedByName('Your balance');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[7]')
-             ->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
+        $this->byElement('Conversations_Button')->click();
         // Assert conversations display
-        $Support = $this->byXPath('//UIAApplication[1]/UIAWindow[4]/UIAStaticText[1]');
-        $this->assertTrue($Support->displayed());
-        // Back to Dashboard
-        $this->byName('intercom close button')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->waitForElementDisplayedByElement('Conversations_Displayed');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
