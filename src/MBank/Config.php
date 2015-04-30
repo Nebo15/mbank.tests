@@ -34,6 +34,7 @@ class Config
             "GO_Button" => ["type" => "name", "selector" => "Sign in"],
             "First_Card_Assert" => ["type" => "name", "selector" => "4652 06** **** 2338"],
             "Second_Card_Assert" => ["type" => "name", "selector" => "5417 15** **** 6825"],
+            "Registration_Button" => ["type" => "name", "selector" => "Registration"],
         ],
 
 
@@ -64,6 +65,7 @@ class Config
             "Conversations_Displayed" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[8]"],
             "Add_Card_Button" => ["type" => "name", "selector" => "Add card"],
             "GO_Button" => ["type" => "name", "selector" => "Go"],
+            "Registration_Button" => ["type" => "name", "selector" => "Registration"],
         ]
     ];
 

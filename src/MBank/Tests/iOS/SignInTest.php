@@ -15,15 +15,22 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSignIn()
     {
-        // Create wallet over API, if would fail if wallet is not created
-        $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-        // SignIn
-        $this->signIn($this->wallet->phone, $this->wallet->password);
-        // PIN should appear
-        $this->waitForElementDisplayedByName('Skip');
-        $this->byName('Skip');
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        if (APP_ENV == 'ios')
+        {
+            // Create wallet over API, if would fail if wallet is not created
+            $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
+            // SignIn
+            $this->signIn($this->wallet->phone, $this->wallet->password);
+            // PIN should appear
+            $this->waitForElementDisplayedByElement('Skip_Button');
+            $this->byElement('Skip_Button')->click();
+            // Delete wallet
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        } elseif (APP_ENV == 'web')
+        {
+            //TODO for WEB_APP
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
     }
 
     /**
