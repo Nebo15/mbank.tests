@@ -9,11 +9,11 @@ class MBankAPIService
     protected $admin_password = 'AefGYU7343';
 
     public function __construct()
-    {
-        $this->client = new \GuzzleHttp\Client();
-        $this->client->setDefaultOption('headers/Content-type', 'application/json');
-        $this->client->setDefaultOption('headers', array('X-Project-ID' => 'mbank'));
-    }
+{
+    $this->client = new \GuzzleHttp\Client();
+    $this->client->setDefaultOption('headers/Content-type', 'application/json');
+    $this->client->setDefaultOption('headers', array('X-Project-ID' => 'mbank'));
+}
 
     public function createWallet($phone, $password)
     {
