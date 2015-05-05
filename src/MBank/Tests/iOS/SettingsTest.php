@@ -9,13 +9,13 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
     public function testDeleteTempData()
     {
         $wallet = $wallet = $this->createWalletAndLoadDashboard();
-
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
-        $this->waitForElementDisplayedByName('Delete temporary data');
-        $this->byName('Delete temporary data')->click();
-        $this->byName('Yes')->click();
-        $this->waitForElementDisplayedByName('Temporary data deleted');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Settings_Button')->click();
+        $this->waitForElementDisplayedByElement('Delete_temporary_data');
+        $this->byElement('Delete_temporary_data')->click();
+        $this->byElement('YES_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_Delete_TEMP');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }

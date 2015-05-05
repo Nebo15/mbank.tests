@@ -4,82 +4,95 @@ namespace MBank\Tests\iOS;
 class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
 {
 
-    public function testPayIn()
+    public function testPayInCard()
     {
+        if (APP_ENV == 'ios') {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Profile')->click();
-        $this->byName('My cards')->click();
-        $this->waitForElementDisplayedByName('My cards');
-        $this->waitForElementDisplayedByName('Empty list');
-        $this->waitForElementDisplayedByName('Add new card');
-        $this->waitForElementDisplayedByName('Back to Profile icon');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+//        $this->tap(1, 214, 218, 10); // Web Profile Button
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Cards_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
+        $this->waitForElementDisplayedByElement('Empty_list_Button');
+        $this->waitForElementDisplayedByElement('Add_New_card_Button');
+        $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
         // Add Card
-        $this->byName('Add new card')->click();
+        $this->byElement('Add_New_card_Button')->click();
         $this->fillCardForm('4652060724922338','01','17','989','testtest');
         // Assert Card Is Added
-        $this->waitForElementDisplayedByName('4652 06** **** 2338');
+        $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Back to DashBoard
-        $this->byName('Back to Profile icon')->click();
-        $this->byName('Menu icon')->click();
-        $this->byName('Add funds')->click();
+        $this->byElement('Back_to_Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
+        $this->byElement('Add_funds_Button')->click();
         // Pay
-        $this->walletPaySum('10');
+        $this->walletPayForm('10');
         // Check Transactions List
-        $this->waitForElementDisplayedByName('OK');
-        $this->byName('OK')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
-        // Back to DashBoard and check the balance
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->waitForElementDisplayedByElement('OK_Button');
+        $this->byElement('OK_Button')->click();
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
+        // Back to DashBoard
+        $this->byElement('Menu_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance in Wallet
-        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
+        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a'); //TODO add if for Web_App remove .'.00a'
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
+        }  elseif (APP_ENV == 'web')
+        {
+            //TODO for WEB_APP
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
     }
 
-    public function testPayInNegativeSum()
+    public function testPayInCardNegativeSum()
     {
-        $wallet = $this->createWalletAndLoadDashboard();
-
-        $this->byName('Profile')->click();
-        $this->byName('My cards')->click();
-        $this->waitForElementDisplayedByName('My cards');
-        $this->waitForElementDisplayedByName('Empty list');
-        $this->waitForElementDisplayedByName('Add new card');
-        $this->waitForElementDisplayedByName('Back to Profile icon');
-        // Add Card
-        $this->byName('Add new card')->click();
-        $this->fillCardForm('4652060724922338','01','17','989','testtest');
-        // Assert Card Is Added
-        $this->waitForElementDisplayedByName('4652 06** **** 2338');
-        // Back to DashBoard
-        $this->byName('Back to Profile icon')->click();
-        $this->byName('Menu icon')->click();
-        $this->byName('Add funds')->click();
-        // Pay Zero Sum
-        $this->walletPaySum('0');
-        // Assert Alert Message
-        $this->waitForElementDisplayedByName('Enter the amount');
-        // Pay Incorrect Sum
-        $this->byName('OK')->click();
-        $this->walletPaySum('10000');
-        // Assert Alert Message
-        $this->waitForElementDisplayedByName('превышен лимит на остаток на счете кошелька');
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (APP_ENV == 'ios') {
+            $wallet = $this->createWalletAndLoadDashboard();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->byElement('Profile_Button')->click();
+            $this->byElement('Cards_Button')->click();
+            $this->waitForElementDisplayedByElement('Cards_Button');
+            $this->waitForElementDisplayedByElement('Empty_list_Button');
+            $this->waitForElementDisplayedByElement('Add_New_card_Button');
+            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
+            // Add Card
+            $this->byElement('Add_New_card_Button')->click();
+            $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
+            // Assert Card Is Added
+            $this->waitForElementDisplayedByElement('First_Card_Assert');
+            // Back to DashBoard
+            $this->byElement('Back_to_Profile_Button')->click();
+            $this->byElement('Menu_Button')->click();
+            $this->byElement('Add_funds_Button')->click();
+            // Pay Zero Sum
+            $this->walletPayForm('0');
+            // Assert Alert Message
+            $this->waitForElementDisplayedByElement('Alert_Pay_Message');
+            // Pay Incorrect Sum
+            $this->byElement('OK_Button')->click();
+            $this->walletPayForm('10000');
+            // Assert Alert Message
+            $this->waitForElementDisplayedByElement('Alert_Message');
+            // Delete wallet
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }  elseif (APP_ENV == 'web')
+        {
+            //TODO for WEB_APP
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
     }
 
-    public function walletPaySum($sum)
+    public function walletPayForm($sum)
     {
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[3]');
-        // Pay Zero Sum
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')->value($sum);
-        $this->byName('Done')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]')->click();
+        $this->waitForElementDisplayedByElement('Wallet_Balance_View');
+        $this->byElement('Amount_Field')->value($sum);
+        $this->byElement('Done_Button')->click();
+        $this->byElement('PAY_Button')->click();
     }
 }
 
