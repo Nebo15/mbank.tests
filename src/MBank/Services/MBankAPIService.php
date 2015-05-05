@@ -12,6 +12,7 @@ class MBankAPIService
     {
         $this->client = new \GuzzleHttp\Client();
         $this->client->setDefaultOption('headers/Content-type', 'application/json');
+        $this->client->setDefaultOption('headers', array('X-Project-ID' => 'mbank'));
     }
 
     public function createWallet($phone, $password)
