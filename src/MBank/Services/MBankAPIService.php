@@ -129,7 +129,7 @@ class MBankAPIService
 
     public function deleteWallet($phone)
     {
-        $request_url = $this->api_url . 'adm/wallet/' . $phone;
+        $request_url = $this->api_url . 'adm2/wallet/' . $phone;
         return $this->client->delete($request_url, ['auth' => [$this->admin_login, $this->admin_password], 'debug' => true])->json();
     }
 
