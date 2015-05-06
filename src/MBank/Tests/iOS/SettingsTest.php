@@ -26,7 +26,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
     public function testPublicOfferAndPrivacyPolicy()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-
         $this->byName('Profile')->click();
         $this->byName('Settings')->click();
         // Check Public Offer Displayed
@@ -50,7 +49,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
     public function testSetMail()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-
         $this->byName('Profile')->click();
         $this->byName('Settings')->click();
         // Set Mail

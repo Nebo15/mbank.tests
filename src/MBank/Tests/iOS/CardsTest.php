@@ -11,8 +11,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testAddCard()
     {
-        if (APP_ENV == 'ios')
-        {
+        if (APP_ENV == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Profile_Button')->click();
@@ -42,8 +41,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('First_Card_Assert');
             // Delete wallet
             $this->getAPIService()->deleteWallet($wallet->phone);
-        } elseif (APP_ENV == 'web')
-        {
+        } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }

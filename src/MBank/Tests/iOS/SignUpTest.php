@@ -19,9 +19,9 @@ class SignUpTest extends MBankiOSTestCase
     {
         // Sign up
         $this->acceptAlert();
-        $this->byName('Registration')->click();
+        $this->byElement('Registration_Button')->click();
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
-        $this->byName('Registration')->click();
+        $this->byName('Registration_Button')->click();
         // Getting and filling out activation code for created wallet
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
         $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
