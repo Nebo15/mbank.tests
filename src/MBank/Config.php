@@ -1,12 +1,23 @@
 <?php
 
 namespace MBank;
+use AppiumTests;
 
 class Config
 {
     private $config = [
         "ios" => [
+            "Strength_text" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAStaticText[1]"],
+            "Password_len" => ["type" => "name", "selector" => "invalid_password"],
+            "Secure_Field_1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]"],
+            "Secure_Field_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]"],
+            "Change_password_Button" => ["type" => "name", "selector" => "Change password"],
             "Profile_Button" => ["type" => "name", "selector" => "Profile"],
+            "Error_Password" => ["type" => "name", "selector" => "invalid_code"],
+            "Limit_message" => ["type" => "name", "selector" => "failure_limit_exceeded"],
+            "Exist_phone" => ["type" => "name", "selector" => "phone_already_exists"],
+            "Request_Password" => ["type" => "name", "selector" => "Request password"],
+            "Change_Password_Alert" => ["type" => "name", "selector" => "Password changed"],
             "Cards_Button" => ["type" => "name", "selector" => "My cards"],
             "Empty_list_Button" => ["type" => "name", "selector" => "Empty list"],
             "Add_New_card_Button" => ["type" => "name", "selector" => "Add new card"],
@@ -51,7 +62,7 @@ class Config
             "View_limits" => ["type" => "name", "selector" => "View limits"],
             "Limits_table" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableGroup[1]"],
             "Transfer_Button" => ["type" => "name", "selector" => "Transfer"],
-            "Verification_Button" => ["type" => "name", "selector" => "Yes"],
+            "Verification_Button" => ["type" => "name", "selector" => "Next"],
             "Family_name" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]"],
             "Given_name" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]"],
             "Patronymic_name" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[3]"],
@@ -70,9 +81,20 @@ class Config
             "Back_Button" => ["type" => "name", "selector" => "Back"],
             "Back_Button_Rus" => ["type" => "name", "selector" => "Вернуться"],
             "Assert_Element" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]"],
+            "Assert_PIN_field" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATextField[1]"],
+            "Confirm_Button" => ["type" => "name", "selector" => "Confirm"],
+            "Alert_message" => ["type" => "name", "selector" => "пользователь с таким номером телефона уже зарегистрирован"],
         ],
 
         "web" => [
+            "Strength_text" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[7]"],
+            "Password_len" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[1]"],
+            "Error_Password" => ["type" => "name", "selector" => "код безопасности не совпадает с отправленным в смс"],
+            "Change_Password_Alert" => ["type" => "name", "selector" => "Password changed"],
+            "Confirm_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
+            "Secure_Field_1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIASecureTextField[1]"],
+            "Secure_Field_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[1]"],
+            "Change_password_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[5]"],
             "Profile_Button" => ["type" => "name", "selector" => "Profile"],
             "Cards_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[1]"],
             "Empty_list_Button" => ["type" => "name", "selector" => "Empty list"],
@@ -99,7 +121,7 @@ class Config
             "Conversations_Displayed" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[8]"],
             "Add_Card_Button" => ["type" => "name", "selector" => "Add card"],
             "GO_Button" => ["type" => "name", "selector" => "Go"],
-            "Registration_Button" => ["type" => "name", "selector" => "Registration"],
+            "Registration_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
             "Menu_Button" => ["type" => "name", "selector" => "Menu icon"],
             "Wallet_Balance" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[3]"],
             "OK_Button" => ["type" => "name", "selector" => "OK"],
@@ -109,7 +131,7 @@ class Config
             "PAY_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]"],
             "Alert_Pay_Message" => ["type" => "name", "selector" => "Enter the amount"],
             "Alert_Message" => ["type" => "name", "selector" => "превышен лимит на остаток на счете кошелька"],
-            "Settings_Button" => ["type" => "name", "selector" => "Settings"],
+            "Settings_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[2]"],
             "Delete_temporary_data" => ["type" => "name", "selector" => "Delete temporary data"],
             "YES_Button" => ["type" => "name", "selector" => "Yes"],
             "Assert_Delete_TEMP" => ["type" => "name", "selector" => "Temporary data deleted"],
@@ -124,6 +146,8 @@ class Config
             "Passport_issued_at" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[5]"],
             "Itn" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[6]"],
             "Next_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[4]"],
+            "Assert_PIN_field" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[2]"],
+            "Alert_message" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[1]"],
         ],
     ];
 

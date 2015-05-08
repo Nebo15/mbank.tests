@@ -3,7 +3,6 @@ namespace MBank\Tests\iOS;
 
 class ProfileTest extends \MBank\Tests\MBankiOSTestCase
 {
-
     public function testUploadPhoto()
     {
         if (APP_ENV == 'ios') {
@@ -23,7 +22,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Photo_Assert');
             $this->byElement('Photo_Assert')->click();
             $this->waitForElementDisplayedByElement('OK_Button');
-            $this->byName('OK_Button')->click();
+            $this->byElement('OK_Button')->click();
             // Check photo was actually uploaded in app
             $this->waitForElementDisplayedByElement('Photo_Load');
             // Check that photo was actually uploaded
@@ -90,7 +89,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Transfer_Button')->click();
             $this->waitForElementDisplayedByElement('Verification_Button');
-            $this->byElement('Next')->click();
+            $this->byElement('Verification_Button')->click();
             // Set Invalid Data
             $this->waitForElementDisplayedByElement('Family_name');
             $this->byElement('Family_name')->value('lol');
@@ -98,9 +97,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Patronymic_name')->value('test');
             $this->byElement('Passport_series_number')->value('furman');
             $this->byElement('Passport_issued_at')
-                ->value($wallet->person->passport_issued_at);
+                 ->value($wallet->person->passport_issued_at);
             $this->byElement('Itn')->value("44/444");
-            $this->byElement('Next')->click();
+            $this->byElement('Next_Button')->click();
             $this->waitForElementDisplayedByElement('Invalid_Personal_Number_Alert');
             // Delete wallet
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -115,18 +114,15 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testLimits()
     {
-        if (APP_ENV == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
+        if (APP_ENV == 'ios') {
             $this->byElement('Profile_Button')->click();
-            // Check the limits is displayed
             $this->byElement('View_limits')->click();
             $this->waitForElementDisplayedByElement('Limits_table');
             // Delete wallet
             $this->getAPIService()->deleteWallet($wallet->phone);
         } elseif (APP_ENV == 'web') {
-            $wallet = $this->createWalletAndLoadDashboard();
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
             sleep(1);
             $this->tap(1, 214, 218, 10); //Profile Button
             // Check the limits is displayed

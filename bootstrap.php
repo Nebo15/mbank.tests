@@ -7,7 +7,7 @@ define("APP_ENV", 'ios');
 
 if (APP_ENV == 'web')
 {
-    define("APP_PATH", '/Users/evgenfurman/Mbankwebmobile.app.zip');
+    define("APP_PATH", '/Users/evgenfurman/Mbankwebmobile.app');
 
 } elseif (APP_ENV == 'ios')
 {

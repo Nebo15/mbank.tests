@@ -15,22 +15,18 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSignIn()
     {
-        if (APP_ENV == 'ios')
-        {
-            // Create wallet over API, if would fail if wallet is not created
-            $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-            // SignIn
-            $this->signIn($this->wallet->phone, $this->wallet->password);
+        // Create wallet over API, if would fail if wallet is not created
+        $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
+        $this->signIn($this->wallet->phone, $this->wallet->password);
+        if (APP_ENV == 'ios') {
             // PIN should appear
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->byElement('Skip_Button')->click();
-            // Delete wallet
-            $this->getAPIService()->deleteWallet($this->wallet->phone);
-        } elseif (APP_ENV == 'web')
-        {
-            //TODO for WEB_APP
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        } elseif (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
         }
+        // Delete wallet
+        $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
 
     /**
@@ -81,11 +77,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->acceptAlert();
         $this->byName('Sign in')->click();
-
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
         $this->byName('Sign in')->click();
         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
-
         $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
         $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
         $this->assertTrue($error_message->displayed(), "Login error is not visible");
@@ -102,30 +96,42 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
     {
          // Create wallet
          $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-         // SignIn
          $this->signIn($this->wallet->phone, $this->wallet->password);
-         // Skip Pin
-         $this->waitForElementDisplayedByName('Skip');
-         $this->byName('Skip')->click();
-         // Get New Password
-         $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
-         // Change Password
-         $this->waitForElementDisplayedByName('Profile');
-         $this->byName('Profile')->click();
-         $this->byName('Settings')->click();
-         $this->byName('Change password')->click();
-         $this->waitForElementDisplayedByName('Request password');
-         $this->byName('Yes')->click();
-         $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
-         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
-              ->value('jdsfhjkfsdhfkjs');
-         $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-              ->value($code);
-         $this->byName('Confirm')->click();
-         // Assert the password is changed
-         $this->waitForElementDisplayedByName('Password changed');
-         $this->byName('OK')->click();
-         $this->waitForElementDisplayedByName('Sign in');
+        if (APP_ENV == 'ios') {
+            $this->skipPinCode();
+            // Get New Password
+            $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
+            // Change Password
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->byElement('Profile_Button')->click();
+            $this->byElement('Settings_Button')->click();
+            $this->byElement('Change_password_Button')->click();
+            $this->waitForElementDisplayedByElement('Request_Password');
+            $this->byElement('YES_Button')->click();
+            $this->waitForElementDisplayedByElement('Secure_Field_1');
+            $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
+            $this->byElement('Secure_Field_2')->value($code);
+            $this->byElement('Confirm_Button')->click();
+            // Assert the password is changed
+            $this->waitForElementDisplayedByElement('Change_Password_Alert');
+            $this->byElement('OK_Button')->click();
+            $this->waitForElementDisplayedByElement('Sign_in_Button');
+        } elseif (APP_ENV == 'web') {
+            $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
+            // Change Password
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            sleep(1);
+            $this->tap(1, 214, 218, 10); //Profile Button
+            $this->byElement('Settings_Button')->click();
+            $this->byElement('Change_password_Button')->click();
+            $this->waitForElementDisplayedByElement('Secure_Field_1');
+            $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
+            $this->byElement('Secure_Field_2')->value($code);
+            $this->byElement('Confirm_Button')->click();
+            // Assert the password is changed
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            //TODO need asserts message for web
+        }
          // Delete wallet
          $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
@@ -137,27 +143,35 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
     {
         // Create wallet
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-        // SignIn
         $this->signIn($this->wallet->phone, $this->wallet->password);
-        // Skip Pin
-        $this->waitForElementDisplayedByName('Skip');
-        $this->byName('Skip')->click();
-        // Change Pin
-        $this->waitForElementDisplayedByName('Profile');
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
-        $this->byName('Change password')->click();
-        $this->waitForElementDisplayedByName('Request password');
-        $this->byName('Yes')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
-             ->value('jdsfhjkfsdhfkjs');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-             ->value('4321234');
-        $this->byName('Confirm')->click();
-        // Assert the password is changed
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
-        $this->byName('OK')->click();
+        if (APP_ENV == 'ios') {
+            $this->skipPinCode();
+            // Change Password
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->byElement('Profile_Button')->click();
+            $this->byElement('Settings_Button')->click();
+            $this->byElement('Change_password_Button')->click();
+            $this->waitForElementDisplayedByElement('Request_Password');
+            $this->byElement('YES_Button')->click();
+            $this->waitForElementDisplayedByElement('Secure_Field_1');
+            $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
+            $this->byElement('Secure_Field_2')->value('4433456');
+            $this->byElement('Confirm_Button')->click();
+            // Assert Alert Message
+            $this->waitForElementDisplayedByElement('Error_Password');
+        } elseif (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            sleep(1);
+            $this->tap(1, 214, 218, 10); //Profile Button
+            $this->byElement('Settings_Button')->click();
+            $this->byElement('Change_password_Button')->click();
+            $this->waitForElementDisplayedByElement('Secure_Field_1');
+            $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
+            $this->byElement('Secure_Field_2')->value('4433456');
+            $this->byElement('Confirm_Button')->click();
+            // Assert Alert Message
+            $this->waitForElementDisplayedByElement('Alert_message');
+        }
         // Delete wallet
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
@@ -171,9 +185,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // SignIn
         $this->signIn($this->wallet->phone, $this->wallet->password);
-        // Skip Pin
-        $this->waitForElementDisplayedByName('Skip');
-        $this->byName('Skip')->click();
+        $this->skipPinCode();
         // Try Change Password
         $this->waitForElementDisplayedByName('Profile');
         $this->byName('Profile')->click();
@@ -188,23 +200,23 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
           ->value('4321234');
         $this->byName('Confirm')->click();
         // Check retry limit
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->waitForElementDisplayedByElement('Error_Password');
         $this->byName('OK')->click();
         $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->waitForElementDisplayedByElement('Error_Password');
         $this->byName('OK')->click();
         $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->waitForElementDisplayedByElement('Error_Password');
         $this->byName('OK')->click();
         $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->waitForElementDisplayedByElement('Error_Password');
         $this->byName('OK')->click();
         $this->byName('Confirm')->click();
-        $this->waitForElementDisplayedByName('код безопасности не совпадает с отправленным в смс');
+        $this->waitForElementDisplayedByElement('Error_Password');
         $this->byName('OK')->click();
         $this->byName('Confirm')->click();
         // Assert limit message
-        $this->waitForElementDisplayedByName('превышен лимит попыток ввода кода безопасности');
+        $this->waitForElementDisplayedByElement('Limit_message');
         // Delete wallet
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }

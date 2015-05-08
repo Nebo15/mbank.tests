@@ -20,7 +20,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
                 'newCommandTimeout' => 160,
-//                'sendKeyStrategy' => 'setValue',
+                'sendKeyStrategy' => 'setValue',
                 'launchTimeout' => 15000,
             )
         )
@@ -136,6 +136,15 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         }
     }
 
+    protected function fillRegistrationCode($code)
+    {
+        $this->assertEquals(strlen($code), 6, "PIN code should be 6 number long");
+
+        for ($i = 0; $i < strlen($code); $i++) {
+            $this->byName($code[$i])->click();
+        }
+    }
+
     protected function skipPinCode()
     {
         $this->waitForElementDisplayedByElement('Skip_Button');
@@ -148,7 +157,9 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         {
             $this->byElement('Sign_in_Button')->click();
             $this->fillCredentialsForm($phone, $password);
-            $this->byElement('GO_Button')->click();
+            $this->byElement('Done_Button')->click();
+            $this->tap(1, 187.8, 451.6, 10);
+
 
         } elseif (APP_ENV == 'ios')
         {

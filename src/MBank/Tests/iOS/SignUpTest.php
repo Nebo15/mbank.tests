@@ -17,27 +17,44 @@ class SignUpTest extends MBankiOSTestCase
      */
     public function testSignUp()
     {
-        // Sign up
-        $this->acceptAlert();
-        $this->byElement('Registration_Button')->click();
-        $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
-        $this->byName('Registration_Button')->click();
-        // Getting and filling out activation code for created wallet
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
-        $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
-        $code_field = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextField[1]');
-        $code_field->click();
-        $code_field->clear();
-        $code_field->value($code);
-
-        $this->byName('Confirm')->click();
-        // Skip PIN
-        $this->waitForElementDisplayedByName('Skip');
-        $this->byName('Skip')->click();
-        // Assert Dashboard
-        $this->waitForElementDisplayedByName('Profile');
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        if (APP_ENV == 'ios') {
+            // Sign up
+            $this->acceptAlert();
+            $this->byElement('Registration_Button')->click();
+            $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
+            $this->byElement('Registration_Button')->click();
+            // Getting and filling out activation code for created wallet
+            $this->waitForElementDisplayedByElement('Assert_PIN_field');
+            $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
+            $code_field = $this->byElement('Assert_PIN_field');
+            $code_field->click();
+            $code_field->clear();
+            $code_field->value($code);
+            $this->byElement('Confirm_Button')->click();
+            // Skip PIN
+            $this->waitForElementDisplayedByElement('Skip_Button');
+            $this->byElement('Skip_Button')->click();
+            // Assert Dashboard
+            $this->waitForElementDisplayedByElement('Profile_Button');
+            // Delete wallet
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        } elseif (APP_ENV == 'web') {
+            $this->byElement('Registration_Button')->click();
+            $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
+            $this->byElement('GO_Button')->click();
+            // Getting and filling out activation code for created wallet
+            $this->waitForElementDisplayedByElement('Assert_PIN_field');
+            $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
+            //TODO need click method for buttons
+//            $this->byName(str_split($code)[1])->click();
+//            $this->byName(str_split($code)[2])->click();
+//            $this->byName(str_split($code)[3])->click();
+//            $this->byName(str_split($code)[4])->click();
+//            $this->byName(str_split($code)[5])->click();
+//          //Assert Dashboard
+//            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
     }
 
     /**
@@ -45,12 +62,19 @@ class SignUpTest extends MBankiOSTestCase
      */
     public function testSignUpWithWalletExists()
     {
-        // Sign up
-        $this->acceptAlert();
-        $this->byName('Registration')->click();
-        $this->fillCredentialsForm('380931254212', $this->wallet->password);
-        $this->byName('Registration')->click();
-        $this->waitForElementDisplayedByName('пользователь с таким номером телефона уже зарегистрирован');
+        if (APP_ENV == 'ios') {
+            // Sign up
+            $this->acceptAlert();
+            $this->byElement('Registration_Button')->click();
+            $this->fillCredentialsForm('380931254212', $this->wallet->password);
+            $this->byElement('Registration_Button')->click();
+            $this->waitForElementDisplayedByElement('Exist_phone');
+        } elseif (APP_ENV == 'web') {
+            $this->byElement('Registration_Button')->click();
+            $this->fillCredentialsForm('380931254212', $this->wallet->password);
+            $this->byElement('GO_Button')->click();
+            $this->waitForElementDisplayedByElement('Alert_message');
+        }
     }
 
     /**
@@ -58,12 +82,14 @@ class SignUpTest extends MBankiOSTestCase
      */
     public function testSignUpWithShortPassword()
     {
-        $this->acceptAlert();
-        $this->byName('Registration')->click();
-        // Short password
-        $this->fillCredentialsForm($this->wallet->phone, '1111');
-        $this->byName('Registration')->click();
-        $this->waitForElementDisplayedByName('пароль должен быть не короче 6 символов');
+        if (APP_ENV == 'ios') {
+            $this->acceptAlert();
+        }
+            $this->byElement('Registration_Button')->click();
+            // Short password
+            $this->fillCredentialsForm($this->wallet->phone, '1111');
+            $this->byElement('Registration_Button')->click();
+            $this->waitForElementDisplayedByElement('Password_len');
     }
 
     /**
@@ -71,37 +97,55 @@ class SignUpTest extends MBankiOSTestCase
      */
     public function testSignUpPasswordStrengthChecker()
     {
-        $this->acceptAlert();
-        $this->byName('Registration')->click();
-
-        $passwords = [
-            'очень слабый' => [
-                'password' => '111111',
-                'text' => 'Very weak',
-            ],
-            'слабый' => [
-                'password' => 'querty',
-                'text' => 'Weak',
-            ],
-            'средний' => [
-                'password' => '123querty',
-                'text' => 'Medium',
-            ],
-            'сильный' => [
-                'password' => '123quertyA@',
-                'text' => 'Strong',
-            ],
-            'очень сильный' => [
-                'password' => '123quertyA@zasftrhfkfid',
-                'text' => 'Very Strong',
-            ],
-        ];
-
-        foreach ($passwords as $stength => $data) {
-            $this->fillCredentialsForm($this->wallet->phone, $data['password']);
-
-            $strength_text = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAStaticText[1]')->text();
-            $this->assertEquals($strength_text, $data['text']);
+        if (APP_ENV == 'ios') {
+            $this->acceptAlert();
+            $this->byElement('Registration_Button')->click();
+            $passwords = [
+                'очень слабый' => [
+                    'password' => '111111',
+                    'text' => 'Very weak',
+                ],
+                'слабый' => [
+                    'password' => 'querty',
+                    'text' => 'Weak',
+                ],
+                'средний' => [
+                    'password' => '123querty',
+                    'text' => 'Medium',
+                ],
+                'сильный' => [
+                    'password' => '123quertyA@',
+                    'text' => 'Strong',
+                ],
+                'очень сильный' => [
+                    'password' => '123quertyA@zasftrhfkfid',
+                    'text' => 'Very Strong',
+                ],
+            ];
+            foreach ($passwords as $stength => $data) {
+                $this->fillPasswordField($data['password']);
+                $this->assertEquals($this->byElement('Strength_text')->text(), $data['text']);
+            }
+        } elseif (APP_ENV == 'web') {
+            $this->byElement('Registration_Button')->click();
+            $passwords = [
+                'слабый' => [
+                    'password' => '!@#$%',
+                    'text' => 'слабенькии',
+                ],
+                'средний' => [
+                    'password' => '!@#$%aa',
+                    'text' => 'среднии',
+                ],
+                'сильный' => [
+                    'password' => '!@#$%aaqqqqqq',
+                    'text' => 'хорош',
+                ],
+            ];
+            foreach ($passwords as $stength => $data) {
+                $this->fillPasswordField($data['password']);
+                $this->assertEquals(trim($this->byElement('Strength_text')->text(),'\̆! '), $data['text']);
+            }
         }
     }
 }
