@@ -7,12 +7,18 @@ class Config
 {
     private $config = [
         "ios" => [
+            "PayField" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextView[1]"],
+            "Assert_Screen" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]"],
+            "Error_Message_text" => ["type" => "name", "selector" => "You have entered an invalid phone number or password. Please, try again."],
+            "Error_Message" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATextView[2]"],
             "Strength_text" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAStaticText[1]"],
             "Password_len" => ["type" => "name", "selector" => "invalid_password"],
             "Secure_Field_1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]"],
             "Secure_Field_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]"],
             "Change_password_Button" => ["type" => "name", "selector" => "Change password"],
             "Profile_Button" => ["type" => "name", "selector" => "Profile"],
+            "Wallet_Not_Ident" => ["type" => "name", "selector" => "destination_wallet_not_identified"],
+            "Login_Screen" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]"],
             "Error_Password" => ["type" => "name", "selector" => "invalid_code"],
             "Limit_message" => ["type" => "name", "selector" => "failure_limit_exceeded"],
             "Exist_phone" => ["type" => "name", "selector" => "phone_already_exists"],
@@ -83,6 +89,8 @@ class Config
             "Assert_Element" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]"],
             "Assert_PIN_field" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATextField[1]"],
             "Confirm_Button" => ["type" => "name", "selector" => "Confirm"],
+            "Pay_button" => ["type" => "name", "selector" => "Pay"],
+            "Payment_method" => ["type" => "name", "selector" => "Payment method"],
             "Alert_message" => ["type" => "name", "selector" => "пользователь с таким номером телефона уже зарегистрирован"],
         ],
 

@@ -8,42 +8,43 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Next')->click();
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification');
+        $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
-        $this->byName('Your balance')->click();
-        $this->byName('Profile')->click();
-        $this->byName('Menu icon')->click();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
-        $phone_number = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $phone_number = $this->byElement('Family_name');
         $phone_number->click();
         $phone_number->clear();
         $phone_number->value('+380931254212');
         // Fill pay form
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')->value('10');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextView[1]')->value('BatmanPay');
-        $this->byName('Done')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]')->click();
-        $this->waitForElementDisplayedByName('Payment method');
+        $this->byElement('Given_name')->value('10');
+        $this->byElement('PayField')->value('BatmanPay');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Assert_Element')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
         // Pay
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('OK');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
         // Assert Transactions List
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->byElement('Menu_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
-        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -55,31 +56,33 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     public function testP2PPayToNotVerifiedWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Next')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification');
+        $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
-        $this->byName('Your balance')->click();
-        $this->byName('Profile')->click();
-        $this->byName('Menu icon')->click();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]');
-        // Pay into friend wallet not indent
-        $phone_number = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_Element');
+        // Pay into friend wallet
+        $phone_number = $this->byElement('Family_name');
         $phone_number->click();
         $phone_number->clear();
         $phone_number->value('+15662868526');
         // Fill pay form
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')->value('10');
-        $this->byName('Done')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]')->click();
+        $this->byElement('Given_name')->value('10');
+        $this->byElement('PayField')->value('BatmanPay');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Assert_Element')->click();
         // Assert Wallet Not Indent
-        $this->waitForElementDisplayedByName('для совершения этого действия требуется идентификация пользователя кошелька');
-        $this->byName('Cancel')->click();
+        $this->waitForElementDisplayedByElement('Wallet_Not_Ident');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -87,30 +90,33 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     public function testP2PPayToYourself()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Next')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification');
+        $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
-        $this->byName('Your balance')->click();
-        $this->byName('Profile')->click();
-        $this->byName('Menu icon')->click();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
-        $phone_number = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[1]');
+        $phone_number = $this->byElement('Family_name');
         $phone_number->click();
         $phone_number->clear();
-        $phone_number->value($wallet->phone);
+        $phone_number->value('+15662868526');
         // Fill pay form
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]')->value('10');
-        $this->byName('Done')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIAButton[2]')->click();
-        $this->waitForElementDisplayedByName('Can\'t transfer money to yourself');
-        // Delete wallet
+        $this->byElement('Given_name')->value('10');
+        $this->byElement('PayField')->value('BatmanPay');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Assert_Element')->click();
+        $this->waitForElementDisplayedByElement('Wallet_Not_Ident');
+        // Delete wallet $wallet->phone
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
 
@@ -130,10 +136,10 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Itn')->value($wallet->person->itn);
         $this->byElement('Next_Button')->click();
         // Check alert messages before personalisation of user data
-        $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
-        $this->byName('Back')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Вернуться')->click();
-        $this->waitForElementDisplayedByName('Profile');
+        $this->waitForElementDisplayedByElement('Alert_Message_RF');
+        $this->byElement('Back_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification');
+        $this->byElement('Back_Button_Rus')->click();
+        $this->waitForElementDisplayedByElement('Profile_Button');
     }
 }

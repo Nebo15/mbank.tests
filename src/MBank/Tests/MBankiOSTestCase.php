@@ -158,7 +158,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Sign_in_Button')->click();
             $this->fillCredentialsForm($phone, $password);
             $this->byElement('Done_Button')->click();
-            $this->tap(1, 187.8, 451.6, 10);
+            $this->tap(1, 194.8, 460, 10);
 
 
         } elseif (APP_ENV == 'ios')

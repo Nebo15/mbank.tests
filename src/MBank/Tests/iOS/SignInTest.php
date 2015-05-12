@@ -50,22 +50,23 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Create wallet over API
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // Accept initial alert
-        $this->acceptAlert();
+        if (APP_ENV == 'ios') {
+            $this->acceptAlert();
+        }
         // Go to Sign In screen
-        $this->byName('Sign in')->click();
+        $this->byElement('Sign_in_Button')->click();
         // Enter and submit login data
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password."inc");
-        $this->byName('Sign in')->click();
+        $this->byElement('Sign_in_Button')->click();
         // Wait for error displayed
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
+        $this->waitForElementDisplayedByElement('Error_Message');
         // Checking error message
         $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
         $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
         $this->assertTrue($error_message->displayed(), "Login error is not visible");
-        $this->byName('OK')->click();
+        $this->byElement('OK_Button')->click();
         // We should stay on login screen
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]'); // Selecting element is an assertion by itself
-        $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
+        $this->waitForElementDisplayedByElement('Assert_Screen'); // Selecting element is an assertion by itself
         // Delete wallet
         $this->getAPIService()->deleteWallet($this->wallet->phone);
     }
@@ -76,17 +77,16 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
     public function testSignInWithWalletNotExists()
     {
         $this->acceptAlert();
-        $this->byName('Sign in')->click();
+        $this->byElement('Sign_in_Button')->click();
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
-        $this->byName('Sign in')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
+        $this->byElement('Sign_in_Button')->click();
+        $this->waitForElementDisplayedByElement('Error_Message');
         $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
         $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
         $this->assertTrue($error_message->displayed(), "Login error is not visible");
-        $this->byName('OK')->click();
+        $this->byElement('OK_Button')->click();
         // We should stay on login screen
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]');
-        $this->assertTrue($this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATextField[1]')->displayed());
+        $this->waitForElementDisplayedByElement('Login_Screen');
     }
 
     /**
@@ -187,34 +187,32 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->signIn($this->wallet->phone, $this->wallet->password);
         $this->skipPinCode();
         // Try Change Password
-        $this->waitForElementDisplayedByName('Profile');
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Settings_Button')->click();
         $this->byName('Change password')->click();
-        $this->waitForElementDisplayedByName('Request password');
-        $this->byName('Yes')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIASecureTextField[1]')
-          ->value('jdsfhjkfsdhfkjs');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIATextField[1]')
-          ->value('4321234');
-        $this->byName('Confirm')->click();
+        $this->waitForElementDisplayedByElement('Request_Password');
+        $this->byElement('YES_Button')->click();
+        $this->waitForElementDisplayedByElement('Secure_Field_1');
+        $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
+        $this->byElement('Secure_Field_2')->value('4321234');
+        $this->byElement('Confirm_Button')->click();
         // Check retry limit
         $this->waitForElementDisplayedByElement('Error_Password');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
+        $this->byElement('OK_Button')->click();
+        $this->byElement('Confirm_Button')->click();
         $this->waitForElementDisplayedByElement('Error_Password');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
+        $this->byElement('OK_Button')->click();
+        $this->byElement('Confirm_Button')->click();
         $this->waitForElementDisplayedByElement('Error_Password');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
+        $this->byElement('OK_Button')->click();
+        $this->byElement('Confirm_Button')->click();
         $this->waitForElementDisplayedByElement('Error_Password');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
+        $this->byElement('OK_Button')->click();
+        $this->byElement('Confirm_Button')->click();
         $this->waitForElementDisplayedByElement('Error_Password');
-        $this->byName('OK')->click();
-        $this->byName('Confirm')->click();
+        $this->byElement('OK_Button')->click();
+        $this->byElement('Confirm_Button')->click();
         // Assert limit message
         $this->waitForElementDisplayedByElement('Limit_message');
         // Delete wallet
