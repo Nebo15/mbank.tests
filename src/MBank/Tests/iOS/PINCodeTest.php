@@ -7,7 +7,6 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
     public function testSetPinCodeInSettings()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-
         $this->byName('Profile')->click();
         $this->byName('Settings')->click();
         // Create Pin On Settings Page
