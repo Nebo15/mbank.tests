@@ -8,6 +8,34 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         return (new \MBank\Config())->getConfig();
     }
 
+    public function setUp()
+    {
+        if (APP_ENV == 'ios') {
+            $this->setDesiredCapabilities(
+                array(
+                    'deviceName' => 'iPhone 6',
+                    'platformVersion' => '8.3',
+                    'platformName' => 'iOS',
+                    'app' => APP_PATH,
+                    'newCommandTimeout' => 160,
+                    'sendKeyStrategy' => 'setValue',
+                    'launchTimeout' => 15000,
+                )
+            );
+        } elseif (APP_ENV == 'web') {
+            $this->setDesiredCapabilities(
+                array(
+                    'deviceName' => 'iPhone 6',
+                    'platformVersion' => '8.3',
+                    'platformName' => 'iOS',
+                    'app' => APP_PATH,
+                    'newCommandTimeout' => 160,
+                    'launchTimeout' => 15000,
+                )
+            );
+        }
+    }
+
     public static $browsers = array(
         array(
             'local' => true,
