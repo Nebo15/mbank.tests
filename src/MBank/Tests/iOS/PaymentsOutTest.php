@@ -7,9 +7,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testOutFromWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->walletPayServices();
         // Check Balance
-        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -21,21 +22,21 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testOutFromCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-
-        $this->byName('Profile')->click();
-        $this->byName('My cards')->click();
-        $this->waitForElementDisplayedByName('My cards');
-        $this->waitForElementDisplayedByName('Empty list');
-        $this->waitForElementDisplayedByName('Add new card');
-        $this->waitForElementDisplayedByName('Back to Profile icon');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Cards_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
+        $this->waitForElementDisplayedByElement('Empty_list_Button');
+        $this->waitForElementDisplayedByElement('Add_New_card_Button');
+        $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
         // Add Card
-        $this->byName('Add new card')->click();
-        $this->fillCardForm('4652060724922338','01','17','989','testtest');
+        $this->byElement('Add_New_card_Button')->click();
+        $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
         // Assert Card Is Added
-        $this->waitForElementDisplayedByName('4652 06** **** 2338');
+        $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Back to DashBoard
-        $this->byName('Back to Profile icon')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[1]')->click();
+        $this->byElement('Back_to_Profile_Button')->click();
+        $this->byElement('Back_dashboard')->click();
         // Pay from Card
         $this->cardPayServices();
         // Delete wallet
@@ -45,9 +46,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testPayOutTricolorWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->walletPayServiceTricolor();
         // Check Balance
-        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -59,42 +61,41 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testPayService()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Next')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification');
+        $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
-        $this->byName('Your balance')->click();
-        $this->byName('Profile')->click();
-        $this->byName('Menu icon')->click();
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
         // Pay Into service
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('Payment systems')->click();
-        $this->byName('Яндекс.Деньги')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-             ->value('1111111');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('10');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->byElement('Payment_systems')->click();
+        $this->byElement('Яндекс.Деньги')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_Field')->value('1111111111');
+        $this->byElement('Pay_Field2')->value('1');
         // Pay
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Payment method');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('OK');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
         // Assert Transactions List
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->byElement('Menu_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
-        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -106,6 +107,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testServicesLoad()
     {
         $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check services views
         $this->gamesDirectory();
         $this->telephonyDirectory();
@@ -119,53 +121,52 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testPayCardToCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Profile')->click();
-        $this->byName('My cards')->click();
-        $this->waitForElementDisplayedByName('My cards');
-        $this->waitForElementDisplayedByName('Empty list');
-        $this->waitForElementDisplayedByName('Add new card');
-        $this->waitForElementDisplayedByName('Back to Profile icon');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Cards_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
+        $this->waitForElementDisplayedByElement('Empty_list_Button');
+        $this->waitForElementDisplayedByElement('Add_New_card_Button');
+        $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
         // Add Card
-        $this->byName('Add new card')->click();
-        $this->fillCardForm('4652060724922338','01','17','989','testtest');
+        $this->byElement('Add_New_card_Button')->click();
+        $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
         // Assert Card Is Added
-        $this->waitForElementDisplayedByName('4652 06** **** 2338');
+        $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Back to Dashboard
-        $this->byName('Back to Profile icon')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[1]')->click();
-        $this->waitForElementDisplayedByName('Profile');
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Next')->click();
+        $this->byElement('Back_to_Profile_Button')->click();
+        $this->byElement('Back_dashboard')->click();
+        $this->waitForElementDisplayedByElement('Profile_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button');
+        $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
-        $this->byName('Your balance')->click();
-        $this->byName('Profile')->click();
-        $this->byName('Menu icon')->click();
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
         // Pay Card to Card
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('Card2Card')->click();
-        $this->byName('Пополнение Visa/MasterCard')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-             ->value('1111111111111111');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('10');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->byElement('Card2Card')->click();
+        $this->byElement('ПополнениеVisa/MasterCard')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_Field')->value('1111111111111111');
+        $this->byElement('Pay_Field2')->value('10');
         // Pay
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Payment method');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
-        $this->byName('ui radiobutton off')->click();
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('OK');
+        $this->byElement('Select_Card')->click();
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
         // Assert Transactions List
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Delete wallet
         $this->getAPIService()->deleteWallet($wallet->phone);
     }
@@ -173,42 +174,41 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testPayWalletToCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Transfer')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Next')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button');
+        $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillIndentForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
-        $this->byName('Your balance')->click();
-        $this->byName('Profile')->click();
-        $this->byName('Menu icon')->click();
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->byElement('Menu_Button')->click();
         // Pay Card to Card
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('Card2Card')->click();
-        $this->byName('Пополнение Visa/MasterCard')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-             ->value('1111111111111111');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('10');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->byElement('Card2Card')->click();
+        $this->byElement('ПополнениеVisa/MasterCard')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_Field')->value('1111111111111111');
+        $this->byElement('Pay_Field2')->value('10');
         // Pay
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Payment method');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('OK');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
         // Assert Transactions List
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->byElement('Menu_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
-        $Balance = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAStaticText[2]')->text();
+        $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
@@ -219,89 +219,83 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function walletPayServices()
     {
-        $this->byName('Pay')->click();
+        $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('Games and social networks')->click();
-        $this->waitForElementDisplayedByName('Steam');
-        $this->byName('Steam')->click();
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->byElement('Games_networks')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->byElement('Steam')->click();
         // Pay
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-             ->value('11111');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('10');
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_Field')->value('11111');
+        $this->byElement('Pay_Field2')->value('10');
         // Pay
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Payment method');
-        $this->waitForElementDisplayedByName('Пополнение');
-        $this->byName('Pay')->click();
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->byElement('Pay_button')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByName('OK');
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
-        $this->waitForElementDisplayedByName('Steam');
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]/UIAStaticText[4]');
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->waitForElementDisplayedByElement('Transactions_List');
         // Back To DashBoard
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->byElement('Menu_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
     }
 
     public function cardPayServices()
     {
-        $this->byName('Pay')->click();
+        $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('Games and social networks')->click();
-        $this->waitForElementDisplayedByName('Steam');
-        $this->byName('Steam')->click();
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->byElement('Games_networks')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->byElement('Steam')->click();
         // Pay
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-             ->value('1111111');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-             ->value('10');
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Payment method');
-        $this->waitForElementDisplayedByName('Пополнение');
-        $this->byName('ui radiobutton off')->click();
-        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_Field')->value('11111');
+        $this->byElement('Pay_Field2')->value('10');
+        // Pay
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->byElement('Select_Card')->click();
+        $this->byElement('Pay_button')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByName('OK');
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
     public function walletPayServiceTricolor()
     {
-        $this->byName('Pay')->click();
+        $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByName('Utility bills');
-        $this->byName('Cable networks')->click();
-        $this->byName('НТВ Плюс')->click();
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->byElement('Cable_networks')->click();
+        $this->byElement('НТВ_Плюс')->click();
         // Pay
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Pay')->click();
-        $this->byName('Pay')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]')
-            ->value('1111111111');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[9]/UIATextField[1]')
-            ->value('10');
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_Field')->value('1111111111');
+        $this->byElement('Pay_Field2')->value('10');
         // Pay
-        $this->byName('Pay')->click();
+        $this->byElement('Pay_button')->click();
         // Confirm Pay
-        $this->waitForElementDisplayedByName('Payment method');
-        $this->waitForElementDisplayedByName('Wallet');
-        sleep(4);
-        $this->byName('Pay')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->waitForElementDisplayedByElement('Wallet');
+        $this->byElement('Pay_button')->click();
         // Check Transaction Log
-        $this->waitForElementDisplayedByName('OK');
+        $this->waitForElementDisplayedByElement('OK_Button');
         $this->acceptAlert();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        $this->byName('Menu icon')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->byElement('Menu_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
     }
 
     /**
@@ -319,99 +313,99 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Itn')->value($wallet->person->itn);
         $this->byElement('Next_Button')->click();
         // Check alert messages before personalisation of user data
-        $this->waitForElementDisplayedByName('Thank you! Your information will be reviewed as soon as possible. You will receive a notification after the process will be complete');
-        $this->byName('Back')->click();
-        $this->waitForElementDisplayedByName('Verification');
-        $this->byName('Вернуться')->click();
-        $this->waitForElementDisplayedByName('Profile');
+        $this->waitForElementDisplayedByElement('Alert_Message_RF');
+        $this->byElement('Back_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification');
+        $this->byElement('Back_Button_Rus')->click();
+        $this->waitForElementDisplayedByElement('Profile_Button');
     }
 
     public function gamesDirectory()
     {
-        $this->waitForElementDisplayedByName('Pay');
-        $this->byName('Pay')->click();
-        $this->waitForElementDisplayedByName('Games and social networks');
-        $this->byName('Games and social networks')->click();
-        $this->byName('Steam')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('Steam');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[2]')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('ВКонтакте');
-        $this->byName('ВКонтакте')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->byName('icon gallery')->click();
-        $this->waitForElementDisplayedByName('Steam');
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[4]');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAButton[1]')->click();
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Games_networks');
+        $this->byElement('Games_networks')->click();
+        $this->byElement('Steam')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->byElement('Odnoklassniki_Button')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('ВКонтакте');
+        $this->byElement('ВКонтакте')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->byElement('icon_gallery')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->waitForElementDisplayedByElement('Back_To_Services');
+        $this->byElement('Back_dashboard')->click();
     }
 
     public function telephonyDirectory()
     {
-        $this->byName('Telephony')->click();
-        $this->byName('МГТС')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('МГТС');
-        $this->byName('Back from Provider Select')->click();
+        $this->byElement('Telephony')->click();
+        $this->byElement('МГТС')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('МГТС');
+        $this->byElement('Back from Provider Select')->click();
     }
 
     public function securitySystemsDirectory()
     {
-        $this->byName('Security systems')->click();
-        $this->byName('Эшелон Охранная Система')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('Эшелон Охранная Система');
-        $this->byName('Цезарь Сателлит')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->byName('Back from Provider Select')->click();
+        $this->byElement('Security systems')->click();
+        $this->byElement('Эшелон Охранная Система')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('Эшелон Охранная Система');
+        $this->byElement('Цезарь Сателлит')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->byElement('Back from Provider Select')->click();
     }
 
     public function paymentSystems()
     {
-        $this->byName('Payment systems')->click();
-        $this->byName('MГТС с возвратом задолженности')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('MГТС с возвратом задолженности');
-        $this->byName('FarPost (Владивосток)')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->byName('Back from Provider Select')->click();
+        $this->byElement('Payment_systems')->click();
+        $this->byElement('MГТС с возвратом задолженности')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('MГТС с возвратом задолженности');
+        $this->byElement('FarPost (Владивосток)')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->byElement('Back from Provider Select')->click();
     }
 
     public function internetProviders()
     {
-        $this->waitForElementDisplayedByName('Internet providers');
-        $this->byName('Internet providers')->click();
-        $this->byName('Rline Махачкала')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->byName('Ru-center')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('Ru-center');
-        $this->byName('Subnet Махачкала')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('Subnet Махачкала');
-        $this->byName('LovePlanet')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('LovePlanet');
-        $this->byName('АВК Оператор Связи (Люберцы)')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('АВК Оператор Связи (Люберцы)');
-        $this->byName('KaspNet (Каспийск)')->click();
-        $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]/UIATextField[1]');
-        $this->byName('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByName('KaspNet (Каспийск)');
-        $this->byName('Back from Provider Select')->click();
+        $this->waitForElementDisplayedByElement('Internet providers');
+        $this->byElement('Internet providers')->click();
+        $this->byElement('Rline Махачкала')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->byElement('Ru-center')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('Ru-center');
+        $this->byElement('Subnet Махачкала')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('Subnet Махачкала');
+        $this->byElement('LovePlanet')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('LovePlanet');
+        $this->byElement('АВК Оператор Связи (Люберцы)')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('АВК Оператор Связи (Люберцы)');
+        $this->byElement('KaspNet (Каспийск)')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->byElement('Back from Pay Mobile')->click();
+        $this->waitForElementDisplayedByElement('KaspNet (Каспийск)');
+        $this->byElement('Back from Provider Select')->click();
     }
 }

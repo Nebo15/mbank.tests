@@ -31,7 +31,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         $this->assertTrue($response['meta']['code'] == 200, $message, $response);
     }
 
-    protected function waitForElementDisplayedByName($name, $timeout = 20000)
+    protected function waitForElementDisplayedByName($name, $timeout = 30000)
     {
         $this->waitUntil(
             function () use ($name) {
@@ -47,7 +47,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         return $this->by($element['type'], $element['selector']);
     }
 
-    protected function waitForElementDisplayedByXPath($xpath, $timeout = 20000)
+    protected function waitForElementDisplayedByXPath($xpath, $timeout = 30000)
     {
         $this->waitUntil(
             function () use ($xpath) {
@@ -57,7 +57,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         );
     }
 
-    protected function waitForElementDisplayedById($id, $timeout = 20000)
+    protected function waitForElementDisplayedById($id, $timeout = 30000)
     {
         $this->waitUntil(
             function () use ($id) {
@@ -67,7 +67,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         );
     }
 
-    protected function waitForElementDisplayedByElement($elementName, $timeout = 20000)
+    protected function waitForElementDisplayedByElement($elementName, $timeout = 30000)
     {
         $self = $this;
         $this->waitUntil(
