@@ -45,7 +45,6 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
-
     }
 
     /**
@@ -64,6 +63,9 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert The Map Is Displayed
         $this->waitForElementDisplayedByElement('Map_Assert');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV')
+        {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 }

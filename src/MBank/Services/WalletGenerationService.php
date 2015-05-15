@@ -5,18 +5,24 @@ class WalletGenerationService
 {
     public function getPassword($strong = false)
     {
-        $alpha = "abcdefghijklmnopqrstuvwxyz";
-        $alpha_upper = strtoupper($alpha);
-        $password_chars = $alpha.$alpha_upper;
-        if ($strong === true) {
-            $password_chars .= "`-/:;()$&@\".,?!'[]{}#%^*+=_|~<>1234567890";
+        if (ENVIRONMENT == 'DEV') {
+            $alpha = "abcdefghijklmnopqrstuvwxyz";
+            $alpha_upper = strtoupper($alpha);
+            $password_chars = $alpha . $alpha_upper;
+            if ($strong === true) {
+                $password_chars .= "`-/:;()$&@\".,?!'[]{}#%^*+=_|~<>1234567890";
+            }
+            $password_length = rand(6, 12);
+            $password = "";
+            for ($i = 0; $i < $password_length; $i++) {
+                $password .= substr($password_chars, rand(0, strlen($password_chars) - 1), 1);
+            }
+            return $password;
+
+        } elseif (ENVIRONMENT == 'STG') {
+
+            return $password = "qwerty";
         }
-        $password_length = rand(6, 12);
-        $password = "";
-        for ($i=0; $i < $password_length; $i++) {
-            $password .= substr($password_chars, rand(0, strlen($password_chars)-1), 1);
-        }
-        return $password;
     }
 
     public function getSSN()
@@ -39,7 +45,13 @@ class WalletGenerationService
 
     public function getCellularPhoneNumber()
     {
+        if (ENVIRONMENT == 'DEV') {
         return "+15662" . mt_rand(100000, 999999);
+
+    } elseif (ENVIRONMENT == 'STG')
+        {
+            return "+380931254212";
+        }
     }
 
     public function getPinCode()
@@ -50,13 +62,11 @@ class WalletGenerationService
     public function getWallet()
     {
         $faker = \Faker\Factory::create("ru_RU");
-
         $wallet = new \stdClass();
         $wallet->phone = $this->getCellularPhoneNumber();
         $wallet->password = $this->getPassword();
         $wallet->email = $faker->email;
         $wallet->pin_code = $this->getPinCode();
-
         $wallet->person = new \stdClass();
         $wallet->person->family_name = $faker->lastName('male');
         $wallet->person->given_name = $faker->firstName('male');
