@@ -120,24 +120,21 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testLimits()
     {
-            $wallet = $this->createWalletAndLoadDashboard();
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         if (APP_ENV == 'ios') {
             $this->byElement('Profile_Button')->click();
             $this->byElement('View_limits')->click();
             $this->waitForElementDisplayedByElement('Limits_table');
-            // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
         } elseif (APP_ENV == 'web') {
             sleep(1);
             $this->tap(1, 214, 218, 10); //Profile Button
             // Check the limits is displayed
             $this->byElement('View_limits')->click();
             $this->waitForElementDisplayedByElement('Limits_table');
-            // Delete wallet
-            if (ENVIRONMENT == 'DEV') {
-                $this->getAPIService()->deleteWallet($wallet->phone);
-            }
+        }  // Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
 

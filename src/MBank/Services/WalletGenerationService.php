@@ -21,7 +21,7 @@ class WalletGenerationService
 
         } elseif (ENVIRONMENT == 'STG') {
 
-            return $password = "qwerty";
+            return $password = "testtedt";
         }
     }
 
@@ -50,7 +50,7 @@ class WalletGenerationService
 
     } elseif (ENVIRONMENT == 'STG')
         {
-            return "+380931254212";
+            return "+380631345678";
         }
     }
 

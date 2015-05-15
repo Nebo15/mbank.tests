@@ -112,7 +112,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         if ($phone_number[0] == "+") {
             $phone_number = substr($phone_number, 1);
         }
-
+        $this->byElement('GO_Button')->click();
         $phone_number_field = $this->byElement('Phone_Field_Button');
         $phone_number_field->click();
         $phone_number_field->clear();
