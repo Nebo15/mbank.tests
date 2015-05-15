@@ -19,6 +19,8 @@ class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert conversations display
         $this->waitForElementDisplayedByElement('Conversations_Displayed');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 }

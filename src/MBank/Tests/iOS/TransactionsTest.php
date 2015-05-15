@@ -29,7 +29,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Pay from card retry
         $this->retryPayCard();
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testRepeatPayWithChanges()
@@ -88,7 +90,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Transactions in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPayOutMultibankWallet()
@@ -108,7 +112,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function retryPayWallet()

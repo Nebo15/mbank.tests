@@ -40,7 +40,9 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a'); //TODO add if for Web_App remove .'.00a'
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
 //          $this->tap(1, 214, 218, 10); // Web Profile Button
@@ -78,7 +80,9 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Alert Message
             $this->waitForElementDisplayedByElement('Alert_Message');
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
 //          $this->tap(1, 214, 218, 10); // Web Profile Button

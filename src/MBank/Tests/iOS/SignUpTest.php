@@ -36,8 +36,6 @@ class SignUpTest extends MBankiOSTestCase
             $this->byElement('Skip_Button')->click();
             // Assert Dashboard
             $this->waitForElementDisplayedByElement('Profile_Button');
-            // Delete wallet
-            $this->getAPIService()->deleteWallet($this->wallet->phone);
         } elseif (APP_ENV == 'web') {
             $this->byElement('Registration_Button')->click();
             $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
@@ -54,6 +52,10 @@ class SignUpTest extends MBankiOSTestCase
 //          //Assert Dashboard
 //            $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
 

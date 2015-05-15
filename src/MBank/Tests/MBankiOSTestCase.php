@@ -59,7 +59,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         $this->assertTrue($response['meta']['code'] == 200, $message, $response);
     }
 
-    protected function waitForElementDisplayedByName($name, $timeout = 30000)
+    protected function waitForElementDisplayedByName($name, $timeout = 20000)
     {
         $this->waitUntil(
             function () use ($name) {
@@ -75,7 +75,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         return $this->by($element['type'], $element['selector']);
     }
 
-    protected function waitForElementDisplayedByXPath($xpath, $timeout = 30000)
+    protected function waitForElementDisplayedByXPath($xpath, $timeout = 20000)
     {
         $this->waitUntil(
             function () use ($xpath) {
@@ -85,7 +85,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         );
     }
 
-    protected function waitForElementDisplayedById($id, $timeout = 30000)
+    protected function waitForElementDisplayedById($id, $timeout = 20000)
     {
         $this->waitUntil(
             function () use ($id) {
@@ -95,7 +95,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         );
     }
 
-    protected function waitForElementDisplayedByElement($elementName, $timeout = 30000)
+    protected function waitForElementDisplayedByElement($elementName, $timeout = 20000)
     {
         $self = $this;
         $this->waitUntil(
@@ -236,14 +236,23 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function createWalletAndLoadDashboardWithPIN()
     {
-        $wallet = $this->generateWalletData();
+        if (ENVIRONMENT == 'DEV') {
+            $wallet = $this->generateWalletData();
 
-        // Create wallet over API
-        $this->getAPIService()->createActiveWallet($wallet->phone, $wallet->password);
+            // Create wallet over API
+            $this->getAPIService()->createActiveWallet($wallet->phone, $wallet->password);
 
-        $this->signIn($wallet->phone, $wallet->password);
+            $this->signIn($wallet->phone, $wallet->password);
 
-        return $wallet;
+            return $wallet;
+
+        } elseif (ENVIRONMENT == 'STG') {
+            $wallet = $this->generateWalletData();
+
+            $this->signIn($wallet->phone, $wallet->password);
+
+            return $wallet;
+        }
     }
 
     protected function generateWalletData()

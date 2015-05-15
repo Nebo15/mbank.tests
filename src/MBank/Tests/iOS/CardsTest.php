@@ -40,7 +40,9 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             // Assert First Card Is Present
             $this->waitForElementDisplayedByElement('First_Card_Assert');
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");

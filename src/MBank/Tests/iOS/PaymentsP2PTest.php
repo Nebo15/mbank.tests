@@ -50,7 +50,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testP2PPayToNotVerifiedWallet()
@@ -84,7 +86,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Wallet Not Indent
         $this->waitForElementDisplayedByElement('Wallet_Not_Ident');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testP2PPayToYourself()
@@ -116,8 +120,10 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Done_Button')->click();
         $this->byElement('Assert_Element')->click();
         $this->waitForElementDisplayedByElement('Wallet_Not_Ident');
-        // Delete wallet $wallet->phone
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        // Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     /**

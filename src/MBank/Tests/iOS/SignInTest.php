@@ -25,8 +25,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         } elseif (APP_ENV == 'web') {
             $this->waitForElementDisplayedByElement('Your_balance_Button');
         }
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
     }
 
     /**
@@ -38,8 +40,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // SignIn and skip to Dashboard
         $this->loadDashboard($this->wallet->phone, $this->wallet->password);
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
     }
 
     /**
@@ -67,8 +71,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('OK_Button')->click();
         // We should stay on login screen
         $this->waitForElementDisplayedByElement('Assert_Screen'); // Selecting element is an assertion by itself
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
     }
 
     /**
@@ -132,8 +138,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             //TODO need asserts message for web
         }
-         // Delete wallet
-         $this->getAPIService()->deleteWallet($this->wallet->phone);
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
     }
 
     /**
@@ -172,8 +180,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Alert Message
             $this->waitForElementDisplayedByElement('Alert_message');
         }
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
     }
 
     /**
@@ -215,7 +225,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Confirm_Button')->click();
         // Assert limit message
         $this->waitForElementDisplayedByElement('Limit_message');
-        // Delete wallet
-        $this->getAPIService()->deleteWallet($this->wallet->phone);
+        /// Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
     }
 }

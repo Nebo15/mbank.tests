@@ -17,7 +17,9 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('YES_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Delete_TEMP');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     /**
@@ -42,7 +44,9 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByName('Back to Settings icon');
             $this->waitForElementDisplayedByName('Log out');
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web')
         {
             //TODO for WEB_APP

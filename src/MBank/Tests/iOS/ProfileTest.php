@@ -30,7 +30,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
             $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
@@ -63,7 +65,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Transfer_Button')->click();
             $this->waitForElementDisplayedByElement('Assert_Element');
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
@@ -102,7 +106,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Next_Button')->click();
             $this->waitForElementDisplayedByElement('Invalid_Personal_Number_Alert');
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
@@ -129,7 +135,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('View_limits')->click();
             $this->waitForElementDisplayedByElement('Limits_table');
             // Delete wallet
-            $this->getAPIService()->deleteWallet($wallet->phone);
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         }
     }
 

@@ -16,7 +16,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testOutFromCard()
@@ -40,7 +42,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Pay from Card
         $this->cardPayServices();
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPayOutTricolorWallet()
@@ -55,7 +59,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPayService()
@@ -101,7 +107,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testServicesLoad()
@@ -115,7 +123,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->paymentSystems();
         $this->internetProviders();
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPayCardToCard()
@@ -168,7 +178,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Transactions List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPayWalletToCard()
@@ -214,7 +226,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function walletPayServices()

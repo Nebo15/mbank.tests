@@ -16,7 +16,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('PIN created');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPinOnLoginPage()
@@ -30,7 +32,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Pin created');
         $this->waitForElementDisplayedByName('Your balance');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testCanSkipOnSecondStep()
@@ -43,7 +47,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->byName('Skip')->click();
         $this->waitForElementDisplayedByName('Your balance');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testFirstAskPIN()
@@ -65,8 +71,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
              ->click();
         $this->waitForElementDisplayedByName('Profile');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
-
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPinCode()
@@ -88,7 +95,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillPinCode('5678');
         $this->waitForElementDisplayedByName('New PIN created');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPinWithWrongCode()
@@ -100,7 +109,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillPinCode('0000');
         $this->waitForElementDisplayedByName('Invalid PIN-code');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPinTimeout()
@@ -125,7 +136,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Settings');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 
     public function testPinReset()
@@ -155,6 +168,8 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         // Check SignINForm Present
         $this->waitForElementDisplayedByName('Sign in');
         // Delete wallet
-        $this->getAPIService()->deleteWallet($wallet->phone);
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
     }
 }
