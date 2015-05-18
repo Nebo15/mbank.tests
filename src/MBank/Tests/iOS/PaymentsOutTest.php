@@ -14,7 +14,11 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
+        if (APP_ENV == 'ios') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+        } elseif (APP_ENV == 'web') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount']);
+        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -233,30 +237,50 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function walletPayServices()
     {
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
         $this->waitForElementDisplayedByElement('Utility_bills');
+        sleep(1);
         $this->byElement('Games_networks')->click();
         $this->waitForElementDisplayedByElement('Steam');
         $this->byElement('Steam')->click();
-        // Pay
         $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Pay_button')->click();
-        $this->byElement('Pay_Field')->value('11111');
-        $this->byElement('Pay_Field2')->value('10');
-        // Pay
-        $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Пополнение');
-        $this->byElement('Pay_button')->click();
-        // Check Transaction in List
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
-        $this->waitForElementDisplayedByElement('Steam');
-        $this->waitForElementDisplayedByElement('Transactions_List');
-        // Back To DashBoard
-        $this->byElement('Menu_Button')->click();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        if (APP_ENV == 'ios') {
+            $this->byElement('Pay_button')->click();
+            $this->byElement('Pay_Field')->value('11111');
+            $this->byElement('Pay_Field2')->value('1');
+            // Pay
+            $this->byElement('Pay_button')->click();
+            $this->waitForElementDisplayedByElement('Payment_method');
+            $this->waitForElementDisplayedByElement('Пополнение');
+            $this->byElement('Pay_button')->click();
+            // Check Transaction in List
+            $this->waitForElementDisplayedByElement('OK_Button');
+            $this->acceptAlert();
+            $this->waitForElementDisplayedByElement('Steam');
+            $this->waitForElementDisplayedByElement('Transactions_List');
+            // Back To DashBoard
+            $this->byElement('Menu_Button')->click();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+        } elseif (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('Pay');
+            $this->byElement('Pay_Field')->value('11111');
+            $this->byElement('Pay_Field2')->click();
+            $this->byElement('Pay_Field2')->value('1');
+            // Pay
+            $this->byElement('Pay')->click();
+            $this->waitForElementDisplayedByElement('Payment_method');
+            $this->waitForElementDisplayedByElement('Пополнение');
+            $this->waitForElementDisplayedByElement('Pay');
+            $this->byElement('Pay')->click();
+            // Check Transaction in List
+            $this->waitForElementDisplayedByElement('View_limits');
+            // Back To DashBoard
+            //TODO Back menu icon
+//        $this->tap(1, 43.3, 58.4, 10); // Menu_Button
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+        }
     }
 
     public function cardPayServices()
