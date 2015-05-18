@@ -8,6 +8,24 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         return (new \MBank\Config())->getConfig();
     }
 
+    public static $browsers = array(
+        array(
+            'local' => true,
+            'port' => 4723,
+            'seleniumServerRequestsTimeout' => 120,
+            'browserName' => '',
+            'desiredCapabilities' => array(
+                'deviceName' => 'iPhone 6',
+                'platformVersion' => '8.3',
+                'platformName' => 'iOS',
+                'app' => APP_PATH,
+                'newCommandTimeout' => 160,
+                'sendKeyStrategy' => 'setValue',
+                'launchTimeout' => 15000,
+            )
+        )
+    );
+
     public function setUp()
     {
         if (APP_ENV == 'ios') {
@@ -35,24 +53,6 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             );
         }
     }
-
-    public static $browsers = array(
-        array(
-            'local' => true,
-            'port' => 4723,
-            'seleniumServerRequestsTimeout' => 120,
-            'browserName' => '',
-            'desiredCapabilities' => array(
-                'deviceName' => 'iPhone 6',
-                'platformVersion' => '8.3',
-                'platformName' => 'iOS',
-                'app' => APP_PATH,
-                'newCommandTimeout' => 160,
-                'sendKeyStrategy' => 'setValue',
-                'launchTimeout' => 15000,
-            )
-        )
-    );
 
     protected function assertWalletCreated($response, $message = "Failed to create wallet")
     {
