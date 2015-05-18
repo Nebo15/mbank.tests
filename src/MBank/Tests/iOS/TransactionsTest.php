@@ -117,6 +117,67 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    public function testOutFromWalletRepeat()
+    {
+        if (APP_ENV == 'web')
+        {
+            $wallet = $this->createWalletAndLoadDashboard();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->walletPayServices();
+            // Check Balance
+            $Balance = $this->byElement('Wallet_Balance')->text();
+            // Check Balance in Wallet (API)
+            sleep(1);
+            $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+            $this->assertEquals($Balance, $wallet_data['data']['amount']);
+            // Delete wallet
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
+        } elseif (APP_ENV == 'ios')
+        {
+            $this->markTestSkipped();
+        }
+    }
+
+    public function walletPayServices()
+    {
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        // Select Service
+        $this->waitForElementDisplayedByElement('Utility_bills');
+        sleep(1);
+        $this->byElement('Games_networks')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->byElement('Steam')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->waitForElementDisplayedByElement('Pay');
+        $this->byElement('Pay_Field')->value('11111');
+        $this->byElement('Pay_Field2')->click();
+        $this->byElement('Pay_Field2')->value('1');
+        // Pay
+        $this->byElement('Pay')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->waitForElementDisplayedByElement('Pay');
+        $this->byElement('Pay')->click();
+        // Check Transaction in List
+        $this->waitForElementDisplayedByElement('View_limits');
+        // Repeat pay
+        $this->waitForElementDisplayedByElement('Repeat');
+        $this->byElement('Repeat')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->waitForElementDisplayedByElement('Pay');
+        $this->byElement('Pay')->click();
+        // Check Transaction in List
+        $this->waitForElementDisplayedByElement('View_limits');
+        // Back To DashBoard
+        //TODO Back menu icon
+//        $this->tap(1, 43.3, 58.4, 10); // Menu_Button
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+    }
+
     public function retryPayWallet()
     {
         $this->byElement('Repeat')->click();
