@@ -139,6 +139,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check services views
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
         $this->gamesDirectory();
         $this->telephonyDirectory();
         $this->securitySystemsDirectory();
@@ -404,8 +406,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function gamesDirectory()
     {
-        $this->waitForElementDisplayedByElement('Pay_button');
-        $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
         $this->byElement('Steam')->click();
