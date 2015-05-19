@@ -48,6 +48,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
+        } elseif (APP_ENV == 'web') {
+            //TODO for WEB_APP
+//          $this->tap(1, 214, 218, 10); // Web Profile Button
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 
@@ -113,6 +117,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
+        } elseif (APP_ENV == 'web') {
+            //TODO for WEB_APP
+//          $this->tap(1, 214, 218, 10); // Web Profile Button
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 
@@ -184,6 +192,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
+        } elseif (APP_ENV == 'web') {
+            //TODO for WEB_APP
+//          $this->tap(1, 214, 218, 10); // Web Profile Button
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 
@@ -232,6 +244,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
+        } elseif (APP_ENV == 'web') {
+            //TODO for WEB_APP
+//          $this->tap(1, 214, 218, 10); // Web Profile Button
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 

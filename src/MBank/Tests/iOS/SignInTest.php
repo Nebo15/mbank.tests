@@ -51,6 +51,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSignInWithIncorrectPassword()
     {
+        if (APP_ENV == 'web') {
+        //TODO for WEB_APP
+        $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
         // Create wallet over API
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // Accept initial alert
@@ -82,6 +86,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSignInWithWalletNotExists()
     {
+        if (APP_ENV == 'web') {
+            //TODO for WEB_APP
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
         $this->acceptAlert();
         $this->byElement('Sign_in_Button')->click();
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
@@ -191,6 +199,10 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testResetPasswordWithRetryLimitExceeded()
     {
+        if (APP_ENV == 'web') {
+            //TODO for WEB_APP
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
         // Create wallet
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // SignIn

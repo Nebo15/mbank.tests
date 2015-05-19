@@ -38,7 +38,11 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             // Check Balance in Wallet (API)
             sleep(1);
             $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-            $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a'); //TODO add if for Web_App remove .'.00a'
+            if (APP_ENV == 'ios') {
+                $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+            } elseif (APP_ENV == 'web') {
+                $this->assertEquals($Balance, $wallet_data['data']['amount']);
+            }
             // Delete wallet
             if (ENVIRONMENT == 'DEV') {
                 $this->getAPIService()->deleteWallet($wallet->phone);

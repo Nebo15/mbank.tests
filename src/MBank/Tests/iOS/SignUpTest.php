@@ -45,10 +45,6 @@ class SignUpTest extends MBankiOSTestCase
             $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
             //TODO need click method for buttons
 //            $this->byName(str_split($code)[1])->click();
-//            $this->byName(str_split($code)[2])->click();
-//            $this->byName(str_split($code)[3])->click();
-//            $this->byName(str_split($code)[4])->click();
-//            $this->byName(str_split($code)[5])->click();
 //          //Assert Dashboard
 //            $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->markTestSkipped("Issue not resolved for WEB_APP");
