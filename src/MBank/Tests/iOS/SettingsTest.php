@@ -3,9 +3,7 @@ namespace MBank\Tests\iOS;
 
 class SettingsTest extends \MBank\Tests\MBankiOSTestCase
 {
-    /**
-     * @group Settings
-     */
+
     public function testDeleteTempData()
     {
         $wallet = $wallet = $this->createWalletAndLoadDashboard();
@@ -25,9 +23,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    /**
-     * @group Settings
-     */
     public function testPublicOfferAndPrivacyPolicy()
     {
         if (APP_ENV == 'ios') {

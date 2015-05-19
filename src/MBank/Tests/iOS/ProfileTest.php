@@ -83,9 +83,6 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    /**
-     * @group Profile
-     */
     public function testVerifyWithIncorrectData()
     {
         if (APP_ENV == 'ios') {

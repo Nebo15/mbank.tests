@@ -12,9 +12,6 @@ class SignUpTest extends MBankiOSTestCase
         $this->wallet = $this->generateWalletData();
     }
 
-    /**
-     * @group SignUp
-     */
     public function testSignUp()
     {
         if (APP_ENV == 'ios') {
@@ -75,9 +72,6 @@ class SignUpTest extends MBankiOSTestCase
         }
     }
 
-    /**
-     * @group SignUp
-     */
     public function testSignUpWithShortPassword()
     {
         if (APP_ENV == 'ios') {
@@ -90,9 +84,6 @@ class SignUpTest extends MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Password_len');
     }
 
-    /**
-     * @group SignUp
-     */
     public function testSignUpPasswordStrengthChecker()
     {
         if (APP_ENV == 'ios') {

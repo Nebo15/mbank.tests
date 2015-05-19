@@ -6,9 +6,6 @@ namespace MBank\Tests\iOS;
 class CardsTest extends \MBank\Tests\MBankiOSTestCase
 {
 
-    /**
-     * @group Cards
-     */
     public function testAddCard()
     {
         if (APP_ENV == 'ios') {

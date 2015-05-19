@@ -46,13 +46,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    /**
-     * @group SignIn
-     */
     public function testSignInWithIncorrectPassword()
     {
         if (APP_ENV == 'web') {
-        //TODO for WEB_APP
         $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         // Create wallet over API
@@ -81,13 +77,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    /**
-     * @group SignIn
-     */
     public function testSignInWithWalletNotExists()
     {
         if (APP_ENV == 'web') {
-            //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $this->acceptAlert();
@@ -103,9 +95,6 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Login_Screen');
     }
 
-    /**
-     * @group SignIn
-     */
     public function testResetPassword()
     {
          // Create wallet
@@ -152,9 +141,6 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    /**
-     * @group SignIn
-     */
     public function testResetPasswordWithWrongCode()
     {
         // Create wallet
@@ -194,13 +180,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    /**
-     * @group ResetPassword
-     */
     public function testResetPasswordWithRetryLimitExceeded()
     {
         if (APP_ENV == 'web') {
-            //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         // Create wallet
