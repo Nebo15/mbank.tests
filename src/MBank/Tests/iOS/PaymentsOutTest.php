@@ -4,6 +4,9 @@ namespace MBank\Tests\iOS;
 class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group PayIn
+     */
     public function testOutFromWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -55,6 +58,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayIn
+     */
     public function testPayOutTricolorWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -65,7 +71,11 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
+        if (APP_ENV == 'ios') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+        } elseif (APP_ENV == 'web') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount']);
+        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -124,6 +134,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayIn
+     */
     public function testServicesLoad()
     {
         $wallet = $this->createWalletAndLoadDashboard();

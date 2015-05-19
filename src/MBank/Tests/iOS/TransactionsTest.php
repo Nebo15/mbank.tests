@@ -128,6 +128,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Transactions
+     */
     public function testOutFromWalletRepeat()
     {
         if (APP_ENV == 'web')

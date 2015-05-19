@@ -26,6 +26,7 @@
             <testsuite name="MBankSTG">
                 <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
+                <file>src/MBank/Tests/iOS/TransactionsTest.php</file>
             </testsuite>
         </testsuites>
 
