@@ -5,7 +5,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 {
 
     /**
-     * @group PayIn
+     * @group PayOut
      */
     public function testOutFromWallet()
     {
@@ -59,7 +59,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     }
 
     /**
-     * @group PayIn
+     * @group PayOut
      */
     public function testPayOutTricolorWallet()
     {
@@ -135,7 +135,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     }
 
     /**
-     * @group PayIn
+     * @group PayOut
      */
     public function testServicesLoad()
     {

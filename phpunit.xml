@@ -24,10 +24,19 @@
             </testsuite>
 
             <testsuite name="MBankSTG">
-                <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
-                <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
-                <file>src/MBank/Tests/iOS/TransactionsTest.php</file>
+                <directory suffix="Test.php" phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS</directory>
+                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ConversationsTest.php</file>
+                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/PaymentsOutTest.php</file>
+                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/TransactionsTest.php</file>
             </testsuite>
         </testsuites>
+
+    <groups>
+        <include>
+            <group>Conversations</group>
+            <group>PayOut</group>
+            <group>Transactions</group>
+        </include>
+    </groups>
 
 </phpunit>
