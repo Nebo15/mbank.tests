@@ -46,6 +46,25 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    public function testLoadWalletNonActive()
+    {
+        if (APP_ENV == 'web') {
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
+        // Create not active wallet
+        $this->getAPIService()->createNonActiveWallet($this->wallet->phone, $this->wallet->password);
+        // SignIn
+        $this->signIn($this->wallet->phone, $this->wallet->password);
+        // Assert Error
+        $this->waitForElementDisplayedByElement('Assert_Nonactive_wallet');
+        $this->byElement('OK_Button')->click();
+        // Assert Login Screen
+        $this->waitForElementDisplayedByElement('Sign_in_Button');
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
+    }
+
     public function testSignInWithIncorrectPassword()
     {
         if (APP_ENV == 'web') {

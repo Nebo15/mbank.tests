@@ -7,6 +7,7 @@ class Config
 {
     private $config = [
         "ios" => [
+            "Assert_Nonactive_wallet" => ["type" => "name", "selector" => "You have entered an invalid phone number or password. Please, try again."],
             "Pay_field4" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]"],
             "Pay_field5" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[11]/UIATextField[1]"],
             "Repeat payment?" => ["type" => "name", "selector" => "Repeat payment?"],

@@ -121,10 +121,25 @@ class MBankAPIService
         return $wallet;
     }
 
+    public function createNonActiveWallet($phone, $password)
+    {
+        $wallet = $this->createWallet($phone, $password);
+
+        return $wallet;
+    }
+
     public function getWallet($phone, $password)
     {
-        $request_url = $this->api_url . 'v1/wallet';
-        return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
+        if (ENVIRONMENT == 'DEV') {
+            $request_url = $this->api_url . 'v1/wallet';
+
+            return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
+//TODO
+//        } elseif (ENVIRONMENT == 'STG') {
+//            $request_url = 'http://beta.wallet.best/v1/wallet';
+//
+//            return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
+        }
     }
 
     public function deleteWallet($phone)
