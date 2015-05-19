@@ -136,6 +136,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testServicesLoad()
     {
+        if (APP_ENV == 'web') {
+            $this->markTestSkipped();
+        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check services views
