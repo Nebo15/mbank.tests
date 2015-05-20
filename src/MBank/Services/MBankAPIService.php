@@ -130,16 +130,9 @@ class MBankAPIService
 
     public function getWallet($phone, $password)
     {
-        if (ENVIRONMENT == 'DEV') {
             $request_url = $this->api_url . 'v1/wallet';
 
             return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
-//TODO
-//        } elseif (ENVIRONMENT == 'STG') {
-//            $request_url = 'http://beta.wallet.best/v1/wallet';
-//
-//            return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
-        }
     }
 
     public function deleteWallet($phone)

@@ -3,6 +3,7 @@ namespace MBank\Tests\iOS;
 
 class ProfileTest extends \MBank\Tests\MBankiOSTestCase
 {
+
     public function testUploadPhoto()
     {
         if (APP_ENV == 'ios') {
@@ -127,6 +128,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             sleep(1);
             $this->tap(1, 214, 218, 10); //Profile Button
             // Check the limits is displayed
+            $this->waitForElementDisplayedByElement('View_limits');
             $this->byElement('View_limits')->click();
             $this->waitForElementDisplayedByElement('Limits_table');
         }  // Delete wallet
@@ -154,6 +156,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Itn')->click();
             $this->byElement('Itn')->value($wallet->person->itn);
             $this->byElement('Next_Button')->click();
+            $this->byXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[2]')->click();
         } elseif (APP_ENV == 'ios') {
             $this->byElement('Family_name')->value($wallet->person->family_name);
             $this->byElement('Given_name')->value($wallet->person->given_name);

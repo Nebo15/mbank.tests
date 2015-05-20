@@ -7,6 +7,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->wallet = $this->generateWalletData();
     }
 

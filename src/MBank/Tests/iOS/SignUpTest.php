@@ -66,8 +66,11 @@ class SignUpTest extends MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Exist_phone');
         } elseif (APP_ENV == 'web') {
             $this->byElement('Registration_Button')->click();
-            $this->fillCredentialsForm('380931254212', $this->wallet->password);
-            $this->byElement('GO_Button')->click();
+            $this->waitForElementDisplayedByElement('Phone_Field_Button');
+            $this->byElement('Phone_Field_Button')->value('+380931254212');
+            $this->waitForElementDisplayedByElement('Password_Field_Button');
+            $this->byElement('Password_Field_Button')->value('qweqweq');
+            $this->byElement('Registration_Button')->click();
             $this->waitForElementDisplayedByElement('Alert_message');
         }
     }
@@ -76,14 +79,17 @@ class SignUpTest extends MBankiOSTestCase
     {
         if (APP_ENV == 'ios') {
             $this->acceptAlert();
-        }
             $this->byElement('Registration_Button')->click();
             // Short password
             $this->fillCredentialsForm($this->wallet->phone, '1111');
             $this->byElement('Registration_Button')->click();
             $this->waitForElementDisplayedByElement('Password_len');
+        }
     }
 
+    /**
+     * @group SignUp
+     */
     public function testSignUpPasswordStrengthChecker()
     {
         if (APP_ENV == 'ios') {
@@ -132,7 +138,10 @@ class SignUpTest extends MBankiOSTestCase
                 ],
             ];
             foreach ($passwords as $stength => $data) {
+                $this->waitForElementDisplayedByElement('Registration_Button');
                 $this->fillPasswordField($data['password']);
+                $this->waitForElementDisplayedByName('q');
+                $this->byName('q')->click();
                 $this->assertEquals(trim($this->byElement('Strength_text')->text(),'\̆! '), $data['text']);
             }
         }

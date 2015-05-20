@@ -27,7 +27,6 @@
                 <directory suffix="Test.php" phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS</directory>
                 <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/CardsTest.php</file>
                 <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ConversationsTest.php</file>
-                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/PaymentsOutTest.php</file>
                 <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ProfileTest.php</file>
                 <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/SignInTest.php</file>
                 <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/SignUpTest.php</file>
@@ -38,7 +37,6 @@
         <include>
             <group>Cards</group>
             <group>Conversations</group>
-            <group>PayOut</group>
             <group>Profile</group>
             <group>SignIn</group>
             <group>SignUp</group>

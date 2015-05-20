@@ -113,7 +113,9 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $phone_number = substr($phone_number, 1);
         }
         if (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('GO_Button');
             $this->byElement('GO_Button')->click();
+            $this->waitForElementDisplayedByElement('Phone_Field_Button');
         }
         $phone_number_field = $this->byElement('Phone_Field_Button');
         $phone_number_field->click();
