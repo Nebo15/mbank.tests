@@ -50,17 +50,12 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Verification_Button1')->click();
         // Set Valid Data
         $this->fillVerificationForm($wallet);
-        if (APP_ENV == 'ios') {
-            // Check alert messages before personalisation of user data
-            $this->waitForElementDisplayedByElement('Alert_Message_RF');
-            $this->byElement('Back_Button')->click();
-            $this->waitForElementDisplayedByElement('Verification');
-        }
         $this->waitForElementDisplayedByElement('Back_Button_Rus');
         $this->byElement('Back_Button_Rus')->click();
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
+        $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
@@ -163,6 +158,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
             $this->byElement('Itn')->value($wallet->person->itn);
             $this->byElement('Next_Button')->click();
+            $this->waitForElementDisplayedByElement('Alert_Message_RF');
+            $this->byElement('Back_Button')->click();
+            $this->waitForElementDisplayedByElement('Verification');
         }
     }
 }
