@@ -146,9 +146,11 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             sleep(1);
             $this->tap(1, 214, 218, 10); //Profile Button
             $this->byElement('Settings_Button')->click();
+            $this->waitForElementDisplayedByElement('Change_password_Button');
             $this->byElement('Change_password_Button')->click();
             $this->waitForElementDisplayedByElement('Secure_Field_1');
             $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
+            $this->byElement('Secure_Field_2')->click();
             $this->byElement('Secure_Field_2')->value($code);
             $this->byElement('Confirm_Button')->click();
             // Assert the password is changed
