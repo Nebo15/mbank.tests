@@ -141,9 +141,12 @@ class Config
             "Start_button" => ["type" => "name", "selector" => "Next"],
             "PayP2P" => ["type" => "name", "selector" => "Transfer"],
             "Pay_button_P2P" => ["type" => "name", "selector" => "Pay"],
+            "Assert_Yourself" => ["type" => "name", "selector" => "Can't transfer money to yourself"],
         ],
 
         "web" => [
+            "Assert_Yourself" => ["type" => "name", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[2]"],
+            "Wallet_Not_Ident" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[2]"],
             "Pay_button_P2P" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
             "PayP2P" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
             "Summ" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[2]"],
