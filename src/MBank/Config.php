@@ -7,6 +7,7 @@ class Config
 {
     private $config = [
         "ios" => [
+            "Summ" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextField[2]"],
             "Assert_Nonactive_wallet" => ["type" => "name", "selector" => "You have entered an invalid phone number or password. Please, try again."],
             "Pay_field4" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[12]/UIATextField[1]"],
             "Pay_field5" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[11]/UIATextField[1]"],
@@ -138,9 +139,14 @@ class Config
             "Pay_button" => ["type" => "name", "selector" => "Pay"],
             "Alert_message" => ["type" => "name", "selector" => "пользователь с таким номером телефона уже зарегистрирован"],
             "Start_button" => ["type" => "name", "selector" => "Next"],
+            "PayP2P" => ["type" => "name", "selector" => "Transfer"],
+            "Pay_button_P2P" => ["type" => "name", "selector" => "Pay"],
         ],
 
         "web" => [
+            "Pay_button_P2P" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
+            "PayP2P" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
+            "Summ" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[2]"],
             "Start_button" => ["type" => "name", "selector" => "Go"],
             "Invalid_Personal_Number_Alert" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[2]"],
             "Verification_Button1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[2]"],

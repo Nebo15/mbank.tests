@@ -28,34 +28,45 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Family_name')->click();
         $this->byElement('Family_name')->value('380931254212');
         // Fill pay form
-        $this->byElement('Given_name')->value('10');
-        $this->byElement('PayField')->value('BatmanPay');
-        $this->byElement('Done_Button')->click();
-        $this->byElement('Assert_Element')->click();
+        $this->byElement('Summ')->click();
+        $this->byElement('Summ')->value('10');
+        $this->byElement('PayP2P')->click();
+        if (APP_ENV == 'ios') {
+            $this->byElement('Assert_Element')->click();
+        }
         $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
         // Pay
-        $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
-        // Assert Transactions List
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-        // Back To DashBoard
-        $this->byElement('Menu_Button')->click();
+        $this->byElement('Pay_button_P2P')->click();
+        if (APP_ENV == 'ios') {
+            $this->waitForElementDisplayedByElement('OK_Button');
+            $this->acceptAlert();
+            // Assert Transactions List
+            $this->waitForElementDisplayedByElement('Transactions_Assert');
+            // Back To DashBoard
+            $this->byElement('Menu_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            // Assert Transactions List
+            $this->waitForElementDisplayedByElement('View_limits');
+            // Back To DashBoard
+            //TODO back menu button WEB
+            $this->markTestSkipped();
+//        $this->byElement('Menu_Button')->click();
+        }
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
         $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        $this->assertEquals($Balance, $wallet_data['data']['amount'].'.00a');
+        if (APP_ENV == 'ios') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+        } elseif (APP_ENV == 'web') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount']);
+        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
-        } elseif (APP_ENV == 'web') {
-            //TODO for WEB_APP
-//          $this->tap(1, 214, 218, 10); // Web Profile Button
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 
@@ -94,7 +105,6 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
             $this->getAPIService()->deleteWallet($wallet->phone);
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
-//          $this->tap(1, 214, 218, 10); // Web Profile Button
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
@@ -133,7 +143,6 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
             $this->getAPIService()->deleteWallet($wallet->phone);
         } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
-//          $this->tap(1, 214, 218, 10); // Web Profile Button
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
