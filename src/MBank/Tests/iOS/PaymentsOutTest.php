@@ -12,6 +12,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->walletPayServices();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance
         $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
@@ -66,6 +67,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->walletPayServiceHTB();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance
         $Balance = $this->byElement('Wallet_Balance')->text();
         // Check Balance in Wallet (API)
@@ -90,7 +92,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Verification');
         $this->byElement('Next_Button')->click();
         // Set Valid Data
-        $this->fillIndentForm($wallet);
+        $this->fillVerificationForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
@@ -178,7 +180,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Verification_Button');
         $this->byElement('Next_Button')->click();
         // Set Valid Data
-        $this->fillIndentForm($wallet);
+        $this->fillVerificationForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
@@ -222,7 +224,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Verification_Button');
         $this->byElement('Next_Button')->click();
         // Set Valid Data
-        $this->fillIndentForm($wallet);
+        $this->fillVerificationForm($wallet);
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
@@ -268,11 +270,14 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function walletPayServices()
     {
+        $this->waitForElementDisplayedByElement('Add_funds_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
         $this->waitForElementDisplayedByElement('Utility_bills');
         sleep(2);
+        $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
         $this->waitForElementDisplayedByElement('Steam');
         $this->byElement('Steam')->click();
@@ -293,9 +298,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Transactions_List');
             // Back To DashBoard
             $this->byElement('Menu_Button')->click();
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
         } elseif (APP_ENV == 'web') {
             $this->waitForElementDisplayedByElement('Pay');
+            $this->byElement('Pay_Field')->click();
             $this->byElement('Pay_Field')->value('11111');
             $this->byElement('Pay_Field2')->click();
             $this->byElement('Pay_Field2')->value('1');
@@ -309,10 +314,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             // Check Transaction in List
             $this->waitForElementDisplayedByElement('View_limits');
             // Back To DashBoard
-            $this->markTestSkipped('TODO Back menu icon');
-            //TODO Back menu icon
-//            $this->byElement('Menu_Button')->click();
-//            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            sleep(2);
+            $this->tap(1, 50, 62, 10);
         }
     }
 
@@ -343,6 +346,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function walletPayServiceHTB()
     {
+        $this->waitForElementDisplayedByElement('Add_funds_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
@@ -368,9 +373,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
             $this->byElement('Menu_Button')->click();
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
         } elseif (APP_ENV == 'web') {
             $this->waitForElementDisplayedByElement('Pay');
+            $this->byElement('Pay_Field')->click();
             $this->byElement('Pay_Field')->value('1111111111');
             $this->byElement('Pay_Field2')->click();
             $this->byElement('Pay_Field2')->value('1');
@@ -383,30 +388,53 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             // Check Transaction in List
             $this->waitForElementDisplayedByElement('View_limits');
             // Back To DashBoard
-            //TODO Back menu icon
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            sleep(2);
+            $this->tap(1, 50, 62, 10);
         }
     }
     /**
      * @param $wallet //TODO выпилить после правок метода в файлике APIService
      */
-    public function fillIndentForm($wallet)
+    protected function fillVerificationForm($wallet)
     {
-        $this->waitForElementDisplayedByElement('Family_name');
-        $this->byElement('Family_name')->value($wallet->person->family_name);
-        $this->byElement('Given_name')->value($wallet->person->given_name);
-        $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
-        $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
-        $this->byElement('Itn')->click();
-        $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
-        $this->byElement('Itn')->value($wallet->person->itn);
-        $this->byElement('Next_Button')->click();
-        // Check alert messages before personalisation of user data
-        $this->waitForElementDisplayedByElement('Alert_Message_RF');
-        $this->byElement('Back_Button')->click();
-        $this->waitForElementDisplayedByElement('Verification');
-        $this->byElement('Back_Button_Rus')->click();
-        $this->waitForElementDisplayedByElement('Profile_Button');
+        if (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('Family_name');
+            $this->waitForElementDisplayedByElement('Given_name');
+            $this->byElement('Family_name')->value($wallet->person->family_name);
+            $this->byElement('Family_name')->click();
+            $this->byName('q')->click();
+            $this->byName('Delete')->click();
+            $this->byElement('Given_name')->value($wallet->person->given_name);
+            $this->byElement('Given_name')->click();
+            $this->byName('q')->click();
+            $this->byName('Delete')->click();
+            $this->byElement('Patronymic_name')->click();
+            $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
+            $this->byElement('Patronymic_name')->click();
+            $this->byName('q')->click();
+            $this->byName('Delete')->click();
+            $this->byElement('Passport_series_number')->click();
+            $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
+            $this->byElement('Itn')->click();
+            $this->byElement('Passport_issued_at')->click();
+            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
+            $this->byElement('Itn')->click();
+            $this->byElement('Itn')->value($wallet->person->itn);
+            $this->byName('Go')->click();
+            sleep(1);
+        } elseif (APP_ENV == 'ios') {
+            $this->byElement('Family_name')->value($wallet->person->family_name);
+            $this->byElement('Given_name')->value($wallet->person->given_name);
+            $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
+            $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
+            $this->byElement('Itn')->click();
+            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
+            $this->byElement('Itn')->value($wallet->person->itn);
+            $this->byElement('Next_Button')->click();
+            $this->waitForElementDisplayedByElement('Alert_Message_RF');
+            $this->byElement('Back_Button')->click();
+            $this->waitForElementDisplayedByElement('Verification');
+        }
     }
 
     public function gamesDirectory()

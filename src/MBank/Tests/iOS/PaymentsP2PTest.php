@@ -49,7 +49,8 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Transactions List
             $this->waitForElementDisplayedByElement('View_limits');
             // Back To DashBoard
-//            $this->tap(1,55.8,62.5,10);
+            sleep(2);
+            $this->tap(1, 50, 62, 10);
         }
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
