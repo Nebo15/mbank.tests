@@ -149,6 +149,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Change_password_Button');
             $this->byElement('Change_password_Button')->click();
             $this->waitForElementDisplayedByElement('Secure_Field_1');
+            $this->byElement('Secure_Field_1')->click();
             $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
             $this->byElement('Secure_Field_2')->click();
             $this->byElement('Secure_Field_2')->value($code);
@@ -190,6 +191,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Settings_Button')->click();
             $this->byElement('Change_password_Button')->click();
             $this->waitForElementDisplayedByElement('Secure_Field_1');
+            $this->byElement('Secure_Field_1')->click();
             $this->byElement('Secure_Field_1')->value('jdsfhjkfsdhfkjs');
             $this->byElement('Secure_Field_2')->value('4433456');
             $this->byElement('Confirm_Button')->click();

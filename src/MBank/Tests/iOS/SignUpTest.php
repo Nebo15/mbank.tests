@@ -123,6 +123,7 @@ class SignUpTest extends MBankiOSTestCase
             }
         } elseif (APP_ENV == 'web') {
             $this->byElement('Registration_Button')->click();
+            $this->waitForElementDisplayedByElement('Registration_Button');
             $passwords = [
                 'слабый' => [
                     'password' => '!@#$%',
@@ -138,8 +139,7 @@ class SignUpTest extends MBankiOSTestCase
                 ],
             ];
             foreach ($passwords as $stength => $data) {
-                $this->waitForElementDisplayedByElement('Registration_Button');
-                $this->fillPasswordField($data['password']);
+                $this->fillPasswsordField($data['password']);
                 $this->waitForElementDisplayedByName('q');
                 $this->byName('q')->click();
                 $this->assertEquals(trim($this->byElement('Strength_text')->text(),'\̆! '), $data['text']);
