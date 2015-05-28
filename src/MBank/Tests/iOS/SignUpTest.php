@@ -139,7 +139,7 @@ class SignUpTest extends MBankiOSTestCase
                 ],
             ];
             foreach ($passwords as $stength => $data) {
-                $this->fillPasswsordField($data['password']);
+                $this->fillPasswordField($data['password']);
                 $this->waitForElementDisplayedByName('q');
                 $this->byName('q')->click();
                 $this->assertEquals(trim($this->byElement('Strength_text')->text(),'\̆! '), $data['text']);
