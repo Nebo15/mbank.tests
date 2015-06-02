@@ -6,7 +6,7 @@ namespace MBank\Tests\iOS;
 class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 {
 
-    public function testRepeatPay()
+    public function testRepeatPayCard()
     {
         if (APP_ENV == 'web') {
             $this->markTestSkipped("Issue not resolved for WEB_APP");
@@ -37,7 +37,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testRepeatPayWithChanges()
+    public function testRepeatPayCardWithChanges()
     {
         if (APP_ENV == 'web') {
             $this->markTestSkipped("Issue not resolved for WEB_APP");
@@ -64,12 +64,13 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillVerificationForm($wallet); //TODO заменить методом с APIService.php
+        $this->waitForElementDisplayedByElement('Back_Button_Rus');
+        $this->byElement('Back_Button_Rus')->click();
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
         $this->byElement('Your_balance_Button')->click();
-        $this->byElement('Profile_Button')->click();
-        $this->byElement('Menu_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
@@ -156,7 +157,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Games_networks');
         sleep(1);
         $this->byElement('Games_networks')->click();
         $this->waitForElementDisplayedByElement('Steam');
@@ -214,7 +215,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
         $this->waitForElementDisplayedByElement('Steam');
         $this->byElement('Steam')->click();
@@ -242,15 +243,16 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Next_Button')->click();
         // Set Valid Data
         $this->fillVerificationForm($wallet);
+        $this->waitForElementDisplayedByElement('Back_Button_Rus');
+        $this->byElement('Back_Button_Rus')->click();
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
         $this->byElement('Your_balance_Button')->click();
-        $this->byElement('Profile_Button')->click();
-        $this->byElement('Menu_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
         // Pay Into service
         $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Card2Card');
         $this->byElement('Card2Card')->click();
         // Submit Multibank service
         $this->byElement('Multibank')->click();

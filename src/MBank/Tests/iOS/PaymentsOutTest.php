@@ -130,7 +130,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->gamesDirectory();
         $this->telephonyDirectory();
         $this->securitySystemsDirectory();
-        $this->paymentSystems();
         $this->internetProviders();
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
@@ -158,19 +157,21 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Back_dashboard')->click();
         $this->waitForElementDisplayedByElement('Profile_Button');
         $this->byElement('Transfer_Button')->click();
-        $this->waitForElementDisplayedByElement('Verification_Button');
-        $this->byElement('Next_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button1');
+        $this->byElement('Verification_Button1')->click();
         // Set Valid Data
         $this->fillVerificationForm($wallet);
+        $this->waitForElementDisplayedByElement('Back_Button_Rus');
+        $this->byElement('Back_Button_Rus')->click();
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
         $this->byElement('Your_balance_Button')->click();
-        $this->byElement('Profile_Button')->click();
-        $this->byElement('Menu_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
         // Pay Card to Card
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Card2Card');
         $this->byElement('Card2Card')->click();
         $this->byElement('ПополнениеVisa/MasterCard')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
@@ -239,7 +240,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
         sleep(2);
         $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
@@ -287,7 +287,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
         $this->waitForElementDisplayedByElement('Steam');
         $this->byElement('Steam')->click();
@@ -315,7 +315,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Cable_networks');
         sleep(2);
         $this->byElement('Cable_networks')->click();
         $this->waitForElementDisplayedByElement('НТВ_Плюс');
@@ -445,46 +445,33 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Back from Provider Select')->click();
     }
 
-    public function paymentSystems()
-    {
-        $this->byElement('Payment_systems')->click();
-        $this->byElement('MГТС с возвратом задолженности')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('MГТС с возвратом задолженности');
-        $this->byElement('FarPost (Владивосток)')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Back from Pay Mobile')->click();
-        $this->byElement('Back from Provider Select')->click();
-    }
-
     public function internetProviders()
     {
         $this->waitForElementDisplayedByElement('Internet providers');
         $this->byElement('Internet providers')->click();
-        $this->byElement('Rline Махачкала')->click();
+        $this->byElement('OnLime, Ростелеком')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->byElement('Ru-center')->click();
+        $this->byElement('АСВТ (Москва)')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('Ru-center');
-        $this->byElement('Subnet Махачкала')->click();
+        $this->waitForElementDisplayedByElement('АСВТ (Москва)');
+        $this->byElement('Yota Интернет')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('Subnet Махачкала');
-        $this->byElement('LovePlanet')->click();
+        $this->waitForElementDisplayedByElement('Yota Интернет');
+        $this->byElement('Mamba')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('LovePlanet');
-        $this->byElement('АВК Оператор Связи (Люберцы)')->click();
+        $this->waitForElementDisplayedByElement('Mamba');
+        $this->byElement('Цифра Один')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('АВК Оператор Связи (Люберцы)');
-        $this->byElement('KaspNet (Каспийск)')->click();
+        $this->waitForElementDisplayedByElement('Цифра Один');
+        $this->byElement('WestCall (СПб)')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('KaspNet (Каспийск)');
+        $this->waitForElementDisplayedByElement('WestCall (СПб)');
         $this->byElement('Back from Provider Select')->click();
     }
 
@@ -493,7 +480,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Cable_networks');
         $this->waitForElementDisplayedByElement('Payment_systems');
         $this->byElement('Payment_systems')->click();
         $this->byElement('Яндекс.Деньги')->click();
@@ -538,7 +525,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function visaCardPay()
     {
         // Select Service
-        $this->waitForElementDisplayedByElement('Utility_bills');
+        $this->waitForElementDisplayedByElement('Games_networks');
         $this->waitForElementDisplayedByElement('Payment_systems');
         $this->byElement('Card2Card')->click();
         $this->byElement('ПополнениеVisa/MasterCard')->click();
