@@ -227,7 +227,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Pay
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List
@@ -252,8 +252,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         // Pay Into service
         $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('Card2Card');
-        $this->byElement('Card2Card')->click();
+        $this->waitForElementDisplayedByElement('Security systems');
+        $this->byElement('Security systems')->click();
         // Submit Multibank service
         $this->byElement('Multibank')->click();
         // Pay1
@@ -291,7 +291,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Repeat payment?');
         $this->byElement('YES_Button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List

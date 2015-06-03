@@ -173,7 +173,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Card2Card');
         $this->byElement('Card2Card')->click();
-        $this->byElement('ПополнениеVisa/MasterCard')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Pay_button')->click();
         $this->byElement('Pay_Field')->value('1111111111111111');
@@ -249,11 +248,11 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Pay_button')->click();
             $this->byElement('Pay_Field')->value('11111');
-            $this->byElement('Pay_Field2')->value('1');
+            $this->byElement('Pay_Field2')->value('10');
             // Pay
             $this->byElement('Pay_button')->click();
             $this->waitForElementDisplayedByElement('Payment_method');
-            $this->waitForElementDisplayedByElement('Пополнение');
+            $this->waitForElementDisplayedByElement('Select_Card');
             $this->byElement('Pay_button')->click();
             // Check Transaction in List
             $this->waitForElementDisplayedByElement('OK_Button');
@@ -299,7 +298,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Pay
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Пополнение');
+        $this->waitForElementDisplayedByElement('Select_Card');
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List
@@ -483,13 +482,14 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Cable_networks');
         $this->waitForElementDisplayedByElement('Payment_systems');
         $this->byElement('Payment_systems')->click();
+        $this->waitForElementDisplayedByElement('Яндекс.Деньги');
         $this->byElement('Яндекс.Деньги')->click();
         // Pay Into service
         if (APP_ENV == 'ios') {
             $this->waitForElementDisplayedByElement('Pay_Field');
             $this->byElement('Pay_button')->click();
             $this->byElement('Pay_Field')->value('1111111111');
-            $this->byElement('Pay_Field2')->value('1');
+            $this->byElement('Pay_Field2')->value('10');
             // Pay
             $this->byElement('Pay_button')->click();
             $this->waitForElementDisplayedByElement('Payment_method');
@@ -528,7 +528,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Games_networks');
         $this->waitForElementDisplayedByElement('Payment_systems');
         $this->byElement('Card2Card')->click();
-        $this->byElement('ПополнениеVisa/MasterCard')->click();
         if (APP_ENV == 'ios') {
             $this->waitForElementDisplayedByElement('Pay_Field');
             $this->byElement('Pay_button')->click();
@@ -546,6 +545,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             // Back To DashBoard
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
+            $this->byElement('ПополнениеVisa/MasterCard')->click();
             $this->waitForElementDisplayedByElement('Pay');
             $this->byElement('Pay_Field')->click();
             $this->byElement('Pay_Field')->value('1111111111111111');
