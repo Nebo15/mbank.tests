@@ -58,9 +58,6 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->signIn($this->wallet->phone, $this->wallet->password);
         // Assert Error
         $this->waitForElementDisplayedByElement('Assert_Nonactive_wallet');
-        $this->byElement('OK_Button')->click();
-        // Assert Login Screen
-        $this->waitForElementDisplayedByElement('Sign_in_Button');
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
@@ -84,13 +81,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Sign_in_Button')->click();
         // Wait for error displayed
         $this->waitForElementDisplayedByElement('Error_Message');
-        // Checking error message
-        $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
-        $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
-        $this->assertTrue($error_message->displayed(), "Login error is not visible");
         $this->byElement('OK_Button')->click();
         // We should stay on login screen
-        $this->waitForElementDisplayedByElement('Assert_Screen'); // Selecting element is an assertion by itself
+        $this->waitForElementDisplayedByElement('Sign_in_Button'); // Selecting element is an assertion by itself
         /// Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
@@ -106,13 +99,11 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Sign_in_Button')->click();
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
         $this->byElement('Sign_in_Button')->click();
+        // Wait for error displayed
         $this->waitForElementDisplayedByElement('Error_Message');
-        $error_message = $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIATextView[2]');
-        $this->assertEquals($error_message->text(), "You have entered an invalid phone number or password. Please, try again.");
-        $this->assertTrue($error_message->displayed(), "Login error is not visible");
         $this->byElement('OK_Button')->click();
         // We should stay on login screen
-        $this->waitForElementDisplayedByElement('Login_Screen');
+        $this->waitForElementDisplayedByElement('Sign_in_Button');
     }
 
     public function testResetPassword()
@@ -127,6 +118,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             // Change Password
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Settings_Button');
             $this->byElement('Settings_Button')->click();
             $this->byElement('Change_password_Button')->click();
             $this->waitForElementDisplayedByElement('Request_Password');
@@ -174,6 +166,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
             // Change Password
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Settings_Button');
             $this->byElement('Settings_Button')->click();
             $this->byElement('Change_password_Button')->click();
             $this->waitForElementDisplayedByElement('Request_Password');
@@ -217,6 +210,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Try Change Password
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->byName('Change password')->click();
         $this->waitForElementDisplayedByElement('Request_Password');

@@ -10,6 +10,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Cards_Button');
             $this->byElement('Cards_Button')->click();
             $this->waitForElementDisplayedByElement('Cards_Button');
             $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -21,8 +22,11 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Card Is Added
             $this->waitForElementDisplayedByElement('First_Card_Assert');
             // Back to DashBoard
+            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
             $this->byElement('Back_to_Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Menu_Button');
             $this->byElement('Menu_Button')->click();
+            $this->waitForElementDisplayedByElement('Add_funds_Button');
             $this->byElement('Add_funds_Button')->click();
             // Pay
             $this->walletPayForm('10');
@@ -60,6 +64,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Cards_Button');
             $this->byElement('Cards_Button')->click();
             $this->waitForElementDisplayedByElement('Cards_Button');
             $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -71,8 +76,11 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Card Is Added
             $this->waitForElementDisplayedByElement('First_Card_Assert');
             // Back to DashBoard
+            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
             $this->byElement('Back_to_Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Menu_Button');
             $this->byElement('Menu_Button')->click();
+            $this->waitForElementDisplayedByElement('Add_funds_Button');
             $this->byElement('Add_funds_Button')->click();
             // Pay Zero Sum
             $this->walletPayForm('0');
@@ -80,7 +88,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Alert_Pay_Message');
             // Pay Incorrect Sum
             $this->byElement('OK_Button')->click();
-            $this->walletPayForm('10000');
+            $this->walletPayForm('100000');
             // Assert Alert Message
             $this->waitForElementDisplayedByElement('Alert_Message');
             // Delete wallet
@@ -97,9 +105,9 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
     public function walletPayForm($sum)
     {
         $this->waitForElementDisplayedByElement('Wallet_Balance_View');
+        $this->waitForElementDisplayedByElement('Amount_Field');
         $this->byElement('Amount_Field')->value($sum);
-        $this->byElement('Done_Button')->click();
-        $this->byElement('PAY_Button')->click();
+        $this->byElement('PayIN')->click();
     }
 }
 

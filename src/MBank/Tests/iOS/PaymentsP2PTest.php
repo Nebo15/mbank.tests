@@ -25,8 +25,8 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
-        $this->byElement('Family_name')->click();
-        $this->byElement('Family_name')->value('380931254212');
+        $this->byElement('Phone')->click();
+        $this->byElement('Phone')->value('380931254212');
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
@@ -89,9 +89,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
-        // Pay into NonVerified Wallet
-        $this->byElement('Family_name')->click();
-        $this->byElement('Family_name')->value('15662868526');
+        // Pay into friend wallet
+        $this->byElement('Phone')->click();
+        $this->byElement('Phone')->value('15662868526');
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
@@ -127,9 +127,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
-        // Pay To Yourself
-        $this->byElement('Family_name')->click();
-        $this->byElement('Family_name')->value(preg_replace('/\+/','',$wallet->phone));
+        // Pay into friend wallet
+        $this->byElement('Phone')->click();
+        $this->byElement('Phone')->value(preg_replace('/\+/','',$wallet->phone));
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
@@ -182,12 +182,12 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
             $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
             $this->byElement('Itn')->click();
-            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
             $this->byElement('Itn')->value($wallet->person->itn);
+            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
+            $this->byElement('Done_Button')->click();
             $this->byElement('Next_Button')->click();
-            $this->waitForElementDisplayedByElement('Alert_Message_RF');
-            $this->byElement('Back_Button')->click();
-            $this->waitForElementDisplayedByElement('Verification');
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
         }
     }
 }

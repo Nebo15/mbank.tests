@@ -10,8 +10,10 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboard();
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Settings_Button');
+        $this->byElement('Settings_Button')->click();
         // Create Pin On Settings Page
         $this->byName('Turn on the PIN')->click();
         $this->fillPinCode('1234');
@@ -30,13 +32,13 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboardWithPIN();
-        $this->waitForElementDisplayedByName('Skip');
+        $this->waitForElementDisplayedByElement('Skip_Button');
         // Create Pin
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Pin created');
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -49,12 +51,12 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboardWithPIN();
-        $this->waitForElementDisplayedByName('Skip');
+        $this->waitForElementDisplayedByElement('Skip_Button');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         // Skip second step
-        $this->byName('Skip')->click();
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->byElement('Skip_Button')->click();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -67,21 +69,20 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Logout and Login again
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
-        $this->waitForElementDisplayedByName('Log out');
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[2]')
-            ->click();
+        $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Settings_Button');
+        $this->byElement('Settings_Button')->click();
+        $this->waitForElementDisplayedByElement('Log out');
+        $this->byElement('Log out')->click();
         // Check SignINForm Present
-        $this->waitForElementDisplayedByName('Sign in');
+        $this->waitForElementDisplayedByElement('Sign_in_Button');
         // Login again and assert the PIN is skipped
-        $this->byName('Sign in')->click();
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIASecureTextField[1]')
-            ->value($wallet->password);
-        $this->byXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIAButton[1]')
-            ->click();
-        $this->waitForElementDisplayedByName('Profile');
+        $this->byElement('Sign_in_Button')->click();
+        $this->byElement('Pass_field')->value($wallet->password);
+        $this->byElement('Sign')->click();
+        $this->waitForElementDisplayedByElement('Profile_Button');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -94,15 +95,16 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboardWithPIN();
-        $this->waitForElementDisplayedByName('Skip');
+        $this->waitForElementDisplayedByElement('Skip_Button');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Pin created');
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Change Pin
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Settings_Button');
+        $this->byElement('Settings_Button')->click();
         $this->byName('Change the PIN')->click();
         $this->fillPinCode('1234');
         $this->fillPinCode('5678');
@@ -121,7 +123,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboardWithPIN();
-        $this->waitForElementDisplayedByName('Skip');
+        $this->waitForElementDisplayedByElement('Skip_Button');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillPinCode('0000');
@@ -138,24 +140,25 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboardWithPIN();
-        $this->waitForElementDisplayedByName('Skip');
+        $this->waitForElementDisplayedByElement('Skip_Button');
         // Create Pin
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Pin created');
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check timeout Pin Immediately In Settings
-        $this->byName('Profile')->click();
-        $this->byName('Settings')->click();
+        $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Settings_Button');
+        $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByName('Immediately');
         // Lock Phone
-        $this->backgroundApp(11);
+        $this->backgroundApp(10);
         // Unlock And Check Code Screen
         $this->waitForElementDisplayedByName('Enter PIN-code');
         // Fill The Pin
         $this->fillPinCode('1234');
-        $this->waitForElementDisplayedByName('Settings');
+        $this->waitForElementDisplayedByElement('Settings_Button');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -168,15 +171,15 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboardWithPIN();
-        $this->waitForElementDisplayedByName('Skip');
+        $this->waitForElementDisplayedByElement('Skip_Button');
         // Create Pin
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Enter the PIN once again');
         $this->fillPinCode('1234');
         $this->waitForElementDisplayedByName('Pin created');
-        $this->waitForElementDisplayedByName('Your balance');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Lock Phone
-        $this->backgroundApp(11);
+        $this->backgroundApp(10);
         // Unlock And Check Code Screen
         $this->waitForElementDisplayedByName('Enter PIN-code');
         // Fill Incorrect Pin
@@ -190,7 +193,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Invalid code. You have 1 attempt');
         $this->fillPinCode('0000');
         // Check SignINForm Present
-        $this->waitForElementDisplayedByName('Sign in');
+        $this->waitForElementDisplayedByElement('Sign_in_Button');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);

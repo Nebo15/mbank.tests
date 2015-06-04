@@ -12,6 +12,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         if (APP_ENV == 'ios') {
             $this->byElement('Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Cards_Button');
             $this->byElement('Cards_Button')->click();
             $this->waitForElementDisplayedByElement('Cards_Button');
             $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -35,7 +36,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             $cardDelete = $this->byElement('Delete_Card_Assert')->text();
             $this->assertEquals('moved to row 1 of 1', $cardDelete);
             // Assert First Card Is Present
-            $this->waitForElementDisplayedByElement('First_Card_Assert');
+            $this->waitForElementDisplayedByElement('Second_Card_Assert');
         } elseif (APP_ENV == 'web') {
             sleep(2);
             $this->tap(1, 214, 218, 10); // Web Profile Button

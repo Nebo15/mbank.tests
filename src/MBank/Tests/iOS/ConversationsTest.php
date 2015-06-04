@@ -16,7 +16,7 @@ class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Conversations_Button');
         $this->byElement('Conversations_Button')->click();
-        // Assert conversations display
+        // Assert Сonversations display
         $this->waitForElementDisplayedByElement('Conversations_Displayed');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {

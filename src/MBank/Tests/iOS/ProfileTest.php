@@ -73,23 +73,18 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
-        $this->waitForElementDisplayedByElement('Family_name');
-        $this->waitForElementDisplayedByElement('Given_name');
         // Set Invalid Data
-        $this->byElement('Family_name')->click();
         $this->byElement('Family_name')->value('lol');
-        $this->byElement('Given_name')->click();
         $this->byElement('Given_name')->value('name');
-        $this->byElement('Patronymic_name')->click();
         $this->byElement('Patronymic_name')->value('test');
-        $this->byElement('Passport_series_number')->click();
         $this->byElement('Passport_series_number')->value('furman');
-        $this->byElement('Passport_issued_at')->click();
         $this->byElement('Itn')->click();
+        $this->byElement('Itn')->value('202701490562');
         $this->byElement('Passport_issued_at')->value('1970.01.01');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Next_Button')->click();
         $this->byElement('Itn')->click();
-        $this->byElement('Itn')->value("44/444");
-        $this->byElement('Start_button')->click();
+        // Assert Alert
         $this->waitForElementDisplayedByElement('Invalid_Personal_Number_Alert');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
@@ -155,8 +150,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
             $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
             $this->byElement('Itn')->click();
-            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
             $this->byElement('Itn')->value($wallet->person->itn);
+            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
+            $this->byElement('Done_Button')->click();
             $this->byElement('Next_Button')->click();
             $this->waitForElementDisplayedByElement('Alert_Message_RF');
             $this->byElement('Back_Button')->click();

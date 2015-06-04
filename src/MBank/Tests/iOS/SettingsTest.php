@@ -9,6 +9,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Delete_temporary_data');
         $this->byElement('Delete_temporary_data')->click();
@@ -29,16 +30,18 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->byElement('Profile_Button')->click();
+            $this->waitForElementDisplayedByElement('Settings_Button');
             $this->byElement('Settings_Button')->click();
             // Check Public Offer Displayed
             $this->waitForElementDisplayedByName('Public Offer');
             $this->byName('Public Offer')->click();
+            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]');
             $this->waitForElementDisplayedByName('Back to Settings icon');
             $this->byName('Back to Settings icon')->click();
-            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[2]/UIAButton[2]');
+            $this->waitForElementDisplayedByName('Privacy Policy');
             // Check Privacy Policy Displayed
             $this->byName('Privacy Policy')->click();
-            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAWebView[1]');
+            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]');
             $this->waitForElementDisplayedByName('Back to Settings icon');
             $this->waitForElementDisplayedByName('Log out');
             // Delete wallet
