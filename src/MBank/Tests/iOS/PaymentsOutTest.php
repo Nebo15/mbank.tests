@@ -33,6 +33,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -258,7 +259,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('OK_Button');
             $this->acceptAlert();
             $this->waitForElementDisplayedByElement('Steam');
-            $this->waitForElementDisplayedByElement('Transactions_List');
+            $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {

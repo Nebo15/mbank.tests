@@ -154,9 +154,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
             $this->byElement('Done_Button')->click();
             $this->byElement('Next_Button')->click();
-            $this->waitForElementDisplayedByElement('Alert_Message_RF');
-            $this->byElement('Back_Button')->click();
-            $this->waitForElementDisplayedByElement('Verification');
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
         }
     }
 }
