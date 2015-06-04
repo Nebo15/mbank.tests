@@ -14,6 +14,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -45,6 +46,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -74,12 +76,12 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
-        $phone_number = $this->byElement('Family_name');
+        $phone_number = $this->byElement('Phone');
         $phone_number->click();
         $phone_number->clear();
         $phone_number->value('+380931254212');
         // Fill pay form
-        $this->byElement('Given_name')->value('10');
+        $this->byElement('Summ')->value('10');
         $this->byElement('PayField')->value('BatmanPay');
         $this->byElement('Done_Button')->click();
         $this->byElement('Assert_Element')->click();

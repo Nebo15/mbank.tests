@@ -118,31 +118,12 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testServicesLoad()
-    {
-        if (APP_ENV == 'web') {
-            $this->markTestSkipped();
-        }
-        $wallet = $this->createWalletAndLoadDashboard();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        // Check services views
-        $this->waitForElementDisplayedByElement('Pay_button');
-        $this->byElement('Pay_button')->click();
-        $this->gamesDirectory();
-        $this->telephonyDirectory();
-        $this->securitySystemsDirectory();
-        $this->internetProviders();
-        // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
-            $this->getAPIService()->deleteWallet($wallet->phone);
-        }
-    }
-
     public function testPayCardToCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->waitForElementDisplayedByElement('Empty_list_Button');
@@ -227,6 +208,26 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         } elseif (APP_ENV == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
+        // Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
+    }
+
+    public function testServicesLoad()
+    {
+        if (APP_ENV == 'web') {
+            $this->markTestSkipped();
+        }
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        // Check services views
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        $this->gamesDirectory();
+        $this->telephonyDirectory();
+        $this->securitySystemsDirectory();
+        $this->internetProviders();
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -416,15 +417,13 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('ВКонтакте')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
-        $this->byElement('icon_gallery')->click();
-        $this->waitForElementDisplayedByElement('Steam');
-        $this->waitForElementDisplayedByElement('Back_To_Services');
-        $this->byElement('Back_dashboard')->click();
+        $this->byElement('Back from Provider Select')->click();
     }
 
     public function telephonyDirectory()
     {
         $this->byElement('Telephony')->click();
+        $this->waitForElementDisplayedByElement('МГТС');
         $this->byElement('МГТС')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
@@ -435,6 +434,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function securitySystemsDirectory()
     {
         $this->byElement('Security systems')->click();
+        $this->waitForElementDisplayedByElement('Эшелон Охранная Система');
         $this->byElement('Эшелон Охранная Система')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
@@ -449,6 +449,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->waitForElementDisplayedByElement('Internet providers');
         $this->byElement('Internet providers')->click();
+        $this->waitForElementDisplayedByElement('OnLime, Ростелеком');
         $this->byElement('OnLime, Ростелеком')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
@@ -456,14 +457,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByElement('АСВТ (Москва)');
-        $this->byElement('Yota Интернет')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('Yota Интернет');
-        $this->byElement('Mamba')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('Mamba');
         $this->byElement('Цифра Один')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
@@ -480,7 +473,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Cable_networks');
+        $this->waitForElementDisplayedByElement('Games_networks');
         $this->waitForElementDisplayedByElement('Payment_systems');
         $this->byElement('Payment_systems')->click();
         $this->waitForElementDisplayedByElement('Яндекс.Деньги');
