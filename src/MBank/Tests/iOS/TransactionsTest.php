@@ -60,10 +60,11 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Back to DashBoard
         $this->byElement('Back_to_Profile_Button')->click();
         $this->byElement('Back_dashboard')->click();
-        $this->waitForElementDisplayedByElement('Profile_Button');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
-        $this->waitForElementDisplayedByElement('Verification');
-        $this->byElement('Next_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button1');
+        $this->byElement('Verification_Button1')->click();
         // Set Valid Data
         $this->fillVerificationForm($wallet); //TODO заменить методом с APIService.php
         $this->waitForElementDisplayedByElement('Back_Button_Rus');
@@ -79,11 +80,10 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $phone_number = $this->byElement('Phone');
         $phone_number->click();
         $phone_number->clear();
-        $phone_number->value('+380931254212');
+        $phone_number->value('380931254212');
         // Fill pay form
         $this->byElement('Summ')->value('10');
-        $this->byElement('PayField')->value('BatmanPay');
-        $this->byElement('Done_Button')->click();
+        $this->byElement('PayP2P')->click();
         $this->byElement('Assert_Element')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
@@ -215,6 +215,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function cardPayServices()
     {
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
         $this->waitForElementDisplayedByElement('Games_networks');
@@ -230,6 +231,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Pay_button');
+        $this->waitForElementDisplayedByElement('Select_Card');
+        sleep(2);
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List
@@ -240,9 +243,10 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function walletPayServiceMultibank($wallet)
     {
+        $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
-        $this->waitForElementDisplayedByElement('Verification');
-        $this->byElement('Next_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button1');
+        $this->byElement('Verification_Button1')->click();
         // Set Valid Data
         $this->fillVerificationForm($wallet);
         $this->waitForElementDisplayedByElement('Back_Button_Rus');
@@ -257,6 +261,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Security systems');
         $this->byElement('Security systems')->click();
         // Submit Multibank service
+        $this->waitForElementDisplayedByElement('Multibank');
         $this->byElement('Multibank')->click();
         // Pay1
         $this->waitForElementDisplayedByElement('Pay_Field');
@@ -294,6 +299,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('YES_Button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Pay_button');
+        sleep(2);
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List

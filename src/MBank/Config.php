@@ -55,7 +55,7 @@ class Config
             "Пополнение" => ["type" => "name", "selector" => "Пополнение"],
             "Transactions_List" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[1]/UIAStaticText[4]"],
             "Select_Card" => ["type" => "name", "selector" => "ui radiobutton off"],
-            "Back_dashboard" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAButton[1]"],
+            "Back_dashboard" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]"],
             "Cable_networks" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIATableView[1]/UIATableCell[8]"],
             "Utility_bills" => ["type" => "name", "selector" => "Utility bills"],
             "PayField" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[4]/UIATextView[1]"],
