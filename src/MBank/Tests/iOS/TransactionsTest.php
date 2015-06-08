@@ -258,8 +258,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         // Pay Into service
         $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('Security systems');
-        $this->byElement('Security systems')->click();
+        $this->waitForElementDisplayedByElement('Money2Card');
+        $this->byElement('Money2Card')->click();
         // Submit Multibank service
         $this->waitForElementDisplayedByElement('Multibank');
         $this->byElement('Multibank')->click();
@@ -275,10 +275,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_Field')->value('testlol');
         $this->byElement('Pay_Field2')->value('random');
         $this->byElement('Pay_field3')->value('11111');
-        $this->byElement('Pay_field5')->value('test');
         $this->byElement('Pay_field4')->value('tested');
+        $this->byElement('Pay_field5')->value('test');
         $this->byElement('Done_Button')->click();
-        $this->byElement('Pay_field4')->click();
         $this->byElement('Pay_button')->click();
         // Confirm Pay
         $this->waitForElementDisplayedByElement('Payment_method');
