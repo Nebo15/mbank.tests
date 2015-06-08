@@ -128,6 +128,11 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function fillPasswordField($password)
     {
+        if (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('GO_Button');
+            $this->byElement('GO_Button')->click();
+            $this->waitForElementDisplayedByElement('Password_Field_Button');
+        }
         $password_field = $this->byElement('Password_Field_Button');
         $password_field->click();
         $password_field->clear();
@@ -192,7 +197,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         {
             $this->byElement('Sign_in_Button')->click();
             $this->fillCredentialsForm($phone, $password);
-            $this->byElement('GO_Button')->click();
+            $this->byElement('Start_button')->click();
 
         } elseif (APP_ENV == 'ios')
         {
