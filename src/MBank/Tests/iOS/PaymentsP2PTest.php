@@ -145,6 +145,37 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    public function testP2PContacts()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Transfer_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button1');
+        $this->byElement('Verification_Button1')->click();
+        // Set Valid Data
+        $this->fillVerificationForm($wallet);
+        $this->waitForElementDisplayedByElement('Back_Button_Rus');
+        $this->byElement('Back_Button_Rus')->click();
+        // Personified User
+        $this->getAPIService()->verifyWallet($wallet->phone);
+        // Check P2P Button
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_Element');
+        // Assert contacts screen
+        $this->tap(1, 275, 244, 10);
+        $this->waitForElementDisplayedByElement('OK_Button');
+        $this->acceptAlert();
+        $this->waitForElementDisplayedByElement('Contact_screen');
+        // Delete wallet
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
+    }
+
     /**
      * TODO: верицифировать в платежах нужно через API (выпилить после правок метода в APIService)
      * @param $wallet

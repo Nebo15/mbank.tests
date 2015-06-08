@@ -7,6 +7,8 @@ class Config
 {
     private $config = [
         "ios" => [
+            "Contact_screen" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAImage[3]"],
+            "Contact" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[1]/UIAButton[1]"],
             "Phone" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[3]/UIATextField[1]"],
             "PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[4]"],
             "Sign" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAButton[1]"],
