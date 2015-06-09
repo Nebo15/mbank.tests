@@ -7,6 +7,11 @@ class Config
 {
     private $config = [
         "ios" => [
+            "Ident_name1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[2]/UIAStaticText[2]"],
+            "Ident_name2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[4]/UIAStaticText[2]"],
+            "Ident_name3" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[5]/UIAStaticText[2]"],
+            "Ident_name4" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[7]/UIAStaticText[2]"],
+            "Ident_name5" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[8]/UIAStaticText[2]"],
             "Contact_screen" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAImage[3]"],
             "Contact" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[1]/UIAButton[1]"],
             "Phone" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[3]/UIATextField[1]"],
@@ -148,11 +153,13 @@ class Config
             "Pay_button" => ["type" => "name", "selector" => "Pay"],
             "Alert_message" => ["type" => "name", "selector" => "пользователь с таким номером телефона уже зарегистрирован"],
             "Start_button" => ["type" => "name", "selector" => "Next"],
-            "PayP2P" => ["type" => "name", "selector" => "Transfer"],
+            "Identification_confirmed" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[8]"],
+            "PayP2P" => ["type" => 'xpath', "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[3]/UIAButton[2]"],
             "Pay_button_P2P" => ["type" => "name", "selector" => "Pay"],
             "Assert_Yourself" => ["type" => "name", "selector" => "Can't transfer money to yourself"],
         ],
         "web" => [
+            "Identification_confirmed" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[8]"],
             "Phone" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[1]"],
             "Card2Card" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[11]"],
             "ПополнениеVisa/MasterCard" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[10]"],

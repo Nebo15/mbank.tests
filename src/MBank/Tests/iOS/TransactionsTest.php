@@ -91,8 +91,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Repeat Pay With Changes
         $this->repeatPay();
@@ -236,8 +234,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -284,9 +280,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Wallet');
         sleep(2);
         $this->byElement('Pay_button')->click();
-        // Check Transaction Log
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
         // Assert Transactions List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }

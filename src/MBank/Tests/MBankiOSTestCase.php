@@ -19,7 +19,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 'platformVersion' => '8.3',
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
-                'newCommandTimeout' => 160,
+                'newCommandTimeout' => 999999,
                 'sendKeyStrategy' => 'setValue',
                 'launchTimeout' => 15000,
             )
@@ -35,8 +35,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                     'platformVersion' => '8.3',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
-                    'newCommandTimeout' => 160,
+                    'newCommandTimeout' => 999999,
                     'sendKeyStrategy' => 'setValue',
+                    'autoAcceptAlerts' => true,
+                    'waitForAppScript' => true,
                     'launchTimeout' => 15000,
                 )
             );
@@ -47,7 +49,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                     'platformVersion' => '8.3',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
-                    'newCommandTimeout' => 160,
+                    'newCommandTimeout' => 999999,
                     'launchTimeout' => 15000,
                 )
             );
@@ -201,7 +203,6 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
         } elseif (APP_ENV == 'ios')
         {
-            $this->acceptAlert();
             $this->byElement('Sign_in_Button')->click();
             $this->fillCredentialsForm($phone, $password);
             $this->byElement('GO_Button')->click();

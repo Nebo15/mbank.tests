@@ -30,17 +30,14 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
+        $this->byElement('Done_Button')->click();
         $this->byElement('PayP2P')->click();
-        if (APP_ENV == 'ios') {
-            $this->byElement('Assert_Element')->click();
-        }
+        // Assert pay screen
         $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
         // Pay
         $this->byElement('Pay_button_P2P')->click();
         if (APP_ENV == 'ios') {
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->acceptAlert();
             // Assert Transactions List
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
@@ -95,10 +92,8 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
+        $this->byElement('Done_Button')->click();
         $this->byElement('PayP2P')->click();
-        if (APP_ENV == 'ios') {
-            $this->byElement('Assert_Element')->click();
-        }
         // Assert Wallet Not Indent
         $this->waitForElementDisplayedByElement('Wallet_Not_Ident');
         // Delete wallet
@@ -133,10 +128,8 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
+        $this->byElement('Done_Button')->click();
         $this->byElement('PayP2P')->click();
-        if (APP_ENV == 'ios') {
-            $this->byElement('Assert_Element')->click();
-        }
         // Assert Yourself Payment Impossible
         $this->waitForElementDisplayedByElement('Assert_Yourself');
         // Delete wallet
@@ -147,6 +140,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testP2PContacts()
     {
+        if (APP_ENV == 'web') {
+        $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Transfer_Button');
@@ -167,8 +163,6 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Assert contacts screen
         $this->tap(1, 275, 244, 10);
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
         $this->waitForElementDisplayedByElement('Contact_screen');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {

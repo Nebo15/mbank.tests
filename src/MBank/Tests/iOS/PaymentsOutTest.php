@@ -53,7 +53,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         } elseif (APP_ENV == 'web') {
-            //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
@@ -162,16 +161,12 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         sleep(2);
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
         // Assert Transactions List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         } elseif (APP_ENV == 'web') {
-            //TODO for WEB_APP
-//          $this->tap(1, 214, 218, 10); // Web Profile Button
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
@@ -254,8 +249,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Select_Card');
             $this->byElement('Pay_button')->click();
             // Check Transaction in List
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->acceptAlert();
             $this->waitForElementDisplayedByElement('Steam');
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
@@ -301,8 +294,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByElement('OK_Button');
-        $this->acceptAlert();
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -330,8 +321,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Пополнение');
             $this->byElement('Pay_button')->click();
             // Check Transaction in List
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->acceptAlert();
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
             $this->byElement('Menu_Button')->click();
@@ -486,8 +475,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Payment_method');
             sleep(2);
             $this->byElement('Pay_button')->click();
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->acceptAlert();
             // Assert Transactions List
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
@@ -529,8 +516,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Payment_method');
             sleep(2);
             $this->byElement('Pay_button')->click();
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->acceptAlert();
             // Assert Transactions List
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard

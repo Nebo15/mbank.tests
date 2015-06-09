@@ -17,7 +17,6 @@ class SignUpTest extends MBankiOSTestCase
     {
         if (APP_ENV == 'ios') {
             // Sign up
-            $this->acceptAlert();
             $this->byElement('Registration_Button')->click();
             $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
             $this->byElement('Registration_Button')->click();
@@ -60,7 +59,6 @@ class SignUpTest extends MBankiOSTestCase
     {
         if (APP_ENV == 'ios') {
             // Sign up
-            $this->acceptAlert();
             $this->byElement('Registration_Button')->click();
             $this->fillCredentialsForm('380931254212', $this->wallet->password);
             $this->byElement('Registration_Button')->click();
@@ -79,7 +77,6 @@ class SignUpTest extends MBankiOSTestCase
     public function testSignUpWithShortPassword()
     {
         if (APP_ENV == 'ios') {
-            $this->acceptAlert();
             $this->byElement('Registration_Button')->click();
             // Short password
             $this->fillCredentialsForm($this->wallet->phone, '1111');
@@ -94,7 +91,6 @@ class SignUpTest extends MBankiOSTestCase
     public function testSignUpPasswordStrengthChecker()
     {
         if (APP_ENV == 'ios') {
-            $this->acceptAlert();
             $this->byElement('Registration_Button')->click();
             $passwords = [
                 'очень слабый' => [

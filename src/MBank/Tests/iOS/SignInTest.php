@@ -70,10 +70,6 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
         // Create wallet over API
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
-        // Accept initial alert
-        if (APP_ENV == 'ios') {
-            $this->acceptAlert();
-        }
         // Go to Sign In screen
         $this->byElement('Sign_in_Button')->click();
         // Enter and submit login data
@@ -95,7 +91,6 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'web') {
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
-        $this->acceptAlert();
         $this->byElement('Sign_in_Button')->click();
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
         $this->byElement('Sign_in_Button')->click();
