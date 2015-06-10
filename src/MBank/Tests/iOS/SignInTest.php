@@ -208,13 +208,13 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Confirm_Button')->click();
         // Check retry limit
         $Error_Password = 0;
-        do {
+        while ($Error_Password != 5) {
             $this->waitForElementDisplayedByElement('Error_Password');
             $this->byElement('OK_Button_Sign')->click();
             $this->waitForElementDisplayedByElement('Confirm_Button');
             $this->byElement('Confirm_Button')->click();
             $Error_Password++;
-        } while ($Error_Password != 5);
+        }
         if (APP_ENV == 'web') {
             $this->waitForElementDisplayedByElement('Error_Password');
             $this->byElement('OK_Button_Sign')->click();
