@@ -37,39 +37,38 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             $this->assertEquals('moved to row 1 of 1', $cardDelete);
             // Assert First Card Is Present
             $this->waitForElementDisplayedByElement('Second_Card_Assert');
+        } elseif (APP_ENV == 'web') {
+            sleep(2);
+            $this->tap(1, 214, 218, 10); // Web Profile Button
+            $this->byElement('Cards_Button')->click();
+            $this->waitForElementDisplayedByElement('Add_New_card_Button');
+            sleep(2);
+            $this->byElement('Add_New_card_Button')->click();
+            $this->waitForElementDisplayedByElement('Add_card_number_Button');
+            // Add card
+            $cardNumber = $this->byElement('Add_card_number_Button');
+            $cardNumber->click();
+            $cardNumber->value('5417150396276825');
+            // Add YY
+            $this->byElement('Add_YY_Button')->click();
+            sleep(1);
+            $this->tap(1, 194, 616, 10); // add year 17
+            $this->byElement('Done_Button')->click();
+            // Add CVV code
+            $cvv = $this->byElement('CVV_Button');
+            $cvv->click();
+            $cvv->value('789');
+            // Add CardHolder
+            $cardHolder = $this->byElement('Cardholder_Button');
+            $cardHolder->click();
+            $cardHolder->value('testtestd');
+            $this->byElement('Start_button')->click();
+            // Assert test pay
+            sleep(3);
+            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[4]');
+            $this->byXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[4]')->click();
+            //TODO for WEB_APP
         }
-//        } elseif (APP_ENV == 'web') {
-//            sleep(2);
-//            $this->tap(1, 214, 218, 10); // Web Profile Button
-//            $this->byElement('Cards_Button')->click();
-//            $this->waitForElementDisplayedByElement('Add_New_card_Button');
-//            sleep(2);
-//            $this->byElement('Add_New_card_Button')->click();
-//            $this->waitForElementDisplayedByElement('Add_card_number_Button');
-//            // Add card
-//            $cardNumber = $this->byElement('Add_card_number_Button');
-//            $cardNumber->click();
-//            $cardNumber->value('5417150396276825');
-//            // Add YY
-//            $this->byElement('Add_YY_Button')->click();
-//            sleep(1);
-//            $this->tap(1, 194, 616, 10); // add year 17
-//            $this->byElement('Done_Button')->click();
-//            // Add CVV code
-//            $cvv = $this->byElement('CVV_Button');
-//            $cvv->click();
-//            $cvv->value('789');
-//            // Add CardHolder
-//            $cardHolder = $this->byElement('Cardholder_Button');
-//            $cardHolder->click();
-//            $cardHolder->value('testtestd');
-//            $this->byElement('Start_button')->click();
-//            // Assert test pay
-//            sleep(3);
-//            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[4]');
-//            $this->byXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[4]')->click();
-//            //TODO for WEB_APP
-//        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -92,8 +91,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert The Map Is Displayed
         $this->waitForElementDisplayedByElement('Map_Assert');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV')
-        {
+        if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }

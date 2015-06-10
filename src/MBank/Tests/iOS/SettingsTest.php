@@ -48,8 +48,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
             if (ENVIRONMENT == 'DEV') {
                 $this->getAPIService()->deleteWallet($wallet->phone);
             }
-        } elseif (APP_ENV == 'web')
-        {
+        } elseif (APP_ENV == 'web') {
             //TODO for WEB_APP
             $this->markTestSkipped("Issue not resolved for WEB_APP");
         }

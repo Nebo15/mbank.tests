@@ -67,7 +67,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Identification_confirmed')->click();
             // Assert User Data in Profile
             $this->waitForElementDisplayedByElement('Ident_name1');
-            $this->assertEquals(trim($this->byElement('Ident_name1')->text(),'\̆! '), $wallet->person->family_name);
+            $this->assertEquals(trim($this->byElement('Ident_name1')->text(),'\̆View_limits! '), $wallet->person->family_name);
             $this->assertEquals(trim($this->byElement('Ident_name2')->text(),'\̆! '), $wallet->person->patronymic_name);
             $this->assertEquals($this->byElement('Ident_name3')->text(), $wallet->person->passport_series_number);
             $this->assertEquals($this->byElement('Ident_name4')->text(), $wallet->person->itn);

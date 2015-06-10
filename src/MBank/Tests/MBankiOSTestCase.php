@@ -195,18 +195,9 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function signIn($phone, $password)
     {
-        if (APP_ENV == 'web')
-        {
-            $this->byElement('Sign_in_Button')->click();
-            $this->fillCredentialsForm($phone, $password);
-            $this->byElement('Start_button')->click();
-
-        } elseif (APP_ENV == 'ios')
-        {
-            $this->byElement('Sign_in_Button')->click();
-            $this->fillCredentialsForm($phone, $password);
-            $this->byElement('GO_Button')->click();
-        }
+        $this->byElement('Sign_in_Button')->click();
+        $this->fillCredentialsForm($phone, $password);
+        $this->byElement('LoginIN')->click();
     }
 
     protected function loadDashboard($phone, $password)

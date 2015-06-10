@@ -37,14 +37,12 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         sleep(2);
         // Pay
         $this->byElement('Pay_button_P2P')->click();
+        // Assert Transactions List
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         if (APP_ENV == 'ios') {
-            // Assert Transactions List
-            $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back To DashBoard
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            // Assert Transactions List
-            $this->waitForElementDisplayedByElement('View_limits');
             // Back To DashBoard
             sleep(2);
             $this->tap(1, 50, 62, 10);

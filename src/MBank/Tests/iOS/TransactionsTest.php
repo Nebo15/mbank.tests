@@ -169,6 +169,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
+        $this->byElement('Done_Button')->click();
         $this->byElement('Pay')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Пополнение');
@@ -176,20 +177,25 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byElement('Pay')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByElement('View_limits');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Repeat pay
         $this->waitForElementDisplayedByElement('Repeat');
         sleep(1);
         $this->byElement('Repeat')->click();
+        $this->waitForElementDisplayedByElement('Repeat payment?');
+        $this->byElement('Yes, with changes')->click();
+        $this->waitForElementDisplayedByElement('Pay');
+        sleep(1);
+        $this->byElement('Pay')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Пополнение');
         $this->waitForElementDisplayedByElement('Pay');
         sleep(1);
         $this->byElement('Pay')->click();
         // Check Transaction in List
-        $this->waitForElementDisplayedByElement('View_limits');
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        sleep(2);
+        sleep(1);
         $this->tap(1, 50, 62, 10);
     }
 
