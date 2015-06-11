@@ -93,7 +93,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Repeat Pay With Changes
-        $this->repeatPay();
+        $this->repeatPayWithChanges();
         // Assert Transactions in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Delete wallet
@@ -104,9 +104,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testPayOutMultibankWallet()
     {
-        if (APP_ENV == 'web') {
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
-        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->walletPayServiceMultibank($wallet);
@@ -120,7 +117,11 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+        if (APP_ENV == 'ios') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+        } elseif (APP_ENV == 'web') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount']);
+        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -129,24 +130,29 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testOutFromWalletRepeat()
     {
-        if (APP_ENV == 'web') {
-            $wallet = $this->createWalletAndLoadDashboard();
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->walletPayServices();
-            $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->waitForElementDisplayedByElement('Add_funds_Button');
-            $this->waitForElementDisplayedByElement('Conversations_Button');
-            $this->waitForElementDisplayedByElement('Pay_button');
-            // Check Balance
-            $Balance = $this->byElement('Wallet_Balance')->text();
-            // Check Balance in Wallet (API)
-            sleep(1);
-            $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        // Pay Into Service
+        $this->walletPayServices();
+        // Retry Pay
+        $this->repeatPayWithoutChanges();
+        // Assert Dashboard
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Add_funds_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
+        $this->waitForElementDisplayedByElement('Pay_button');
+        // Check Balance
+        $Balance = $this->byElement('Wallet_Balance')->text();
+        // Check Balance in Wallet (API)
+        sleep(1);
+        $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+        if (APP_ENV == 'ios') {
+            $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
+        } elseif (APP_ENV == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
-            // Delete wallet
-            if (ENVIRONMENT == 'DEV') {
-                $this->getAPIService()->deleteWallet($wallet->phone);
-            }
+        }
+        if (ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
 
@@ -157,46 +163,27 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
-        $this->waitForElementDisplayedByElement('Games_networks');
         sleep(1);
+        $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
         $this->waitForElementDisplayedByElement('Steam');
         $this->byElement('Steam')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->waitForElementDisplayedByElement('Pay');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        $this->byElement('Pay_buttoN')->click();
         $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('11111');
         $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
         $this->byElement('Done_Button')->click();
-        $this->byElement('Pay')->click();
+        $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Пополнение');
-        $this->waitForElementDisplayedByElement('Pay');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
         sleep(1);
-        $this->byElement('Pay')->click();
+        $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
-        // Repeat pay
-        $this->waitForElementDisplayedByElement('Repeat');
-        sleep(1);
-        $this->byElement('Repeat')->click();
-        $this->waitForElementDisplayedByElement('Repeat payment?');
-        $this->byElement('Yes, with changes')->click();
-        $this->waitForElementDisplayedByElement('Pay');
-        sleep(1);
-        $this->byElement('Pay')->click();
-        $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Пополнение');
-        $this->waitForElementDisplayedByElement('Pay');
-        sleep(1);
-        $this->byElement('Pay')->click();
-        // Check Transaction in List
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-        // Back To DashBoard
-        sleep(1);
-        $this->tap(1, 50, 62, 10);
     }
 
     public function retryPayWallet()
@@ -258,7 +245,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Check P2P Button
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
-        // Pay Into service
+        // Select Service
+        sleep(1);
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Money2Card');
         $this->byElement('Money2Card')->click();
@@ -267,26 +255,37 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Multibank')->click();
         // Pay1
         $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('0931254212');
+        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('044583151');
+        $this->byElement('Pay_field3')->click();
         $this->byElement('Pay_field3')->value('1');
-        $this->byElement('Pay_button')->click();
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Pay_buttoN')->click();
         // Pay2
         $this->waitForElementDisplayedByElement('Pay_field4');
+        $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('testlol');
+        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('random');
+        $this->byElement('Pay_Field3')->click();
         $this->byElement('Pay_field3')->value('11111');
+        $this->byElement('Pay_Field4')->click();
         $this->byElement('Pay_field4')->value('tested');
+        $this->byElement('Pay_Field5')->click();
         $this->byElement('Pay_field5')->value('test');
+        // Pay Confirm
         $this->byElement('Done_Button')->click();
-        $this->byElement('Pay_button')->click();
-        // Confirm Pay
+        $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Wallet');
-        sleep(2);
-        $this->byElement('Pay_button')->click();
-        // Assert Transactions List
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        sleep(1);
+        $this->byElement('Pay_buttoN')->click();
+        // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -304,7 +303,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
-    public function repeatPay()
+    public function repeatPayWithChanges()
     {
         $this->byElement('Repeat')->click();
         $this->waitForElementDisplayedByElement('Repeat payment?');
@@ -362,6 +361,32 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Next_Button')->click();
             $this->waitForElementDisplayedByElement('Done_Button');
             $this->byElement('Done_Button')->click();
+        }
+    }
+
+    public function repeatPayWithoutChanges()
+    {
+        $this->waitForElementDisplayedByElement('Repeat');
+        sleep(1);
+        $this->byElement('Repeat')->click();
+        $this->waitForElementDisplayedByElement('Repeat payment?');
+        $this->byElement('Yes, with changes')->click();
+        sleep(3);
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        sleep(1);
+        $this->byElement('Pay_buttoN')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        sleep(1);
+        $this->byElement('Pay_buttoN')->click();
+        // Check Transaction in List
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
+        // Back To DashBoard
+        if (APP_ENV == 'ios') {
+            $this->byElement('Menu_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(2);
+            $this->tap(1, 50, 62, 10);
         }
     }
 }
