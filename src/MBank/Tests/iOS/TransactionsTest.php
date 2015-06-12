@@ -269,7 +269,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_field4');
         $this->byElement('Pay_buttoN')->click();
         $this->byElement('Pay_Field')->click();
-        $this->byElement('Pay_Field')->value('testlol');
+        $this->byElement('Pay_Field')->value('testloll');
         $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('random');
         $this->byElement('Pay_Field3')->click();

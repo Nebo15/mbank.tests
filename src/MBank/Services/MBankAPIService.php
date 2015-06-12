@@ -4,7 +4,7 @@ namespace MBank\Services;
 class MBankAPIService
 {
     protected $client;
-    protected $api_url = 'http://sandbox.wallet.best/';
+    protected $api_url = 'https://www.synq.ru/mserver2-dev/'; //http://sandbox.wallet.best/
     protected $admin_login = 'reaper';
     protected $admin_password = 'AefGYU7343';
 
@@ -130,14 +130,14 @@ class MBankAPIService
 
     public function getWallet($phone, $password)
     {
-            $request_url = $this->api_url . 'v1/wallet';
+            $request_url = 'http://sandbox.wallet.best/v1/wallet';
 
             return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
     }
 
     public function deleteWallet($phone)
     {
-        $request_url = $this->api_url . 'adm2/wallets/' . $phone;
+        $request_url = $this->api_url . 'admin/wallets/' . $phone;
         return $this->client->delete($request_url, ['auth' => [$this->admin_login, $this->admin_password], 'debug' => true])->json();
     }
 

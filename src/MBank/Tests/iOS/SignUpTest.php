@@ -15,37 +15,38 @@ class SignUpTest extends MBankiOSTestCase
 
     public function testSignUp()
     {
+        // Sign up
+        $this->waitForElementDisplayedByElement('Registration_Button');
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Phone_Field_Button');
+        $this->byElement('Phone_Field_Button')->click();
+        $this->byElement('Phone_Field_Button')->value($this->wallet->phone);
+        $this->waitForElementDisplayedByElement('Password_Field_Button');
+        $this->byElement('Password_Field_Button')->click();
+        $this->byElement('Password_Field_Button')->value($this->wallet->password);
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_PIN_field');
+        $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
         if (APP_ENV == 'ios') {
-            // Sign up
-            $this->byElement('Registration_Button')->click();
-            $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
-            $this->byElement('Registration_Button')->click();
             // Getting and filling out activation code for created wallet
             $this->waitForElementDisplayedByElement('Assert_PIN_field');
-            $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
-            $code_field = $this->byElement('Assert_PIN_field');
-            $code_field->click();
-            $code_field->clear();
-            $code_field->value($code);
+            $this->byElement('Assert_PIN_field')->value($code);
             $this->byElement('Confirm_Button')->click();
             // Skip PIN
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->byElement('Skip_Button')->click();
-            // Assert Dashboard
-            $this->waitForElementDisplayedByElement('Profile_Button');
         } elseif (APP_ENV == 'web') {
-            $this->byElement('Registration_Button')->click();
-            $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
-            $this->byElement('GO_Button')->click();
             // Getting and filling out activation code for created wallet
-            $this->waitForElementDisplayedByElement('Assert_PIN_field');
-            $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
-            //TODO need click method for buttons
-//            $this->byName(str_split($code)[1])->click();
-//          //Assert Dashboard
-//            $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
+//            //TODO need click method for buttons
+//            $code1 = (str_split($code)[1]);
+//            $this->byName($code1)->click();
+//            $this->byName(str_split($code)[3])->click();
+//            $this->byName(str_split($code)[4])->click();
+//            $this->byName(str_split($code)[5])->click();
         }
+        // Assert Dashboard
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         /// Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
@@ -57,32 +58,31 @@ class SignUpTest extends MBankiOSTestCase
      */
     public function testSignUpWithWalletExists()
     {
-        if (APP_ENV == 'ios') {
-            // Sign up
-            $this->byElement('Registration_Button')->click();
-            $this->fillCredentialsForm('380931254212', $this->wallet->password);
-            $this->byElement('Registration_Button')->click();
-            $this->waitForElementDisplayedByElement('Exist_phone');
-        } elseif (APP_ENV == 'web') {
-            $this->byElement('Registration_Button')->click();
-            $this->waitForElementDisplayedByElement('Phone_Field_Button');
-            $this->byElement('Phone_Field_Button')->value('+380931254212');
-            $this->waitForElementDisplayedByElement('Password_Field_Button');
-            $this->byElement('Password_Field_Button')->value('qweqweq');
-            $this->byElement('Registration_Button')->click();
-            $this->waitForElementDisplayedByElement('Alert_message');
-        }
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Phone_Field_Button');
+        $this->byElement('Phone_Field_Button')->click();
+        $this->byElement('Phone_Field_Button')->value('+380931254212');
+        $this->waitForElementDisplayedByElement('Password_Field_Button');
+        $this->byElement('Password_Field_Button')->click();
+        $this->byElement('Password_Field_Button')->value('qweqweq');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Exist_phone');
     }
 
     public function testSignUpWithShortPassword()
     {
-        if (APP_ENV == 'ios') {
-            $this->byElement('Registration_Button')->click();
-            // Short password
-            $this->fillCredentialsForm($this->wallet->phone, '1111');
-            $this->byElement('Registration_Button')->click();
-            $this->waitForElementDisplayedByElement('Password_len');
-        }
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Phone_Field_Button');
+        $this->byElement('Phone_Field_Button')->click();
+        $this->byElement('Phone_Field_Button')->value($this->wallet->phone);
+        $this->waitForElementDisplayedByElement('Password_Field_Button');
+        $this->byElement('Password_Field_Button')->click();
+        // Fill Short password
+        $this->byElement('Password_Field_Button')->value('qqqq');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Password_len');
     }
 
     /**
@@ -90,8 +90,9 @@ class SignUpTest extends MBankiOSTestCase
      */
     public function testSignUpPasswordStrengthChecker()
     {
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Registration_Button');
         if (APP_ENV == 'ios') {
-            $this->byElement('Registration_Button')->click();
             $passwords = [
                 'очень слабый' => [
                     'password' => '111111',
@@ -119,8 +120,6 @@ class SignUpTest extends MBankiOSTestCase
                 $this->assertEquals($this->byElement('Strength_text')->text(), $data['text']);
             }
         } elseif (APP_ENV == 'web') {
-            $this->byElement('Registration_Button')->click();
-            $this->waitForElementDisplayedByElement('Registration_Button');
             $passwords = [
                 'слабый' => [
                     'password' => '!@#$%',
@@ -136,10 +135,10 @@ class SignUpTest extends MBankiOSTestCase
                 ],
             ];
             foreach ($passwords as $stength => $data) {
-                $this->fillPasswordField($data['password']);
-                $this->waitForElementDisplayedByName('q');
-                $this->byName('q')->click();
-                $this->assertEquals(trim($this->byElement('Strength_text')->text(),'\̆! '), $data['text']);
+                $this->byElement('Password_Field_Button')->clear();
+                $this->byElement('Password_Field_Button')->click();
+                $this->byElement('Password_Field_Button')->value($data['password']);
+                $this->assertEquals(trim($this->byElement('Strength_text')->text(), '\̆! '), $data['text']);
             }
         }
     }

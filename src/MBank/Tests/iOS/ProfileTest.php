@@ -14,8 +14,6 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Profile_Button')->click();
             $this->byElement('Add_Photo_Button')->click();
             $this->byElement('Gallery_Button')->click();
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->byElement('OK_Button')->click();
             // Load photo
             $this->waitForElementDisplayedByElement('Moments_Button');
             $this->byElement('Moments_Button')->click();
@@ -67,8 +65,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Identification_confirmed')->click();
             // Assert User Data in Profile
             $this->waitForElementDisplayedByElement('Ident_name1');
-            $this->assertEquals(trim($this->byElement('Ident_name1')->text(),'\̆! '), $wallet->person->family_name);
-            $this->assertEquals(trim($this->byElement('Ident_name2')->text(),'\̆! '), $wallet->person->patronymic_name);
+            $this->assertEquals(trim($this->byElement('Ident_name1')->text(),'\! '), $wallet->person->family_name);
+            $this->assertEquals(trim($this->byElement('Ident_name2')->text(),'\! '), $wallet->person->patronymic_name);
             $this->assertEquals($this->byElement('Ident_name3')->text(), $wallet->person->passport_series_number);
             $this->assertEquals($this->byElement('Ident_name4')->text(), $wallet->person->itn);
             $this->assertEquals($this->byElement('Ident_name5')->text(), $wallet->phone);
