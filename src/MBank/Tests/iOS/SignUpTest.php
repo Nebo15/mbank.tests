@@ -28,8 +28,8 @@ class SignUpTest extends MBankiOSTestCase
         $this->byElement('Registration_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_PIN_field');
         $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
+        // Getting and filling out activation code for created wallet
         if (APP_ENV == 'ios') {
-            // Getting and filling out activation code for created wallet
             $this->waitForElementDisplayedByElement('Assert_PIN_field');
             $this->byElement('Assert_PIN_field')->value($code);
             $this->byElement('Confirm_Button')->click();
@@ -37,17 +37,15 @@ class SignUpTest extends MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->byElement('Skip_Button')->click();
         } elseif (APP_ENV == 'web') {
-            // Getting and filling out activation code for created wallet
-            $codeString = (str_split($code));
-            $this->byElement($codeString[1])->click();
-            $this->byElement($codeString[2])->click();
-            $this->byElement($codeString[3])->click();
-            $this->byElement($codeString[4])->click();
-            $this->byElement($codeString[5])->click();
+            $this->byElement(str_split($code)[1])->click();
+            $this->byElement(str_split($code)[2])->click();
+            $this->byElement(str_split($code)[3])->click();
+            $this->byElement(str_split($code)[4])->click();
+            $this->byElement(str_split($code)[5])->click();
         }
         // Assert Dashboard
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        /// Delete wallet
+        // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
