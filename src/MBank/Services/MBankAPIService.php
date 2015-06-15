@@ -4,7 +4,7 @@ namespace MBank\Services;
 class MBankAPIService
 {
     protected $client;
-    protected $api_url = 'https://www.synq.ru/mserver2-dev/'; //http://sandbox.wallet.best/
+    protected $api_url = 'https://www.synq.ru/mserver2-dev/';
     protected $admin_login = 'reaper';
     protected $admin_password = 'AefGYU7343';
 
