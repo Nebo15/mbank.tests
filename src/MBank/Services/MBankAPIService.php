@@ -33,7 +33,7 @@ class MBankAPIService
 
     public function getWalletActivationCode($phone)
     {
-        $request_url = $this->api_url . 'v1/wallet/resend_code';
+        $request_url = 'https://www.synq.ru/mserver2-dev/v1/wallet/resend_code';
 
         $request_body = [
             'phone' => $phone,
