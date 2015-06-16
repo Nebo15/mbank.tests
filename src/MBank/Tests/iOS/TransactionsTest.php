@@ -109,7 +109,12 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Retry Pay Wallet With Changes
         $this->retryPayWallet();
         // Back To DashBoard
-        $this->byElement('Menu_Button')->click();
+        if (APP_ENV == 'ios') {
+            $this->byElement('Menu_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(1);
+            $this->tap(1, 50, 62, 10);   // Back to dashboard
+        }
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
         $Balance = $this->byElement('Wallet_Balance')->text();
@@ -189,16 +194,18 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Repeat payment?');
         $this->byElement('Yes, with changes')->click();
         sleep(3);
-        $this->waitForElementDisplayedByElement('Pay_button');
-        $this->byElement('Pay_button')->click();
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Pay_field4');
         $this->byElement('Pay_field4')->click();
-        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Wallet');
         sleep(2);
-        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Repeat');
+        // Check Transaction in List
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
     public function cardPayServices()
