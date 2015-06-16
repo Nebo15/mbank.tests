@@ -77,11 +77,10 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
-        $phone_number = $this->byElement('Phone');
-        $phone_number->click();
-        $phone_number->clear();
-        $phone_number->value('380931254212');
+        $this->byElement('Phone')->click();
+        $this->byElement('Phone')->value('380931254212');
         // Fill pay form
+        $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
         $this->byElement('PayP2P')->click();
         $this->byElement('Assert_Element')->click();
@@ -171,9 +170,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('11111');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
         $this->byElement('Done_Button')->click();
@@ -257,26 +254,18 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('0931254212');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('044583151');
-        $this->byElement('Pay_field3')->click();
         $this->byElement('Pay_field3')->value('1');
         $this->byElement('Done_Button')->click();
         $this->byElement('Pay_buttoN')->click();
         // Pay2
         $this->waitForElementDisplayedByElement('Pay_field4');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('testloll');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('random');
-        $this->byElement('Pay_Field3')->click();
         $this->byElement('Pay_field3')->value('11111');
-        $this->byElement('Pay_Field4')->click();
         $this->byElement('Pay_field4')->value('tested');
-        $this->byElement('Pay_Field5')->click();
         $this->byElement('Pay_field5')->value('test');
         // Pay Confirm
         $this->byElement('Done_Button')->click();

@@ -11,7 +11,6 @@ class Config
             "Ident_name2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[4]/UIAStaticText[2]"],
             "Ident_name3" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[5]/UIAStaticText[2]"],
             "Ident_name4" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[7]/UIAStaticText[2]"],
-            "Ident_name5" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[8]/UIAStaticText[2]"],
             "Contact_screen" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAImage[3]"],
             "Contact" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[1]/UIAButton[1]"],
             "Phone" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[3]/UIATextField[1]"],
@@ -162,6 +161,10 @@ class Config
             "Pay_buttoN" => ["type" => "name", "selector" => "Pay"],
         ],
         "web" => [
+            "Ident_name1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[1]"],
+            "Ident_name2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[3]"],
+            "Ident_name3" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[4]"],
+            "Ident_name4" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[6]"],
             "1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
             "2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[2]"],
             "3" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[3]"],

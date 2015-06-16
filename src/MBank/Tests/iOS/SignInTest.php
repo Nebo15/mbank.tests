@@ -70,6 +70,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('LoginIN')->click();
         // Wait for error displayed
         $this->waitForElementDisplayedByElement('Error_Message');
+        $this->waitForElementDisplayedByElement('OK_Button_Sign');
         $this->byElement('OK_Button_Sign')->click();
         // We should stay on login screen
         $this->waitForElementDisplayedByElement('LoginIN'); // Selecting element is an assertion by itself
@@ -81,11 +82,13 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testSignInWithWalletNotExists()
     {
+        $this->waitForElementDisplayedByElement('Sign_in_Button');
         $this->byElement('Sign_in_Button')->click();
         $this->fillCredentialsForm($this->wallet->phone, $this->wallet->password);
         $this->byElement('LoginIN')->click();
         // Wait for error displayed
         $this->waitForElementDisplayedByElement('Error_Message');
+        $this->waitForElementDisplayedByElement('OK_Button_Sign');
         $this->byElement('OK_Button_Sign')->click();
         // We should stay on login screen
         $this->waitForElementDisplayedByElement('LoginIN');

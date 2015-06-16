@@ -242,9 +242,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('11111');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
         $this->byElement('Done_Button')->click();
@@ -302,9 +300,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('1111111111');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
         $this->byElement('Done_Button')->click();
@@ -448,9 +444,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('1111');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
         $this->byElement('Done_Button')->click();
@@ -480,9 +474,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('1111111111111111');
-        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('10');
         // Pay
         $this->byElement('Done_Button')->click();

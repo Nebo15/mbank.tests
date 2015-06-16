@@ -63,14 +63,20 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Profile_Button')->click();
             $this->waitForElementDisplayedByElement('Identification_confirmed');
             $this->byElement('Identification_confirmed')->click();
-            // Assert User Data in Profile
-            $this->waitForElementDisplayedByElement('Ident_name1');
-            $this->assertEquals(trim($this->byElement('Ident_name1')->text(),'\! '), $wallet->person->family_name);
-            $this->assertEquals(trim($this->byElement('Ident_name2')->text(),'\! '), $wallet->person->patronymic_name);
-            $this->assertEquals($this->byElement('Ident_name3')->text(), $wallet->person->passport_series_number);
-            $this->assertEquals($this->byElement('Ident_name4')->text(), $wallet->person->itn);
-            $this->assertEquals($this->byElement('Ident_name5')->text(), $wallet->phone);
+        } elseif (APP_ENV == 'web') {
+            sleep(1);
+            $this->tap(1, 50, 62, 10);   // Back to dashboard
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->tap(1, 214, 218, 10); // Web Profile Button
+            sleep(1);
+            $this->tap(1, 180, 435, 10); // Identification_confirmed
         }
+        // Assert User Data in Profile
+        $this->waitForElementDisplayedByElement('Ident_name1');
+        $this->assertEquals(trim($this->byElement('Ident_name1')->text(), '\! '), $wallet->person->family_name);
+        $this->assertEquals(trim($this->byElement('Ident_name2')->text(), '\! '), $wallet->person->patronymic_name);
+        $this->assertEquals($this->byElement('Ident_name3')->text(), $wallet->person->passport_series_number);
+        $this->assertEquals($this->byElement('Ident_name4')->text(), $wallet->person->itn);
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
