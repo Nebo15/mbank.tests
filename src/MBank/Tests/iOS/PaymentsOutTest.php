@@ -60,7 +60,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group PayOut
      */
-    public function testPayOutHTBWalletWEB()
+    public function testPayOutHTBWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
@@ -280,7 +280,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Select_Card');
         $this->byElement('Select_Card')->click();
-        $this->byElement('Pay_button')->click();
+        sleep(1);
+        $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }

@@ -106,12 +106,8 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
         // Change Password
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        if (APP_ENV == 'ios') {
+        $this->waitForElementDisplayedByElement('Profile_Button');
             $this->byElement('Profile_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(1);
-            $this->tap(1, 214, 218, 10); //Profile Button
-        }
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');

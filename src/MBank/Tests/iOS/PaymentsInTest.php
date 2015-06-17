@@ -31,8 +31,6 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             // Pay
             $this->walletPayForm('10');
             // Check Transactions List
-            $this->waitForElementDisplayedByElement('OK_Button');
-            $this->byElement('OK_Button')->click();
             $this->waitForElementDisplayedByElement('Transactions_Assert');
             // Back to DashBoard
             $this->byElement('Menu_Button')->click();
