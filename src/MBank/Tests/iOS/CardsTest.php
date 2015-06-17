@@ -10,10 +10,11 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Profile_Button');
+        $this->byElement('Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Cards_Button');
+        $this->byElement('Cards_Button')->click();
         if (APP_ENV == 'ios') {
-            $this->byElement('Profile_Button')->click();
-            $this->waitForElementDisplayedByElement('Cards_Button');
-            $this->byElement('Cards_Button')->click();
             $this->waitForElementDisplayedByElement('Cards_Button');
             $this->waitForElementDisplayedByElement('Empty_list_Button');
             $this->waitForElementDisplayedByElement('Add_New_card_Button');
@@ -39,9 +40,6 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Second_Card_Assert');
         } elseif (APP_ENV == 'web') {
             $this->markTestSkipped();
-//            sleep(2);
-//            $this->tap(1, 214, 218, 10); // Web Profile Button
-//            $this->byElement('Cards_Button')->click();
 //            $this->waitForElementDisplayedByElement('Add_New_card_Button');
 //            sleep(2);
 //            $this->byElement('Add_New_card_Button')->click();
