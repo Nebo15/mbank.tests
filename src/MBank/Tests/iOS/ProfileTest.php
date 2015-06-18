@@ -37,6 +37,50 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    public function testDeletePhoto()
+    {
+        if (APP_ENV == 'ios') {
+            $wallet = $this->createWalletAndLoadDashboard();
+            // Add photo in profile
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->byElement('Profile_Button')->click();
+            $this->byElement('Add_Photo_Button')->click();
+            $this->byElement('Gallery_Button')->click();
+            // Load photo
+            $this->waitForElementDisplayedByElement('Moments_Button');
+            $this->byElement('Moments_Button')->click();
+            // Check photo directory
+            $this->waitForElementDisplayedByElement('Photo_Assert');
+            $this->byElement('Photo_Assert')->click();
+            $this->waitForElementDisplayedByElement('OK_Button');
+            $this->byElement('OK_Button')->click();
+            // Check photo was actually uploaded in app
+            $this->waitForElementDisplayedByElement('Photo_Load');
+            // Check that photo was actually uploaded
+            sleep(5);
+            $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+            $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
+
+            // Delete photo in profile
+            $this->byElement('Photo_Button')->click();
+            $this->waitForElementDisplayedByElement('Delete_foto');
+            $this->byElement('Delete_foto')->click();
+            $this->byElement('Menu_Button')->click();
+            // Assert foto Delete
+            $this->waitForElementDisplayedByElement('Profile_Button');
+            // Check that photo was actually deleted
+            sleep(5);
+            $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
+            $this->assertFalse(array_key_exists('picture_url', $wallet_data['data']), "Profile image present");
+            // Delete wallet
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
+        } elseif (APP_ENV == 'web') {
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
+    }
+
     public function testVerify()
     {
         $wallet = $this->createWalletAndLoadDashboard();
