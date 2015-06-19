@@ -25,17 +25,23 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->value('0931254212');
+        $this->byElement('Pay_Field2')->click();
+        $this->byElement('Pay_Field2')->value('044583151');
         $this->byElement('Pay_field3')->click();
-        $this->byElement('Pay_field3')->value('10');
+        $this->byElement('Pay_field3')->value('1');
         $this->byElement('Done_Button')->click();
-        // Assert Commission
+        // Assert Commission displayed
         $this->waitForElementDisplayedByElement('Commission_assert');
         $this->waitForElementDisplayedByElement('Commission');
-        // Assert Commission equals
+        $this->byElement('Pay_buttoN')->click();
+        // Assert Commission
         $commission = $this->byElement('Commission')->text();
-        //TODO API Assert
-//        $commissionAPI = $this->getAPIService()->getCommission($wallet->phone, $wallet->password);
-        $this->assertEquals('0.13 руб.', $commission);
+        // Assert API Commission
+        sleep(5);
+        $commissionAPI = $this->getAPIService()->getServiceCommission($wallet->phone, $wallet->password);
+        //TODO Assert
+//        $this->assertEquals($commission, $commissionAPI);
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
