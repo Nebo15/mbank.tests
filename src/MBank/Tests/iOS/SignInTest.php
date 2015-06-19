@@ -106,8 +106,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $code = $this->getAPIService()->getNewPassword($this->wallet->phone);
         // Change Password
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->waitForElementDisplayedByElement('Profile_Button');
-            $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');
@@ -146,8 +145,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
         // Change Password
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->waitForElementDisplayedByElement('Profile_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');
@@ -181,8 +179,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
         // Change Password
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->waitForElementDisplayedByElement('Profile_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');

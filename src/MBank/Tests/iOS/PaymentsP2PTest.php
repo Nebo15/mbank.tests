@@ -43,7 +43,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(2);
+            sleep(3);
             $this->tap(1, 50, 62, 10);
         }
         $this->waitForElementDisplayedByElement('Your_balance_Button');

@@ -11,7 +11,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         // Create Pin On Settings Page
@@ -71,7 +71,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Logout and Login again
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Log out');
@@ -102,7 +102,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByName('Pin created');
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Change Pin
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->byName('Change the PIN')->click();

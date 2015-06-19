@@ -50,6 +50,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
                     'newCommandTimeout' => 999999,
+                    'autoAcceptAlerts' => true,
+                    'waitForAppScript' => true,
                     'launchTimeout' => 15000,
                 )
             );
@@ -232,6 +234,28 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->loadDashboard($wallet->phone, $wallet->password);
 
             return $wallet;
+        }
+    }
+
+    protected function submitProfileButton()
+    {
+        if (APP_ENV == 'ios') {
+            $this->waitForElementDisplayedByElement('Profile_Button');
+            $this->byElement('Profile_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(1);
+            $this->tap(1, 214, 218, 10); // Web Profile Button
+        }
+    }
+
+    protected function submitPhotoButton()
+    {
+        if (APP_ENV == 'ios') {
+            $this->waitForElementDisplayedByElement('Add_Photo_Button');
+            $this->byElement('Add_Photo_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(1);
+            $this->tap(1, 190, 165, 10); // Web Profile Button
         }
     }
 

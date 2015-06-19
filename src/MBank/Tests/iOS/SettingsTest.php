@@ -8,7 +8,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Delete_temporary_data');
@@ -29,7 +29,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->byElement('Profile_Button')->click();
+            $this->submitProfileButton();
             $this->waitForElementDisplayedByElement('Settings_Button');
             $this->byElement('Settings_Button')->click();
             // Check Public Offer Displayed

@@ -32,7 +32,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
@@ -119,7 +119,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
@@ -257,7 +257,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(2);
+            sleep(3);
             $this->tap(1, 50, 62, 10);
         }
     }
@@ -316,7 +316,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(2);
+            sleep(3);
             $this->tap(1, 50, 62, 10);
         }
     }
@@ -460,7 +460,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(2);
+            sleep(3);
             $this->tap(1, 50, 62, 10);
         }
     }
@@ -490,7 +490,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(2);
+            sleep(3);
             $this->tap(1, 50, 62, 10);
         }
     }

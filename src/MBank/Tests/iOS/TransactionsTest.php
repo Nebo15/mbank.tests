@@ -13,7 +13,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
@@ -45,7 +45,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         $this->waitForElementDisplayedByElement('Cards_Button');
@@ -112,8 +112,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(1);
-            $this->tap(1, 50, 62, 10);   // Back to dashboard
+            sleep(3);
+            $this->tap(1, 50, 62, 10); // Back to dashboard
         }
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
@@ -190,6 +190,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function retryPayWallet()
     {
+        sleep(3);
         $this->byElement('Repeat')->click();
         $this->waitForElementDisplayedByElement('Repeat payment?');
         $this->byElement('Yes, with changes')->click();
@@ -197,11 +198,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Pay_field4');
-        $this->byElement('Pay_field4')->click();
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Wallet');
-        sleep(2);
+        sleep(9);
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Repeat');
         // Check Transaction in List
@@ -262,24 +261,20 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
         $this->byElement('Pay_Field')->value('0931254212');
+        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('044583151');
+        $this->byElement('Pay_field3')->click();
         $this->byElement('Pay_field3')->value('1');
         $this->byElement('Done_Button')->click();
         $this->byElement('Pay_buttoN')->click();
         // Pay2
         $this->waitForElementDisplayedByElement('Pay_field4');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->value('testloll');
-        $this->byElement('Pay_Field2')->value('random');
-        $this->byElement('Pay_field3')->value('11111');
-        $this->byElement('Pay_field4')->value('tested');
-        $this->byElement('Pay_field5')->value('test');
         // Pay Confirm
-        $this->byElement('Done_Button')->click();
-        $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
-        sleep(1);
+        sleep(9);
         $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
@@ -381,7 +376,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $this->byElement('Menu_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(2);
+            sleep(3);
             $this->tap(1, 50, 62, 10);
         }
     }

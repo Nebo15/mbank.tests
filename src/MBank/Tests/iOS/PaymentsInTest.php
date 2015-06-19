@@ -9,7 +9,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->byElement('Profile_Button')->click();
+            $this->submitProfileButton();
             $this->waitForElementDisplayedByElement('Cards_Button');
             $this->byElement('Cards_Button')->click();
             $this->waitForElementDisplayedByElement('Cards_Button');
@@ -59,7 +59,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         if (APP_ENV == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->byElement('Profile_Button')->click();
+            $this->submitProfileButton();
             $this->waitForElementDisplayedByElement('Cards_Button');
             $this->byElement('Cards_Button')->click();
             $this->waitForElementDisplayedByElement('Cards_Button');
