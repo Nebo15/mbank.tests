@@ -134,6 +134,12 @@ class MBankAPIService
 
             return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
     }
+    //TODO API Method
+    public function getCommission($phone, $password)
+    {
+        $request_url = $this->api_url . 'application/services/1691';
+
+    }
 
     public function deleteWallet($phone)
     {

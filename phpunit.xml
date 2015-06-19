@@ -12,6 +12,7 @@
             <testsuite name="MBank">
                 <file>src/MBank/Tests/iOS/CardsTest.php</file>
                 <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
+                <file>src/MBank/Tests/iOS/CommissionTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsInTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>

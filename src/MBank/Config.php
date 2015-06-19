@@ -164,6 +164,8 @@ class Config
             "Photo_delete_button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[4]"],
         ],
         "web" => [
+            "Commission_assert" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[12]"],
+            "Commission" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[13]"],
             "Moments_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[1]"],
             "Delete_foto" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
             "Gallery_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]"],
