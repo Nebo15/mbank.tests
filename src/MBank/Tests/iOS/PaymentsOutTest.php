@@ -30,6 +30,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testOutFromCard()
     {
+        if (APP_ENV == 'web') {
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
@@ -52,8 +55,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
-        } elseif (APP_ENV == 'web') {
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 
@@ -117,6 +118,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testPayCardToCard()
     {
+        if (APP_ENV == 'web') {
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
@@ -167,8 +171,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
-        } elseif (APP_ENV == 'web') {
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
     }
 
@@ -187,6 +189,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Pay visaCard
         $this->visaCardPay();
@@ -320,6 +324,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->tap(1, 50, 62, 10);
         }
     }
+
     /**
      * @param $wallet //TODO выпилить после правок метода в файлике APIService
      */
@@ -434,6 +439,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function yandexMoneyService()
     {
         $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
         sleep(2);

@@ -101,15 +101,14 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Verification Data
         if (APP_ENV == 'ios') {
             $this->byElement('Back_dashboard')->click();
-            $this->waitForElementDisplayedByElement('Profile_Button');
-            $this->byElement('Profile_Button')->click();
+            $this->submitProfileButton();
             $this->waitForElementDisplayedByElement('Identification_confirmed');
             $this->byElement('Identification_confirmed')->click();
         } elseif (APP_ENV == 'web') {
             sleep(1);
             $this->tap(1, 50, 62, 10);   // Back to dashboard
             $this->waitForElementDisplayedByElement('Your_balance_Button');
-            $this->byElement('Profile_Button')->click();
+            $this->submitProfileButton();
             sleep(1);
             $this->tap(1, 180, 435, 10); // Identification_confirmed
         }
@@ -159,8 +158,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->waitForElementDisplayedByElement('Profile_Button');
-        $this->byElement('Profile_Button')->click();
+        $this->submitProfileButton();
         // Check the limits is displayed
         $this->waitForElementDisplayedByElement('View_limits');
         $this->byElement('View_limits')->click();

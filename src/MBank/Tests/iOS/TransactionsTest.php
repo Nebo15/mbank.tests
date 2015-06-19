@@ -249,7 +249,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
         // Select Service
-        sleep(1);
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Money2Card');
         $this->byElement('Money2Card')->click();

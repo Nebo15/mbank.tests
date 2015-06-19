@@ -80,6 +80,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
         $this->waitForElementDisplayedByElement('Add_funds_Button');
         $this->byElement('Add_funds_Button')->click();
         // Check Cash Field

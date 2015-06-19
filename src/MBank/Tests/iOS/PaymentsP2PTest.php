@@ -22,6 +22,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
@@ -81,6 +82,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
@@ -117,6 +119,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
