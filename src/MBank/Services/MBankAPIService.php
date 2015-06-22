@@ -135,9 +135,9 @@ class MBankAPIService
             return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
     }
 
-    public function getServiceCommission($phone, $password)
+    public function getServiceCommission($phone, $password, $service)
     {
-        $request_url = $this->api_url . 'v1/services/1691'; // MultibankService
+        $request_url = $this->api_url . 'v1/services/'. $service;
 
         return $this->client->get($request_url, ['auth' => [$phone, $password]])->json();
     }
