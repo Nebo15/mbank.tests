@@ -32,7 +32,7 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Commission displayed
         $this->waitForElementDisplayedByElement('Commission_assert');
         $this->waitForElementDisplayedByElement('Commission');
-        // Assert Commission
+        // Get from APP Commission
         $commission = $this->byElement('Commission')->text();
         // Assert Service Commission API
         $get_commission_values = $this->getAPIService()->getServiceCommission($wallet->phone, $wallet->password, '1691'); // 1691 MultibankService
