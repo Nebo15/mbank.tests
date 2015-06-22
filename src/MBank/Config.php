@@ -7,6 +7,8 @@ class Config
 {
     private $config = [
         "ios" => [
+            "Commission_assert" => ["type" => "xpath", "selector" => ""],
+            "Commission" => ["type" => "xpath", "selector" => ""],
             "Photo_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[4]"],
             "Delete_foto" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[4]/UIAActionSheet[1]/UIACollectionView[1]/UIACollectionCell[4]/UIAButton[1]"],
             "Ident_name1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[2]/UIAStaticText[2]"],
