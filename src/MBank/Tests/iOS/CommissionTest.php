@@ -34,9 +34,9 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Commission');
         // Assert Commission
         $commission = $this->byElement('Commission')->text();
-        // Assert Service Commission
-        $get_commission_value = $this->getAPIService()->getServiceCommission($wallet->phone, $wallet->password);
-        $get_percent_value = $get_commission_value['data']['rate']['percent'];
+        // Assert Service Commission API
+        $get_commission_values = $this->getAPIService()->getServiceCommission($wallet->phone, $wallet->password);
+        $get_percent_value = $get_commission_values['data']['rate']['percent'];
         $commissionAPI = $pay_value*$get_percent_value/"100";
         // Assert Equals Commission
         $this->assertEquals($commission, $commissionAPI . ' руб.');
