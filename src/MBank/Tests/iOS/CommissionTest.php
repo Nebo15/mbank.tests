@@ -22,26 +22,24 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Multibank');
         $this->byElement('Multibank')->click();
         // Pay step
+        $pay_value = 10; // amount
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->value('0931254212');
-        $this->byElement('Pay_Field2')->click();
-        $this->byElement('Pay_Field2')->value('044583151');
         $this->byElement('Pay_field3')->click();
-        $this->byElement('Pay_field3')->value('1');
+        $this->byElement('Pay_field3')->value($pay_value);
         $this->byElement('Done_Button')->click();
         // Assert Commission displayed
         $this->waitForElementDisplayedByElement('Commission_assert');
         $this->waitForElementDisplayedByElement('Commission');
-        $this->byElement('Pay_buttoN')->click();
         // Assert Commission
         $commission = $this->byElement('Commission')->text();
-        // Assert API Commission
-        sleep(5);
-        $commissionAPI = $this->getAPIService()->getServiceCommission($wallet->phone, $wallet->password);
-        //TODO Assert
-//        $this->assertEquals($commission, $commissionAPI);
+        // Assert Service Commission
+        $get_commission_value = $this->getAPIService()->getServiceCommission($wallet->phone, $wallet->password);
+        $get_percent_value = $get_commission_value['data']['rate']['percent'];
+        $commissionAPI = $pay_value*$get_percent_value/"100";
+        // Assert Equals Commission
+        $this->assertEquals($commission, $commissionAPI . ' руб.');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
