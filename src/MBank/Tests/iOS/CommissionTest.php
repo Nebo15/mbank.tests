@@ -33,7 +33,7 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Commission_assert');
         $this->waitForElementDisplayedByElement('Commission');
         // Get from APP Commission
-        $commission = $this->byElement('Commission')->text();
+        $commissionAPP = $this->byElement('Commission')->text();
         // Assert Service Commission API
         $get_commission_values = $this->getAPIService()
                                       ->getServiceCommission($wallet->phone, $wallet->password, '1691'); // 1691 Multibank
@@ -41,7 +41,7 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $fix_value = $get_commission_values['data']['rate']['fix'];
         $commissionAPI = $pay_value*$percent_value/"100"+$fix_value;
         // Assert Equals Commission
-        $this->assertEquals($commission, $commissionAPI . '.00 руб.');
+        $this->assertEquals($commissionAPP, $commissionAPI . '.00 руб.');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
