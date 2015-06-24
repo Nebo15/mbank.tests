@@ -12,7 +12,7 @@ if (APP_ENV == 'web' && ENVIRONMENT == 'DEV')
 
 } elseif (APP_ENV == 'ios' && ENVIRONMENT == 'STG')
 {
-    define("APP_PATH", '/Users/evgenfurman/STGMBank.app.zip');
+    define("APP_PATH", '/Users/evgenfurman/MBankStage.app.zip');
 
 } elseif (APP_ENV == 'ios' && ENVIRONMENT == 'DEV')
 {

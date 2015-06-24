@@ -298,6 +298,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_button')->click();
         // Select Service
         sleep(2);
+        $this->waitForElementDisplayedByElement('Cable_networks');
         $this->byElement('Cable_networks')->click();
         $this->waitForElementDisplayedByElement('НТВ_Плюс');
         $this->byElement('НТВ_Плюс')->click();

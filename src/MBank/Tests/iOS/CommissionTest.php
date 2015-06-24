@@ -8,9 +8,6 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testServicesCommission()
     {
-        if (APP_ENV == 'ios') {
-            $this->markTestSkipped("Issue not resolved for iOS");
-        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Conversations_Button');
@@ -28,6 +25,11 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_buttoN')->click();
         $this->byElement('Pay_field3')->click();
         $this->byElement('Pay_field3')->value($pay_value);
+        if (APP_ENV == 'ios') {
+            $this->byName('0')->click();
+            $this->byName('0')->click();
+            $this->byName('Delete')->click();
+        }
         $this->byElement('Done_Button')->click();
         // Assert Commission displayed
         $this->waitForElementDisplayedByElement('Commission_assert');
@@ -39,9 +41,13 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
                                       ->getServiceCommission($wallet->phone, $wallet->password, '1691'); // 1691 Multibank
         $percent_value = $get_commission_values['data']['rate']['percent'];
         $fix_value = $get_commission_values['data']['rate']['fix'];
-        $commissionAPI = $pay_value*$percent_value/"100"+$fix_value;
+        $commissionAPI = $pay_value * $percent_value / "100" + $fix_value;
         // Assert Equals Commission
-        $this->assertEquals($commissionAPP, $commissionAPI . '.00 руб.');
+        if (APP_ENV == 'web') {
+            $this->assertEquals($commissionAPP, $commissionAPI . '.00 руб.');
+        } elseif (APP_ENV == 'ios') {
+            $this->assertEquals($commissionAPP, $commissionAPI);
+        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);

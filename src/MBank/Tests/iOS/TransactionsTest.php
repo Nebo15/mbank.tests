@@ -38,7 +38,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testRepeatPayCardWithChanges()
+    public function testRepeatPayP2PdWithChanges()
     {
         if (APP_ENV == 'web') {
             $this->markTestSkipped("Issue not resolved for WEB_APP");
@@ -83,7 +83,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
         $this->byElement('PayP2P')->click();
-        $this->byElement('Assert_Element')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         sleep(2);
         // Card Pay
