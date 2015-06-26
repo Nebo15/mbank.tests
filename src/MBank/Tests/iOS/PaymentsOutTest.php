@@ -49,6 +49,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Back to DashBoard
         $this->byElement('Back_to_Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Back_dashboard');
         $this->byElement('Back_dashboard')->click();
         // Pay from Card
         $this->cardPayServices();
@@ -137,6 +138,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Back to Dashboard
         $this->byElement('Back_to_Profile_Button')->click();
+        $this->waitForElementDisplayedByElement('Back_dashboard');
         $this->byElement('Back_dashboard')->click();
         $this->waitForElementDisplayedByElement('Profile_Button');
         $this->byElement('Transfer_Button')->click();
@@ -268,6 +270,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
 
     public function cardPayServices()
     {
+        $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Select Service
         $this->waitForElementDisplayedByElement('Games_networks');

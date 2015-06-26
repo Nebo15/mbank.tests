@@ -104,7 +104,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         // Change Pin
         $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Settings_Button');
-        $this->byElement('Settings_Button')->click();
+        $this->tap(1, 247 ,233, 10); // Settings Button
         $this->byName('Change the PIN')->click();
         $this->fillPinCode('1234');
         $this->fillPinCode('5678');

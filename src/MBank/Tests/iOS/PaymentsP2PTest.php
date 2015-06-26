@@ -31,6 +31,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
+        $this->waitForElementDisplayedByElement('Done_Button');
         $this->byElement('Done_Button')->click();
         $this->byElement('PayP2P')->click();
         // Assert pay screen
@@ -91,6 +92,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
+        $this->waitForElementDisplayedByElement('Done_Button');
         $this->byElement('Done_Button')->click();
         $this->byElement('PayP2P')->click();
         // Assert Wallet Not Indent
@@ -128,6 +130,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
+        $this->waitForElementDisplayedByElement('Done_Button');
         $this->byElement('Done_Button')->click();
         $this->byElement('PayP2P')->click();
         // Assert Yourself Payment Impossible
