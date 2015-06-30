@@ -116,8 +116,6 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Ident_name1');
         $this->assertEquals(trim($this->byElement('Ident_name1')->text(), '\! '), $wallet->person->family_name);
         $this->assertEquals(trim($this->byElement('Ident_name2')->text(), '\! '), $wallet->person->patronymic_name);
-        $this->assertEquals($this->byElement('Ident_name3')->text(), $wallet->person->passport_series_number);
-        $this->assertEquals($this->byElement('Ident_name4')->text(), $wallet->person->itn);
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);

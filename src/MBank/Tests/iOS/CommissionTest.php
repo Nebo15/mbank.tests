@@ -8,6 +8,9 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
 
     public function testServicesCommission()
     {
+        if (APP_ENV == 'web') {
+            $this->markTestSkipped();
+        }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Conversations_Button');

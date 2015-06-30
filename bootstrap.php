@@ -16,7 +16,7 @@ if (APP_ENV == 'web' && ENVIRONMENT == 'DEV')
 
 } elseif (APP_ENV == 'ios' && ENVIRONMENT == 'DEV')
 {
-    define("APP_PATH", '/Users/evgenfurman/MBank.app.zip');
+    define("APP_PATH", '/Users/evgenfurman/MBank.app');
 }
 
 if (!APP_PATH) {
