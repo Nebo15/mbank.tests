@@ -16,7 +16,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             'browserName' => '',
             'desiredCapabilities' => array(
                 'deviceName' => 'iPhone 6',
-                'platformVersion' => '8.3',
+                'platformVersion' => '8.4',
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
                 'newCommandTimeout' => 999999,
@@ -32,7 +32,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->setDesiredCapabilities(
                 array(
                     'deviceName' => 'iPhone 6',
-                    'platformVersion' => '8.3',
+                    'platformVersion' => '8.4',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
                     'newCommandTimeout' => 999999,
@@ -46,7 +46,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->setDesiredCapabilities(
                 array(
                     'deviceName' => 'iPhone 6',
-                    'platformVersion' => '8.3',
+                    'platformVersion' => '8.4',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
                     'newCommandTimeout' => 999999,
