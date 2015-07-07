@@ -96,6 +96,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         // Check P2P Button
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Assert Verification Data
