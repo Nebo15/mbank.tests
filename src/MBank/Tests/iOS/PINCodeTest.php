@@ -150,7 +150,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         // Check timeout Pin Immediately In Settings
         $this->byElement('Profile_Button')->click();
         $this->waitForElementDisplayedByElement('Settings_Button');
-        $this->byElement('Settings_Button')->click();
+        $this->tap(1, 247 ,233, 10); // Settings Button
         $this->waitForElementDisplayedByName('Immediately');
         // Lock Phone
         $this->backgroundApp(10);

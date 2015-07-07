@@ -67,8 +67,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Photo_delete_button');
             $this->byElement('Photo_delete_button')->click();
         }
-        $this->waitForElementDisplayedByElement('Delete_foto');
-        $this->byElement('Delete_foto')->click();
+        $this->waitForElementDisplayedByElement('Delete_photo');
+        $this->byElement('Delete_photo')->click();
         // Check that photo was actually deleted
         sleep(5);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);

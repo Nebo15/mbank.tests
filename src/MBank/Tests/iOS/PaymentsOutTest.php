@@ -83,7 +83,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testPayService()
+    public function testPayServiceYandex()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
@@ -165,7 +165,8 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Pay
         $this->byElement('Pay_button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        sleep(2);
+        sleep(3);
+        $this->waitForElementDisplayedByElement('Select_Card');
         $this->byElement('Select_Card')->click();
         $this->byElement('Pay_button')->click();
         // Assert Transactions List
@@ -261,12 +262,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10);
-        }
+        $this->backToDashBoard();
     }
 
     public function cardPayServices()
@@ -323,12 +319,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10);
-        }
+        $this->backToDashBoard();
     }
 
     /**
@@ -470,12 +461,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10);
-        }
+        $this->backToDashBoard();
     }
 
     public function visaCardPay()
@@ -501,11 +487,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10);
-        }
+        $this->backToDashBoard();
     }
 }

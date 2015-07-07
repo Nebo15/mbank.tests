@@ -100,7 +100,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testPayOutMultibankWallet()
+    public function testRepeatPayOutMultibankWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
@@ -108,12 +108,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Retry Pay Wallet With Changes
         $this->retryPayWallet();
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10); // Back to dashboard
-        }
+        $this->backToDashBoard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
         $Balance = $this->byElement('Wallet_Balance')->text();
@@ -131,7 +126,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testOutFromWalletRepeat()
+    public function testOutFromWalletRepeatWithoutChanges()
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
@@ -372,11 +367,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Transaction in List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10);
-        }
+        $this->backToDashBoard();
     }
 }

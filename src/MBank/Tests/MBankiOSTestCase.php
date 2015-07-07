@@ -237,6 +237,16 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         }
     }
 
+    protected function backToDashBoard()
+    {
+        if (APP_ENV == 'ios') {
+            $this->byElement('Menu_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(3);
+            $this->tap(1, 50, 62, 10); // Back To DashBoard
+        }
+    }
+
     protected function submitProfileButton()
     {
         if (APP_ENV == 'ios') {

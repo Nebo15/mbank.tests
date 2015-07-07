@@ -42,12 +42,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Transactions List
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
-        if (APP_ENV == 'ios') {
-            $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
-            sleep(3);
-            $this->tap(1, 50, 62, 10);
-        }
+        $this->backToDashBoard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Check Balance In Wallet
         $Balance = $this->byElement('Wallet_Balance')->text();
