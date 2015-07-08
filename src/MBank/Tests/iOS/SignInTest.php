@@ -198,16 +198,11 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $Error_Password = 0;
         while ($Error_Password != 5) {
             $this->waitForElementDisplayedByElement('Error_Password');
+            $this->waitForElementDisplayedByElement('OK_Button_Sign');
             $this->byElement('OK_Button_Sign')->click();
             $this->waitForElementDisplayedByElement('Confirm_Button');
             $this->byElement('Confirm_Button')->click();
             $Error_Password++;
-        }
-        if (APP_ENV == 'web') {
-            $this->waitForElementDisplayedByElement('Error_Password');
-            $this->byElement('OK_Button_Sign')->click();
-            $this->waitForElementDisplayedByElement('Confirm_Button');
-            $this->byElement('Confirm_Button')->click();
         }
         // Assert limit message
         $this->waitForElementDisplayedByElement('Limit_message');

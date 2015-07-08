@@ -104,7 +104,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->walletPayServiceMultibank($wallet);
+        $this->walletPayServiceMultibank();
         // Retry Pay Wallet With Changes
         $this->retryPayWallet();
         // Back To DashBoard
@@ -169,7 +169,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('11111');
+        $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('1');
         // Pay
         $this->byElement('Done_Button')->click();
@@ -184,7 +186,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function retryPayWallet()
     {
-        sleep(3);
+        sleep(5);
+        $this->waitForElementDisplayedByElement('Repeat');
         $this->byElement('Repeat')->click();
         $this->waitForElementDisplayedByElement('Repeat payment?');
         $this->byElement('Yes, with changes')->click();
@@ -227,21 +230,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
-    public function walletPayServiceMultibank($wallet)
+    public function walletPayServiceMultibank()
     {
-        $this->waitForElementDisplayedByElement('Transfer_Button');
-        $this->byElement('Transfer_Button')->click();
-        $this->waitForElementDisplayedByElement('Verification_Button1');
-        $this->byElement('Verification_Button1')->click();
-        // Set Valid Data
-        $this->fillVerificationForm($wallet);
-        $this->waitForElementDisplayedByElement('Back_Button_Rus');
-        $this->byElement('Back_Button_Rus')->click();
-        // Personified User
-        $this->getAPIService()->verifyWallet($wallet->phone);
-        // Check P2P Button
-        $this->byElement('Your_balance_Button')->click();
-        $this->byElement('Your_balance_Button')->click();
         // Select Service
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
@@ -254,6 +244,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->click();
         $this->byElement('Pay_Field')->value('0931254212');
         $this->byElement('Pay_Field2')->click();
         $this->byElement('Pay_Field2')->value('044583151');
@@ -352,7 +343,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
     public function repeatPayWithoutChanges()
     {
         $this->waitForElementDisplayedByElement('Repeat');
-        sleep(1);
+        sleep(2);
         $this->byElement('Repeat')->click();
         $this->waitForElementDisplayedByElement('Repeat payment?');
         $this->byElement('Yes, with changes')->click();
