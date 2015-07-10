@@ -3,7 +3,7 @@ require_once dirname(__FILE__).'/vendor/autoload.php';
 
 date_default_timezone_set('Etc/GMT+2');
 
-define("APP_ENV", 'web');
+define("APP_ENV", 'ios');
 define("ENVIRONMENT", 'DEV');
 
 if (APP_ENV == 'web' && ENVIRONMENT == 'DEV')
