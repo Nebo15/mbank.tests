@@ -325,6 +325,14 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->backToDashBoard();
     }
 
+    public function testSendStatement() // For Pasha
+    {
+        $this->loadDashboard('+380631817386', 'testtedt');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->walletPayServices();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+    }
+
     /**
      * @param $wallet //TODO выпилить после правок метода в файлике APIService
      */

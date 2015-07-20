@@ -14,3 +14,4 @@ Test Cases:
 - Conversations - отображение сообщений (интерком)
 - Transactions - повторная оплата в сервисы
 - Commission - комиссия сервисов
+- Service Search - поиск сервисов

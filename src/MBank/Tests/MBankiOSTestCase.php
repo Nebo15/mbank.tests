@@ -197,6 +197,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function signIn($phone, $password)
     {
+        $this->waitForElementDisplayedByElement('Sign_in_Button');
         $this->byElement('Sign_in_Button')->click();
         $this->fillCredentialsForm($phone, $password);
         $this->byElement('LoginIN')->click();
