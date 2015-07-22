@@ -17,6 +17,7 @@ class ServiceSearchTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
         // Fill Search Field
+        sleep(2);
         $this->waitForElementDisplayedByElement('SearchField');
         $this->byElement('SearchField')->click();
         $this->byElement('SearchField')->value('ste');

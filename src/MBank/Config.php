@@ -32,7 +32,7 @@ class Config
             "Repeat" => ["type" => "name", "selector" => "Repeat"],
             "Money2Card" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[9]"],
             "Yes, with changes" => ["type" => "name", "selector" => "Yes, with changes"],
-            "Multibank" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[5]"],
+            "Multibank" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[2]"],
             "Pay_field3" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[10]/UIATextField[1]"],
             "Эшелон Охранная Система" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[2]"],
             "Цезарь Сателлит" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]"],

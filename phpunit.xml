@@ -22,6 +22,7 @@
                 <file>src/MBank/Tests/iOS/SignInTest.php</file>
                 <file>src/MBank/Tests/iOS/SignUpTest.php</file>
                 <file>src/MBank/Tests/iOS/TransactionsTest.php</file>
+                <file>src/MBank/Tests/iOS/ServiceSearchTest.php</file>
             </testsuite>
 
             <testsuite name="MBankSTG">

@@ -11,6 +11,19 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Conversations_Button');
+        $this->waitForElementDisplayedByElement('Transfer_Button');
+        $this->byElement('Transfer_Button')->click();
+        $this->waitForElementDisplayedByElement('Verification_Button1');
+        $this->byElement('Verification_Button1')->click();
+        // Set Valid Data
+        $this->fillVerificationForm($wallet);
+        $this->waitForElementDisplayedByElement('Back_Button_Rus');
+        $this->byElement('Back_Button_Rus')->click();
+        // Personified User
+        $this->getAPIService()->verifyWallet($wallet->phone);
+        // Check P2P Button
+        $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
         // Select Service
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
@@ -39,59 +52,59 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function testCheckCommissionAfterRepeatPay()
-    {
-        $wallet = $this->createWalletAndLoadDashboard();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->waitForElementDisplayedByElement('Conversations_Button');
-        // Select Service
-        $this->waitForElementDisplayedByElement('Pay_button');
-        $this->byElement('Pay_button')->click();
-        $this->waitForElementDisplayedByElement('Money2Card');
-        $this->byElement('Money2Card')->click();
-        $this->waitForElementDisplayedByElement('Multibank');
-        $this->byElement('Multibank')->click();
-        // Pay step
-        $pay_value = 9700; // amount
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->waitForElementDisplayedByElement('Pay_buttoN');
-        $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->click();
-        $this->byElement('Pay_Field')->value('0931254212');
-        $this->byElement('Pay_Field2')->click();
-        $this->byElement('Pay_Field2')->value('044583151');
-        $this->byElement('Pay_field3')->click();
-        $this->byElement('Pay_field3')->value($pay_value);
-        if (APP_ENV == 'ios') {
-            $this->byName('0')->click();
-            $this->byName('0')->click();
-            $this->byName('Delete')->click();
-        }
-        $this->byElement('Done_Button')->click();
-        $this->CommissionCheck($wallet, $pay_value);
-        // Pay1
-        $this->byElement('Pay_buttoN')->click();
-        // Pay2
-        $this->waitForElementDisplayedByElement('Pay_field4');
-        $this->waitForElementDisplayedByElement('Pay_buttoN');
-        $this->byElement('Pay_buttoN')->click();
-        // Pay Confirm
-        $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Pay_buttoN');
-        sleep(9);
-        $this->byElement('Pay_buttoN')->click();
-        // Check Transaction in List
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-        // Retry Payment
-        $this->retryPayWallet();
-        // Commission Check
-        // TODO
+//    public function testCheckCommissionAfterRepeatPay()
+//    {
+//        $wallet = $this->createWalletAndLoadDashboard();
+//        $this->waitForElementDisplayedByElement('Your_balance_Button');
+//        $this->waitForElementDisplayedByElement('Conversations_Button');
+//        // Select Service
+//        $this->waitForElementDisplayedByElement('Pay_button');
+//        $this->byElement('Pay_button')->click();
+//        $this->waitForElementDisplayedByElement('Money2Card');
+//        $this->byElement('Money2Card')->click();
+//        $this->waitForElementDisplayedByElement('Multibank');
+//        $this->byElement('Multibank')->click();
+//        // Pay step
+//        $pay_value = 9700; // amount
+//        $this->waitForElementDisplayedByElement('Pay_Field');
+//        $this->waitForElementDisplayedByElement('Pay_buttoN');
+//        $this->byElement('Pay_buttoN')->click();
+//        $this->byElement('Pay_Field')->click();
+//        $this->byElement('Pay_Field')->value('0931254212');
+//        $this->byElement('Pay_Field2')->click();
+//        $this->byElement('Pay_Field2')->value('044583151');
+//        $this->byElement('Pay_field3')->click();
+//        $this->byElement('Pay_field3')->value($pay_value);
+//        if (APP_ENV == 'ios') {
+//            $this->byName('0')->click();
+//            $this->byName('0')->click();
+//            $this->byName('Delete')->click();
+//        }
+//        $this->byElement('Done_Button')->click();
 //        $this->CommissionCheck($wallet, $pay_value);
-        // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
-            $this->getAPIService()->deleteWallet($wallet->phone);
-        }
-    }
+//        // Pay1
+//        $this->byElement('Pay_buttoN')->click();
+//        // Pay2
+//        $this->waitForElementDisplayedByElement('Pay_field4');
+//        $this->waitForElementDisplayedByElement('Pay_buttoN');
+//        $this->byElement('Pay_buttoN')->click();
+//        // Pay Confirm
+//        $this->waitForElementDisplayedByElement('Payment_method');
+//        $this->waitForElementDisplayedByElement('Pay_buttoN');
+//        sleep(9);
+//        $this->byElement('Pay_buttoN')->click();
+//        // Check Transaction in List
+//        $this->waitForElementDisplayedByElement('Transactions_Assert');
+//        // Retry Payment
+//        $this->retryPayWallet();
+//        // Commission Check
+//        // TODO
+//        $this->CommissionCheck($wallet, $pay_value);
+//        // Delete wallet
+//        if (ENVIRONMENT == 'DEV') {
+//            $this->getAPIService()->deleteWallet($wallet->phone);
+//        }
+//    }
 
     /**
      * @param $wallet
@@ -126,5 +139,49 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Yes, with changes')->click();
         sleep(3);
         $this->waitForElementDisplayedByElement('Pay_buttoN');
+    }
+
+    /**
+     * @param $wallet
+     */
+    protected function fillVerificationForm($wallet)
+    {
+        if (APP_ENV == 'web') {
+            $this->waitForElementDisplayedByElement('Family_name');
+            $this->waitForElementDisplayedByElement('Given_name');
+            $this->byElement('Family_name')->value($wallet->person->family_name);
+            $this->byElement('Family_name')->click();
+            $this->byName('q')->click();
+            $this->byName('Delete')->click();
+            $this->byElement('Given_name')->value($wallet->person->given_name);
+            $this->byElement('Given_name')->click();
+            $this->byName('q')->click();
+            $this->byName('Delete')->click();
+            $this->byElement('Patronymic_name')->click();
+            $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
+            $this->byElement('Patronymic_name')->click();
+            $this->byName('q')->click();
+            $this->byName('Delete')->click();
+            $this->byElement('Passport_series_number')->click();
+            $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
+            $this->byElement('Itn')->click();
+            $this->byElement('Passport_issued_at')->click();
+            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
+            $this->byElement('Itn')->click();
+            $this->byElement('Itn')->value($wallet->person->itn);
+            $this->byName('Go')->click();
+        } elseif (APP_ENV == 'ios') {
+            $this->byElement('Family_name')->value($wallet->person->family_name);
+            $this->byElement('Given_name')->value($wallet->person->given_name);
+            $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
+            $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
+            $this->byElement('Itn')->click();
+            $this->byElement('Itn')->value($wallet->person->itn);
+            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
+            $this->byElement('Done_Button')->click();
+            $this->byElement('Next_Button')->click();
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
+        }
     }
 }

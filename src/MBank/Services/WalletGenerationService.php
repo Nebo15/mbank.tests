@@ -39,7 +39,7 @@ class WalletGenerationService
 
     public function getPassportSeriesNumber()
     {
-        $fake_passports = ['4506081571', '4512770818', '6908279493'];
+        $fake_passports = ['4506081'. mt_rand(000, 999), '4512770'. mt_rand(000, 999), '6908279'. mt_rand(000, 999)];
         return $fake_passports[rand(0, count($fake_passports)-1)];
     }
 
