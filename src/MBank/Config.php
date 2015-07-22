@@ -56,7 +56,7 @@ class Config
             "НТВ_Плюс" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]"],
             "Wallet" => ["type" => "name", "selector" => "Wallet"],
             "Payment_systems" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[8]"],
-            "Яндекс.Деньги" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[2]"],
+            "Яндекс.Деньги" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[5]"],
             "Card2Card" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[2]"],
             "ПополнениеVisa/MasterCard" => ["type" => "name", "selector" => "Пополнение Visa/MasterCard"],
             "Wallet_Selector" => ["type" => "name", "selector" => "ui radiobutton on"],
