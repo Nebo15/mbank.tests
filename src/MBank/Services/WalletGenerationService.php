@@ -33,7 +33,7 @@ class WalletGenerationService
 
     public function getITN()
     {
-        $fake_itns = ['602701490561', '071002233173', '056112700701'];
+        $fake_itns = ['602701490561', '071002233173'];
         return $fake_itns[rand(0, count($fake_itns)-1)];
     }
 

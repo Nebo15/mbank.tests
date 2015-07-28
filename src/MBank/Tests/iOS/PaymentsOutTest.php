@@ -227,11 +227,34 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_button')->click();
         $this->gamesDirectory();
         $this->telephonyDirectory();
-        $this->securitySystemsDirectory();
         $this->internetProviders();
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
+        }
+    }
+
+    public function testSendStatement()
+    {
+        if (APP_ENV == 'ios') {
+            $this->loadDashboard('+380631817386', 'testtedt');
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->submitProfileButton();
+            sleep(2);
+            $this->tap(1, 247 ,233, 10); // Settings Button
+            $this->waitForElementDisplayedByElement('Send statement');
+            $this->byElement('Send statement')->click();
+            $this->waitForElementDisplayedByElement('After payment');
+            $this->byElement('After payment')->click();
+            $this->waitForElementDisplayedByElement('Mail_field');
+            $this->byElement('Mail_field')->click();
+            $this->byElement('Mail_field')->value('paul@nebo15.com');
+            $this->byElement('Back_dashboard')->click();
+            $this->waitForElementDisplayedByElement('Back_dashboard');
+            $this->byElement('Back_dashboard')->click();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->walletPayServices();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
         }
     }
 
@@ -325,14 +348,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->backToDashBoard();
     }
 
-    public function testSendStatement() // For Pasha
-    {
-        $this->loadDashboard('+380631817386', 'testtedt');
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->walletPayServices();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-    }
-
     /**
      * @param $wallet //TODO выпилить после правок метода в файлике APIService
      */
@@ -382,6 +397,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     {
         $this->waitForElementDisplayedByElement('Games_networks');
         $this->byElement('Games_networks')->click();
+        $this->waitForElementDisplayedByElement('Steam');
         $this->byElement('Steam')->click();
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
@@ -404,20 +420,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->byElement('Back from Pay Mobile')->click();
         $this->waitForElementDisplayedByElement('МГТС');
-        $this->byElement('Back from Provider Select')->click();
-    }
-
-    public function securitySystemsDirectory()
-    {
-        $this->byElement('Security systems')->click();
-        $this->waitForElementDisplayedByElement('Эшелон Охранная Система');
-        $this->byElement('Эшелон Охранная Система')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Back from Pay Mobile')->click();
-        $this->waitForElementDisplayedByElement('Эшелон Охранная Система');
-        $this->byElement('Цезарь Сателлит')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->byElement('Back from Pay Mobile')->click();
         $this->byElement('Back from Provider Select')->click();
     }
 
