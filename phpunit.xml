@@ -11,18 +11,18 @@
             </testsuite>
             <testsuite name="MBank">
                 <file>src/MBank/Tests/iOS/CardsTest.php</file>
-                <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
                 <file>src/MBank/Tests/iOS/CommissionTest.php</file>
+                <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsInTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
                 <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
                 <file>src/MBank/Tests/iOS/PINCodeTest.php</file>
                 <file>src/MBank/Tests/iOS/ProfileTest.php</file>
+                <file>src/MBank/Tests/iOS/ServiceSearchTest.php</file>
                 <file>src/MBank/Tests/iOS/SettingsTest.php</file>
                 <file>src/MBank/Tests/iOS/SignInTest.php</file>
                 <file>src/MBank/Tests/iOS/SignUpTest.php</file>
                 <file>src/MBank/Tests/iOS/TransactionsTest.php</file>
-                <file>src/MBank/Tests/iOS/ServiceSearchTest.php</file>
             </testsuite>
 
             <testsuite name="MBankSTG">
@@ -37,10 +37,19 @@
     <groups>
         <include>
             <group>Cards</group>
+            <group>Commission</group>
             <group>Conversations</group>
+            <group>PayIn</group>
+            <group>PayOut</group>
+            <group>P2P</group>
+            <group>PinCode</group>
             <group>Profile</group>
+            <group>ServiceSearch</group>
+            <group>Settings</group>
             <group>SignIn</group>
             <group>SignUp</group>
+            <group>Transactions</group>
+
         </include>
     </groups>
 
