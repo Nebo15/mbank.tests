@@ -46,6 +46,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group SignIn
+     */
     public function testLoadWalletNonActive()
     {
         // Create not active wallet
@@ -59,6 +62,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group SignIn
+     */
     public function testSignInWithIncorrectPassword()
     {
         // Create wallet over API
@@ -80,6 +86,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group SignIn
+     */
     public function testSignInWithWalletNotExists()
     {
         $this->waitForElementDisplayedByElement('Sign_in_Button');
@@ -94,6 +103,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('LoginIN');
     }
 
+    /**
+     * @group SignIn
+     */
     public function testResetPassword()
     {
         // Create wallet
@@ -135,6 +147,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group SignIn
+     */
     public function testResetPasswordWithWrongCode()
     {
         // Create wallet
@@ -168,6 +183,9 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group SignIn
+     */
     public function testResetPasswordWithRetryLimitExceeded()
     {
         // Create wallet

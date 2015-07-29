@@ -29,6 +29,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayOut
+     */
     public function testOutFromCard()
     {
         if (APP_ENV == 'web') {
@@ -84,6 +87,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayOut
+     */
     public function testPayServiceYandex()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -118,6 +124,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayOut
+     */
     public function testPayCardToCard()
     {
         if (APP_ENV == 'web') {
@@ -178,6 +187,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayOut
+     */
     public function testPayWalletToCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -215,6 +227,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayOut
+     */
     public function testServicesLoad()
     {
         if (APP_ENV == 'web') {
@@ -234,6 +249,9 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayOut
+     */
     public function testSendStatement()
     {
         if (APP_ENV == 'ios') {

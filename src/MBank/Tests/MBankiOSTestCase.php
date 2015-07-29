@@ -21,7 +21,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 'app' => APP_PATH,
                 'newCommandTimeout' => 999999,
                 'sendKeyStrategy' => 'setValue',
-                'launchTimeout' => 15000,
+                'launchTimeout' => 999999,
             )
         )
     );
@@ -39,7 +39,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                     'sendKeyStrategy' => 'setValue',
                     'autoAcceptAlerts' => true,
                     'waitForAppScript' => true,
-                    'launchTimeout' => 15000,
+                    'launchTimeout' => 999999,
                 )
             );
         } elseif (APP_ENV == 'web') {
@@ -52,7 +52,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                     'newCommandTimeout' => 999999,
                     'autoAcceptAlerts' => true,
                     'waitForAppScript' => true,
-                    'launchTimeout' => 15000,
+                    'launchTimeout' => 999999,
                 )
             );
         }

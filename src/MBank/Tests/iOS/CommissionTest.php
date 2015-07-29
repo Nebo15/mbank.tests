@@ -6,6 +6,9 @@ namespace MBank\Tests\iOS;
 class CommissionTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group Commission
+     */
     public function testServicesCommission()
     {
         $wallet = $this->createWalletAndLoadDashboard();

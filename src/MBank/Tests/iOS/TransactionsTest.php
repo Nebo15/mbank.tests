@@ -6,6 +6,9 @@ namespace MBank\Tests\iOS;
 class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group Transactions
+     */
     public function testRepeatPayCard()
     {
         if (APP_ENV == 'web') {
@@ -38,6 +41,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Transactions
+     */
     public function testRepeatPayP2PdWithChanges()
     {
         if (APP_ENV == 'web') {
@@ -100,6 +106,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Transactions
+     */
     public function testRepeatPayOutMultibankWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -126,6 +135,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Transactions
+     */
     public function testOutFromWalletRepeatWithoutChanges()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -154,6 +166,9 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Transactions
+     */
     public function walletPayServices()
     {
         $this->waitForElementDisplayedByElement('Add_funds_Button');

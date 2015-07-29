@@ -13,6 +13,9 @@ class SignUpTest extends MBankiOSTestCase
         $this->wallet = $this->generateWalletData();
     }
 
+    /**
+     * @group SignUp
+     */
     public function testSignUp()
     {
         // Sign up
@@ -68,6 +71,9 @@ class SignUpTest extends MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Exist_phone');
     }
 
+    /**
+     * @group SignUp
+     */
     public function testSignUpWithShortPassword()
     {
         $this->byElement('Registration_Button')->click();

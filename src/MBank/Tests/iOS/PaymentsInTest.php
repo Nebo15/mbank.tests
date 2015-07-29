@@ -4,6 +4,9 @@ namespace MBank\Tests\iOS;
 class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group PayIn
+     */
     public function testPayInCard()
     {
         if (APP_ENV == 'ios') {
@@ -54,6 +57,9 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PayIn
+     */
     public function testPayInCardNegativeSum()
     {
         if (APP_ENV == 'ios') {

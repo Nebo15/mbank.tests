@@ -6,6 +6,9 @@ namespace MBank\Tests\iOS;
 class ServiceSearchTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group ServiceSearch
+     */
     public function testSearch()
     {
         $wallet = $this->createWalletAndLoadDashboard();

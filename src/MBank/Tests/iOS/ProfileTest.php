@@ -4,6 +4,9 @@ namespace MBank\Tests\iOS;
 class ProfileTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group Profile
+     */
     public function testUploadPhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -35,6 +38,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Profile
+     */
     public function testDeletePhoto()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -79,6 +85,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Profile
+     */
     public function testVerify()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -123,6 +132,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group Profile
+     */
     public function testVerifyWithIncorrectData()
     {
         $wallet = $this->createWalletAndLoadDashboard();

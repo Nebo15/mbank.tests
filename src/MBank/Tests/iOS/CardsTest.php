@@ -6,6 +6,9 @@ namespace MBank\Tests\iOS;
 class CardsTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group Cards
+     */
     public function testAddCard()
     {
         $wallet = $this->createWalletAndLoadDashboard();

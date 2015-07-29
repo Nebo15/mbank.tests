@@ -4,6 +4,9 @@ namespace MBank\Tests\iOS;
 class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group P2P
+     */
     public function testP2PFromWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -60,6 +63,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group P2P
+     */
     public function testP2PPayToNonVerifiedWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -98,6 +104,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group P2P
+     */
     public function testP2PPayToYourself()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -136,6 +145,9 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group P2P
+     */
     public function testP2PContacts()
     {
         if (APP_ENV == 'web') {

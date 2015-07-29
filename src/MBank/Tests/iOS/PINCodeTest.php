@@ -4,6 +4,9 @@ namespace MBank\Tests\iOS;
 class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
 {
 
+    /**
+     * @group PinCode
+     */
     public function testSetPinCodeInSettings()
     {
         if (APP_ENV == 'web') {
@@ -26,6 +29,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testPinOnLoginPage()
     {
         if (APP_ENV == 'web') {
@@ -45,6 +51,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testCanSkipOnSecondStep()
     {
         if (APP_ENV == 'web') {
@@ -63,6 +72,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testFirstAskPIN()
     {
         if (APP_ENV == 'web') {
@@ -89,6 +101,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testPinCode()
     {
         if (APP_ENV == 'web') {
@@ -117,6 +132,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testPinWithWrongCode()
     {
         if (APP_ENV == 'web') {
@@ -134,6 +152,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testPinTimeout()
     {
         if (APP_ENV == 'web') {
@@ -165,6 +186,9 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
+    /**
+     * @group PinCode
+     */
     public function testPinReset()
     {
         if (APP_ENV == 'web') {
