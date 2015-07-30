@@ -255,7 +255,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     public function testSendStatement()
     {
         if (APP_ENV == 'ios') {
-            $this->loadDashboard('+380631817386', 'testtedt');
+            $this->loadDashboard('+380931254212', 'qwerty');
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
             sleep(2);
