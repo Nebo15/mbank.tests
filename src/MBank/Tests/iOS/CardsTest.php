@@ -14,6 +14,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
+        sleep(3);
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
         if (APP_ENV == 'ios') {
@@ -41,34 +42,32 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             // Assert First Card Is Present
             $this->waitForElementDisplayedByElement('Second_Card_Assert');
         } elseif (APP_ENV == 'web') {
-            $this->markTestSkipped();
-//            $this->waitForElementDisplayedByElement('Add_New_card_Button');
-//            sleep(2);
-//            $this->byElement('Add_New_card_Button')->click();
-//            $this->waitForElementDisplayedByElement('Add_card_number_Button');
-//            // Add card
-//            $cardNumber = $this->byElement('Add_card_number_Button');
-//            $cardNumber->click();
-//            $cardNumber->value('5417150396276825');
-//            // Add YY
-//            $this->byElement('Add_YY_Button')->click();
-//            sleep(1);
-//            $this->tap(1, 194, 616, 10); // add year 17
-//            $this->byElement('Done_Button')->click();
-//            // Add CVV code
-//            $cvv = $this->byElement('CVV_Button');
-//            $cvv->click();
-//            $cvv->value('789');
-//            // Add CardHolder
-//            $cardHolder = $this->byElement('Cardholder_Button');
-//            $cardHolder->click();
-//            $cardHolder->value('testtestd');
-//            $this->byElement('Start_button')->click();
-//            // Assert test pay
-//            sleep(3);
-//            $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[4]');
-//            $this->byXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[4]')->click();
-            //TODO for WEB_APP
+            $this->waitForElementDisplayedByElement('Add_New_card_Button');
+            sleep(2);
+            $this->byElement('Add_New_card_Button')->click();
+            $this->waitForElementDisplayedByElement('Add_card_number_Button');
+            // Add card
+            $cardNumber = $this->byElement('Add_card_number_Button');
+            $cardNumber->click();
+            $cardNumber->value('5417150396276825');
+            // Add YY
+            $this->byElement('Add_YY_Button')->click();
+            sleep(1);
+            $this->tap(1, 194, 616, 10); // add year 17
+            $this->byElement('Done_Button')->click();
+            // Add CVV code
+            $cvv = $this->byElement('CVV_Button');
+            $cvv->click();
+            $cvv->value('789');
+            $this->byElement('Done_Button')->click();
+            // Add CardHolder
+            $cardHolder = $this->byElement('Cardholder_Button');
+            $cardHolder->click();
+            $cardHolder->value('testtestd');
+            $this->byElement('Done_Button')->click();
+            $this->byElement('Add_card_button_start')->click();
+            // Assert First Card Is Added
+            $this->waitForElementDisplayedByElement('First_Card_Assert');
         }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
