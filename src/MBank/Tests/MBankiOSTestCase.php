@@ -145,19 +145,44 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function fillCardForm($card, $mm, $yy, $cvv, $cardHolder)
     {
-        // Add card number
-        $this->waitForElementDisplayedByElement('Add_card_number_Button');
-        $this->byElement('Add_card_number_Button')->value($card);
-        // Add MM
-        $this->byElement('Add_MM_Button')->value($mm);
-        // Add YY
-        $this->byElement('Add_YY_Button')->value($yy);
-        // Add CVV code
-        $this->byElement('CVV_Button')->value($cvv);
-        // Add CardHolder
-        $this->byElement('Done_Button')->click();
-        $this->byElement('Cardholder_Button')->value($cardHolder);
-        $this->byElement('Add_Card_Button')->click();
+        if (APP_ENV == 'ios') {
+            // Add card number
+            $this->waitForElementDisplayedByElement('Add_card_number_Button');
+            $this->byElement('Add_card_number_Button')->value($card);
+            // Add MM
+            $this->byElement('Add_MM_Button')->value($mm);
+            // Add YY
+            $this->byElement('Add_YY_Button')->value($yy);
+            // Add CVV code
+            $this->byElement('CVV_Button')->value($cvv);
+            // Add CardHolder
+            $this->byElement('Done_Button')->click();
+            $this->byElement('Cardholder_Button')->value($cardHolder);
+            $this->byElement('Add_Card_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(2);
+            $this->waitForElementDisplayedByElement('Add_card_number_Button');
+            // Add card
+            $cardNumber = $this->byElement('Add_card_number_Button');
+            $cardNumber->click();
+            $cardNumber->value($card);
+            // Add YY
+            $this->byElement('Add_YY_Button')->click();
+            sleep(1);
+            $this->tap(1, 194, 616, 10); // add year 17
+            $this->byElement('Done_Button')->click();
+            // Add CVV code
+            $cvvv = $this->byElement('CVV_Button');
+            $cvvv->click();
+            $cvvv->value($cvv);
+            $this->byElement('Done_Button')->click();
+            // Add CardHolder
+            $cardHolderr = $this->byElement('Cardholder_Button');
+            $cardHolderr->click();
+            $cardHolderr->value($cardHolder);
+            $this->byElement('Done_Button')->click();
+            $this->byElement('Add_card_button_start')->click();
+        }
     }
 
     protected function fillCredentialsForm($login, $password)

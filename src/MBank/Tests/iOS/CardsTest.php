@@ -13,62 +13,36 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
+        sleep(1);
         $this->submitProfileButton();
-        sleep(3);
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();
+        sleep(2);
+        $this->waitForElementDisplayedByElement('Add_New_card_Button');
+        // Add First Card
+        $this->byElement('Add_New_card_Button')->click();
+        $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
+        // Assert First Card Is Added
+        $this->waitForElementDisplayedByElement('First_Card_Assert');
+        // Add Second Card
+        $this->waitForElementDisplayedByElement('Add_New_card_Button');
+        $this->byElement('Add_New_card_Button')->click();
+        $this->fillCardForm('5417150396276825', '01', '17', '789', 'testtestd');
+        // Assert Second Card Is Added
+        $this->waitForElementDisplayedByElement('Second_Card_Assert');
+        // Remove Second Card
         if (APP_ENV == 'ios') {
-            $this->waitForElementDisplayedByElement('Cards_Button');
-            $this->waitForElementDisplayedByElement('Empty_list_Button');
-            $this->waitForElementDisplayedByElement('Add_New_card_Button');
-            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
-            // Add First Card
-            $this->byElement('Add_New_card_Button')->click();
-            $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
-            // Assert First Card Is Added
-            $this->waitForElementDisplayedByElement('First_Card_Assert');
-            // Add Second Card
-            $this->byElement('Add_New_card_Button')->click();
-            $this->fillCardForm('5417150396276825', '01', '17', '789', 'testtestd');
-            // Assert Second Card Is Added
-            $this->waitForElementDisplayedByElement('Second_Card_Assert');
-            // Remove Second Card
             $this->byElement('Remove_Card_Button')->click();
             $this->byElement('DA_Button')->click();
             // Assert Second Is Removed
             sleep(2);
             $cardDelete = $this->byElement('Delete_Card_Assert')->text();
             $this->assertEquals('moved to row 1 of 1', $cardDelete);
-            // Assert First Card Is Present
-            $this->waitForElementDisplayedByElement('Second_Card_Assert');
         } elseif (APP_ENV == 'web') {
-            $this->waitForElementDisplayedByElement('Add_New_card_Button');
-            sleep(2);
-            $this->byElement('Add_New_card_Button')->click();
-            $this->waitForElementDisplayedByElement('Add_card_number_Button');
-            // Add card
-            $cardNumber = $this->byElement('Add_card_number_Button');
-            $cardNumber->click();
-            $cardNumber->value('5417150396276825');
-            // Add YY
-            $this->byElement('Add_YY_Button')->click();
-            sleep(1);
-            $this->tap(1, 194, 616, 10); // add year 17
-            $this->byElement('Done_Button')->click();
-            // Add CVV code
-            $cvv = $this->byElement('CVV_Button');
-            $cvv->click();
-            $cvv->value('789');
-            $this->byElement('Done_Button')->click();
-            // Add CardHolder
-            $cardHolder = $this->byElement('Cardholder_Button');
-            $cardHolder->click();
-            $cardHolder->value('testtestd');
-            $this->byElement('Done_Button')->click();
-            $this->byElement('Add_card_button_start')->click();
-            // Assert First Card Is Added
-            $this->waitForElementDisplayedByElement('First_Card_Assert');
+            $this->tap(1, 350, 115, 10); // Remove card
         }
+        // Assert First Card Is Present
+        $this->waitForElementDisplayedByElement('Second_Card_Assert');
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
