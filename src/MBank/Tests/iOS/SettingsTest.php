@@ -9,9 +9,6 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testDeleteTempData()
     {
-        if (APP_ENV == 'web') {
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
-        }
         $wallet = $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
@@ -19,8 +16,10 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Delete_temporary_data');
         $this->byElement('Delete_temporary_data')->click();
-        $this->byElement('YES_Button')->click();
-        $this->waitForElementDisplayedByElement('Assert_Delete_TEMP');
+        if (APP_ENV == 'ios') {
+            $this->byElement('YES_Button')->click();
+            $this->waitForElementDisplayedByElement('Assert_Delete_TEMP');
+        }
         // Delete wallet
         if (ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);

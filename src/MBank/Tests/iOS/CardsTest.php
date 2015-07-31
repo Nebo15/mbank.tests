@@ -13,7 +13,6 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
     {
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
-        sleep(1);
         $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
         $this->byElement('Cards_Button')->click();

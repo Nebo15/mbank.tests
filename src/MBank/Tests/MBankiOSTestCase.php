@@ -279,7 +279,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->waitForElementDisplayedByElement('Profile_Button');
             $this->byElement('Profile_Button')->click();
         } elseif (APP_ENV == 'web') {
-            sleep(1);
+            sleep(2);
             $this->tap(1, 214, 218, 10); // Web Profile Button
         }
     }
