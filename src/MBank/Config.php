@@ -7,6 +7,8 @@ class Config
 {
     private $config = [
         "ios" => [
+            "Once a week" => ["type" => "name", "selector" => "Once a week"],
+            "Once a month" => ["type" => "name", "selector" => "Once a month"],
             "SearchButton" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAKeyboard[1]/UIAButton[4]"],
             "SteamSearch" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]"],
             "SearchField" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATextField[1]"],

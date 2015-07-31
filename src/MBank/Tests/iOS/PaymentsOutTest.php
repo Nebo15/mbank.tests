@@ -252,7 +252,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group PayOut
      */
-    public function testSendStatement()
+    public function testSendStatementAfterPay()
     {
         if (APP_ENV == 'ios') {
             $this->loadDashboard('+380931254212', 'qwerty');
@@ -264,6 +264,60 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->byElement('Send statement')->click();
             $this->waitForElementDisplayedByElement('After payment');
             $this->byElement('After payment')->click();
+            $this->waitForElementDisplayedByElement('Mail_field');
+            $this->byElement('Mail_field')->click();
+            $this->byElement('Mail_field')->value('paul@nebo15.com');
+            $this->byElement('Back_dashboard')->click();
+            $this->waitForElementDisplayedByElement('Back_dashboard');
+            $this->byElement('Back_dashboard')->click();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->walletPayServices();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+        }
+    }
+
+    /**
+     * @group PayOut
+     */
+    public function testSendStatementWeek()
+    {
+        if (APP_ENV == 'ios') {
+            $this->loadDashboard('+380931254212', 'qwerty');
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->submitProfileButton();
+            sleep(2);
+            $this->tap(1, 247 ,233, 10); // Settings Button
+            $this->waitForElementDisplayedByElement('Send statement');
+            $this->byElement('Send statement')->click();
+            $this->waitForElementDisplayedByElement('Once a week');
+            $this->byElement('Once a week')->click();
+            $this->waitForElementDisplayedByElement('Mail_field');
+            $this->byElement('Mail_field')->click();
+            $this->byElement('Mail_field')->value('paul@nebo15.com');
+            $this->byElement('Back_dashboard')->click();
+            $this->waitForElementDisplayedByElement('Back_dashboard');
+            $this->byElement('Back_dashboard')->click();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->walletPayServices();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+        }
+    }
+
+    /**
+     * @group PayOut
+     */
+    public function testSendStatementMonth()
+    {
+        if (APP_ENV == 'ios') {
+            $this->loadDashboard('+380931254212', 'qwerty');
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->submitProfileButton();
+            sleep(2);
+            $this->tap(1, 247 ,233, 10); // Settings Button
+            $this->waitForElementDisplayedByElement('Send statement');
+            $this->byElement('Send statement')->click();
+            $this->waitForElementDisplayedByElement('Once a month');
+            $this->byElement('Once a month')->click();
             $this->waitForElementDisplayedByElement('Mail_field');
             $this->byElement('Mail_field')->click();
             $this->byElement('Mail_field')->value('paul@nebo15.com');
