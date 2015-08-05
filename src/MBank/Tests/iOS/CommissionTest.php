@@ -79,17 +79,6 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-    public function retryPayWallet()
-    {
-        sleep(5);
-        $this->waitForElementDisplayedByElement('Repeat');
-        $this->byElement('Repeat')->click();
-        $this->waitForElementDisplayedByElement('Repeat payment?');
-        $this->byElement('Yes, with changes')->click();
-        sleep(3);
-        $this->waitForElementDisplayedByElement('Pay_buttoN');
-    }
-
     /**
      * @param $wallet
      */

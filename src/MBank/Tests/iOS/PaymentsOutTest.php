@@ -52,6 +52,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Card Is Added
         $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Back to DashBoard
+        $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
         $this->byElement('Back_to_Profile_Button')->click();
         $this->waitForElementDisplayedByElement('Back_dashboard');
         $this->byElement('Back_dashboard')->click();
