@@ -7,6 +7,11 @@ class Config
 {
     private $config = [
         "ios" => [
+            "WalletNotActiveMessage" => ["type" => "name", "selector" => "You need to activate your wallet to start using it."],
+            "Request code" => ["type" => "name", "selector" => "Request code"],
+            "BackToLogin" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[1]"],
+            "HaveAnAccount" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAButton[2]"],
+            "ForgotPassword" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAButton[3]"],
             "Once a week" => ["type" => "name", "selector" => "Once a week"],
             "Once a month" => ["type" => "name", "selector" => "Once a month"],
             "SearchButton" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAKeyboard[1]/UIAButton[4]"],
@@ -175,6 +180,12 @@ class Config
             "Photo_delete_button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[5]"],
         ],
         "web" => [
+            "PasswordField" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[1]"],
+            "WalletNotActiveMessage" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[2]"],
+            "Request code" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
+            "BackToLogin" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[1]"],
+            "HaveAnAccount" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[1]/UIAStaticText[1]"],
+            "ForgotPassword" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIALink[2]/UIAStaticText[1]"],
             "First_Card_Assert" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[6]"],
             "Second_Card_Assert" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAStaticText[6]"],
             "SearchButton" => ["type" => "name", "selector" => "Done"],
