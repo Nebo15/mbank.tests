@@ -25,10 +25,8 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Card Is Added
             $this->waitForElementDisplayedByElement('First_Card_Assert');
             // Back to DashBoard
-            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
-            $this->byElement('Back_to_Profile_Button')->click();
-            $this->waitForElementDisplayedByElement('Menu_Button');
-            $this->byElement('Menu_Button')->click();
+            $this->backToProfile();
+            $this->backToDashBoard();
             $this->waitForElementDisplayedByElement('Add_funds_Button');
             $this->byElement('Add_funds_Button')->click();
             // Pay

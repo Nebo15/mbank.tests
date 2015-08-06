@@ -172,14 +172,14 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->tap(1, 194, 616, 10); // add year 17
             $this->byElement('Done_Button')->click();
             // Add CVV code
-            $cvvv = $this->byElement('CVV_Button');
-            $cvvv->click();
-            $cvvv->value($cvv);
+            $cvvCode = $this->byElement('CVV_Button');
+            $cvvCode->click();
+            $cvvCode->value($cvv);
             $this->byElement('Done_Button')->click();
             // Add CardHolder
-            $cardHolderr = $this->byElement('Cardholder_Button');
-            $cardHolderr->click();
-            $cardHolderr->value($cardHolder);
+            $cardHold = $this->byElement('Cardholder_Button');
+            $cardHold->click();
+            $cardHold->value($cardHolder);
             $this->byElement('Done_Button')->click();
             $this->byElement('Add_card_button_start')->click();
         }
@@ -277,7 +277,19 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
     protected function backToDashBoard()
     {
         if (APP_ENV == 'ios') {
+            $this->waitForElementDisplayedByElement('Menu_Button');
             $this->byElement('Menu_Button')->click();
+        } elseif (APP_ENV == 'web') {
+            sleep(3);
+            $this->tap(1, 50, 62, 10); // Back To DashBoard
+        }
+    }
+
+    protected function backToProfile()
+    {
+        if (APP_ENV == 'ios') {
+            $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
+            $this->byElement('Back_to_Profile_Button')->click();
         } elseif (APP_ENV == 'web') {
             sleep(3);
             $this->tap(1, 50, 62, 10); // Back To DashBoard
