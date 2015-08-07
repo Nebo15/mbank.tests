@@ -270,7 +270,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('BackToLogin')->click();
         } elseif (APP_ENV == 'web') {
             sleep(3);
-            $this->tap(1, 50, 62, 10); // Back To DashBoard
+            $this->tap(1, 50, 62, 10); // Back To LoginForm
         }
     }
 
@@ -292,7 +292,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Back_to_Profile_Button')->click();
         } elseif (APP_ENV == 'web') {
             sleep(3);
-            $this->tap(1, 50, 62, 10); // Back To DashBoard
+            $this->tap(1, 50, 62, 10); // Back To Profile
         }
     }
 
@@ -314,7 +314,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Add_Photo_Button')->click();
         } elseif (APP_ENV == 'web') {
             sleep(1);
-            $this->tap(1, 190, 165, 10); // Web Profile Button
+            $this->tap(1, 190, 165, 10); // Web Photo Button
         }
     }
 
