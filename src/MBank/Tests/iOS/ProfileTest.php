@@ -179,48 +179,4 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
-
-    /**
-     * @param $wallet
-     */
-    protected function fillVerificationForm($wallet)
-    {
-        if (APP_ENV == 'web') {
-            $this->waitForElementDisplayedByElement('Family_name');
-            $this->waitForElementDisplayedByElement('Given_name');
-            $this->byElement('Family_name')->value($wallet->person->family_name);
-            $this->byElement('Family_name')->click();
-            $this->byName('q')->click();
-            $this->byName('Delete')->click();
-            $this->byElement('Given_name')->value($wallet->person->given_name);
-            $this->byElement('Given_name')->click();
-            $this->byName('q')->click();
-            $this->byName('Delete')->click();
-            $this->byElement('Patronymic_name')->click();
-            $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
-            $this->byElement('Patronymic_name')->click();
-            $this->byName('q')->click();
-            $this->byName('Delete')->click();
-            $this->byElement('Passport_series_number')->click();
-            $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
-            $this->byElement('Itn')->click();
-            $this->byElement('Passport_issued_at')->click();
-            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
-            $this->byElement('Itn')->click();
-            $this->byElement('Itn')->value($wallet->person->itn);
-            $this->byName('Go')->click();
-        } elseif (APP_ENV == 'ios') {
-            $this->byElement('Family_name')->value($wallet->person->family_name);
-            $this->byElement('Given_name')->value($wallet->person->given_name);
-            $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
-            $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
-            $this->byElement('Itn')->click();
-            $this->byElement('Itn')->value($wallet->person->itn);
-            $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
-            $this->byElement('Done_Button')->click();
-            $this->byElement('Next_Button')->click();
-            $this->waitForElementDisplayedByElement('Done_Button');
-            $this->byElement('Done_Button')->click();
-        }
-    }
 }
