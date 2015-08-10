@@ -1,7 +1,5 @@
 <?php
-
 namespace MBank\Tests\iOS;
-
 
 class ServiceSearchTest extends \MBank\Tests\MBankiOSTestCase
 {

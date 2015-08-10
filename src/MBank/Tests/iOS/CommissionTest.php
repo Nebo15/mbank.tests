@@ -1,7 +1,5 @@
 <?php
-
 namespace MBank\Tests\iOS;
-
 
 class CommissionTest extends \MBank\Tests\MBankiOSTestCase
 {

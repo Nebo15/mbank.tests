@@ -1,7 +1,5 @@
 <?php
-
 namespace MBank\Tests\iOS;
-
 
 class ConversationsTest extends \MBank\Tests\MBankiOSTestCase
 {
