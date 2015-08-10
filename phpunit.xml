@@ -5,34 +5,34 @@
 		convertWarningsToExceptions="true"
 		stopOnFailure="false">
 
-        <testsuites>
-            <testsuite name="Unit tests">
-                <directory>src</directory>
-            </testsuite>
-            <testsuite name="MBank">
-                <file>src/MBank/Tests/iOS/CardsTest.php</file>
-                <file>src/MBank/Tests/iOS/CommissionTest.php</file>
-                <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
-                <file>src/MBank/Tests/iOS/PaymentsInTest.php</file>
-                <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
-                <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
-                <file>src/MBank/Tests/iOS/PINCodeTest.php</file>
-                <file>src/MBank/Tests/iOS/ProfileTest.php</file>
-                <file>src/MBank/Tests/iOS/ServiceSearchTest.php</file>
-                <file>src/MBank/Tests/iOS/SettingsTest.php</file>
-                <file>src/MBank/Tests/iOS/SignInTest.php</file>
-                <file>src/MBank/Tests/iOS/SignUpTest.php</file>
-                <file>src/MBank/Tests/iOS/TransactionsTest.php</file>
-            </testsuite>
+    <testsuites>
+        <testsuite name="Unit tests">
+            <directory>src</directory>
+        </testsuite>
+        <testsuite name="MBank">
+            <file>src/MBank/Tests/iOS/CardsTest.php</file>
+            <file>src/MBank/Tests/iOS/CommissionTest.php</file>
+            <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
+            <file>src/MBank/Tests/iOS/PaymentsInTest.php</file>
+            <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
+            <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
+            <file>src/MBank/Tests/iOS/PINCodeTest.php</file>
+            <file>src/MBank/Tests/iOS/ProfileTest.php</file>
+            <file>src/MBank/Tests/iOS/ServiceSearchTest.php</file>
+            <file>src/MBank/Tests/iOS/SettingsTest.php</file>
+            <file>src/MBank/Tests/iOS/SignInTest.php</file>
+            <file>src/MBank/Tests/iOS/SignUpTest.php</file>
+            <file>src/MBank/Tests/iOS/TransactionsTest.php</file>
+        </testsuite>
 
-            <testsuite name="MBankSTG">
-                <directory suffix="Test.php" phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS</directory>
-                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ConversationsTest.php</file>
-                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ProfileTest.php</file>
-                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/SignInTest.php</file>
-                <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/SignUpTest.php</file>
-            </testsuite>
-        </testsuites>
+        <testsuite name="MBankSTG">
+            <directory suffix="Test.php" phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS</directory>
+            <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ConversationsTest.php</file>
+            <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/ProfileTest.php</file>
+            <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/SignInTest.php</file>
+            <file phpVersion="5.5.0" phpVersionOperator=">=">src/MBank/Tests/iOS/SignUpTest.php</file>
+        </testsuite>
+    </testsuites>
 
     <groups>
         <include>
@@ -51,5 +51,4 @@
             <group>Transactions</group>
         </include>
     </groups>
-
 </phpunit>
