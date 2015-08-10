@@ -326,6 +326,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         if (APP_ENV == 'web') {
             $this->waitForElementDisplayedByElement('Family_name');
             $this->waitForElementDisplayedByElement('Given_name');
+            sleep(1);
             $this->byElement('Family_name')->value($wallet->person->family_name);
             $this->byElement('Family_name')->click();
             $this->byName('q')->click();
@@ -346,7 +347,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Passport_issued_at')->value($wallet->person->passport_issued_at);
             $this->byElement('Itn')->click();
             $this->byElement('Itn')->value($wallet->person->itn);
-            $this->byName('Go')->click();
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
+            $this->byElement('Go')->click();
+            sleep(2);
         } elseif (APP_ENV == 'ios') {
             $this->byElement('Family_name')->value($wallet->person->family_name);
             $this->byElement('Given_name')->value($wallet->person->given_name);
