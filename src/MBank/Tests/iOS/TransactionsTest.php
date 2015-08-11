@@ -40,71 +40,6 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group Transactions
      */
-    public function testRepeatPayP2PdWithChanges()
-    {
-        if (APP_ENV == 'web') {
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
-        }
-        $wallet = $this->createWalletAndLoadDashboard();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->submitProfileButton();
-        $this->waitForElementDisplayedByElement('Cards_Button');
-        $this->byElement('Cards_Button')->click();
-        $this->waitForElementDisplayedByElement('Cards_Button');
-        $this->waitForElementDisplayedByElement('Empty_list_Button');
-        $this->waitForElementDisplayedByElement('Add_New_card_Button');
-        $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
-        // Add Card
-        $this->byElement('Add_New_card_Button')->click();
-        $this->fillCardForm('4652060724922338', '01', '17', '989', 'testtest');
-        // Assert Card Is Added
-        $this->waitForElementDisplayedByElement('First_Card_Assert');
-        // Back to DashBoard
-        $this->byElement('Back_to_Profile_Button')->click();
-        $this->byElement('Back_dashboard')->click();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->waitForElementDisplayedByElement('Transfer_Button');
-        $this->byElement('Transfer_Button')->click();
-        $this->waitForElementDisplayedByElement('Verification_Button1');
-        $this->byElement('Verification_Button1')->click();
-        // Set Valid Data
-        $this->fillVerificationForm($wallet);
-        $this->waitForElementDisplayedByElement('Back_Button_Rus');
-        $this->byElement('Back_Button_Rus')->click();
-        // Personified User
-        $this->getAPIService()->verifyWallet($wallet->phone);
-        // Check P2P Button
-        $this->byElement('Your_balance_Button')->click();
-        $this->byElement('Your_balance_Button')->click();
-        $this->byElement('Transfer_Button')->click();
-        $this->waitForElementDisplayedByElement('Assert_Element');
-        // Pay into friend wallet
-        $this->byElement('Phone')->click();
-        $this->byElement('Phone')->value('380931254212');
-        // Fill pay form
-        $this->byElement('Summ')->click();
-        $this->byElement('Summ')->value('10');
-        $this->byElement('PayP2P')->click();
-        $this->waitForElementDisplayedByElement('Payment_method');
-        sleep(2);
-        // Card Pay
-        $this->byElement('Select_Card')->click();
-        $this->byElement('Pay_button')->click();
-        // Check Transaction in List
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-        // Repeat Pay With Changes
-        $this->repeatPayWithChanges();
-        // Assert Transactions in List
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-        // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
-            $this->getAPIService()->deleteWallet($wallet->phone);
-        }
-    }
-
-    /**
-     * @group Transactions
-     */
     public function testRepeatPayOutMultibankWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();
@@ -278,7 +213,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
 
     public function retryPayCard()
     {
-        sleep(3);
+        sleep(2);
         $this->byElement('Repeat')->click();
         $this->waitForElementDisplayedByElement('Repeat payment?');
         $this->waitForElementDisplayedByElement('YES_Button');
@@ -291,25 +226,11 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Select_Card');
             $this->byElement('Select_Card')->click();
         }
-        $this->byElement('Pay_button')->click();
-        // Check Transaction in List
-        sleep(1);
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-    }
-
-    public function repeatPayWithChanges()
-    {
-        $this->byElement('Repeat')->click();
-        $this->waitForElementDisplayedByElement('Repeat payment?');
-        $this->byElement('Yes, with changes')->click();
-        $this->waitForElementDisplayedByElement('Transfer_Button');
-        sleep(1);
-        $this->byElement('Assert_Element')->click();
-        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
         sleep(2);
-        $this->byElement('Select_Card')->click();
-        $this->byElement('Pay_button')->click();
+        $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
+        sleep(1);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
