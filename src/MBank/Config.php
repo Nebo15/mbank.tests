@@ -1,6 +1,6 @@
 <?php
-
 namespace MBank;
+
 use AppiumTests;
 
 class Config
@@ -328,7 +328,6 @@ class Config
 
     public function getConfig()
     {
-        return $this->config[APP_ENV];
+        return $this->config[APP_ENVIRONMENT];
     }
 }
-

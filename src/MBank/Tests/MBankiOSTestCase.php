@@ -19,9 +19,9 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 'platformVersion' => '8.4',
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
-                'newCommandTimeout' => 999999,
+                'newCommandTimeout' => 5000,
                 'sendKeyStrategy' => 'setValue',
-                'launchTimeout' => 999999,
+                'launchTimeout' => 15000,
             )
         )
     );
@@ -69,7 +69,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             function () use ($name) {
                 $el = $this->byName($name);
                 return $el && $el->displayed();
-            }, $timeout
+            },
+            $timeout
         );
     }
 
@@ -85,7 +86,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             function () use ($xpath) {
                 $el = $this->byXPath($xpath);
                 return $el && $el->displayed();
-            }, $timeout
+            },
+            $timeout
         );
     }
 
@@ -95,7 +97,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             function () use ($id) {
                 $el = $this->byXPath($id);
                 return $el && $el->displayed();
-            }, $timeout
+            },
+            $timeout
         );
     }
 
@@ -104,9 +107,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         $self = $this;
         $this->waitUntil(
             function () use ($elementName, $self) {
-               $el = $self->byElement($elementName);
-               return $el && $el->displayed();
-            }, $timeout
+                $el = $self->byElement($elementName);
+                return $el && $el->displayed();
+            },
+            $timeout
          );
     }
 

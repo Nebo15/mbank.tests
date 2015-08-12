@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "http://files.dryga.com/boxes/osx-yosemite-0.2.1.box"
-  #config.vm.box = "osx-yosemite-0.2.1"
+  #config.vm.box = "http://files.dryga.com/boxes/osx-yosemite-0.2.1.box"
+  config.vm.box = "AndrewDryga/vagrant-box-osx"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,

@@ -1,24 +1,19 @@
 <?php
-require_once dirname(__FILE__).'/vendor/autoload.php';
+$base_dir = dirname(__FILE__);
+require_once $base_dir.'/vendor/autoload.php';
+require_once $base_dir.'/bootstrap.override.php';
 
 date_default_timezone_set('Etc/GMT+2');
 
-define("APP_ENV", 'web');
-define("ENVIRONMENT", 'DEV');
+define("APP_PLATFORM", $config['platform']);
+define("APP_ENVIRONMENT", $config['environment']);
+define("APP_PATH", $config['environments'][APP_ENVIRONMENT][APP_PLATFORM]);
 
-if (APP_ENV == 'web' && ENVIRONMENT == 'DEV')
-{
-    define("APP_PATH", '/Users/evgenfurman/BestWallet.app');
+// Remove this two lines:
+define("APP_ENV", APP_ENVIRONMENT);
+define("ENVIRONMENT", APP_PLATFORM);
 
-} elseif (APP_ENV == 'ios' && ENVIRONMENT == 'STG')
-{
-    define("APP_PATH", '/Users/evgenfurman/MBankStage.app.zip');
-
-} elseif (APP_ENV == 'ios' && ENVIRONMENT == 'DEV')
-{
-    define("APP_PATH", '/Users/evgenfurman/MBank.app');
-}
-
-if (!APP_PATH) {
+if (!APP_PATH || !file_exists(APP_PATH)) {
+    echo APP_PATH;
     die("App did not exist!");
 }
