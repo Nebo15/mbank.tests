@@ -33,6 +33,9 @@ Vagrant.configure(2) do |config|
     # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
+  # Don't insert random keypair instead of default keypair
+  config.ssh.insert_key = false
+
   # Enable provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
     sudo chown -R vagrant:admin /Library/Caches/Homebrew
