@@ -207,20 +207,19 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testServicesLoad()
     {
-        if (APP_ENV == 'web') {
-            $this->markTestSkipped();
-        }
-        $wallet = $this->createWalletAndLoadDashboard();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        // Check services views
-        $this->waitForElementDisplayedByElement('Pay_button');
-        $this->byElement('Pay_button')->click();
-        $this->gamesDirectory();
-        $this->telephonyDirectory();
-        $this->internetProviders();
-        // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
-            $this->getAPIService()->deleteWallet($wallet->phone);
+        if (APP_ENV == 'ios') {
+            $wallet = $this->createWalletAndLoadDashboard();
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            // Check services views
+            $this->waitForElementDisplayedByElement('Pay_button');
+            $this->byElement('Pay_button')->click();
+            $this->gamesDirectory();
+            $this->telephonyDirectory();
+            $this->internetProviders();
+            // Delete wallet
+            if (ENVIRONMENT == 'DEV') {
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            }
         }
     }
 
