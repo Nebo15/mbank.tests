@@ -6,6 +6,6 @@ cd $PROJECT_DIR
 # Test
 echo "Running PHPUnit on guest VM"
 appium &
-./vendor/phpunit/phpunit/phpunit
+./vendor/phpunit/phpunit/phpunit --testsuite "MBank"
 
 cd $CURRENT_DIR
