@@ -328,6 +328,6 @@ class Config
 
     public function getConfig()
     {
-        return $this->config[APP_ENVIRONMENT];
+        return $this->config[APP_PLATFORM];
     }
 }

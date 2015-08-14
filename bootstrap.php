@@ -7,11 +7,11 @@ date_default_timezone_set('Etc/GMT+2');
 
 define("APP_ENVIRONMENT", $config['environment']);
 define("APP_PLATFORM", $config['platform']);
-define("APP_PATH", $config['environments'][APP_PLATFORM][APP_ENVIRONMENT]);
+define("APP_PATH", $config['environments'][APP_ENVIRONMENT][APP_PLATFORM]);
 
 // Remove this two lines:
-define("ENVIRONMENT", APP_PLATFORM);
-define("APP_ENV", APP_ENVIRONMENT);
+define("ENVIRONMENT", APP_ENVIRONMENT);
+define("APP_ENV", APP_PLATFORM);
 
 if (!APP_PATH || !file_exists(APP_PATH)) {
     echo APP_PATH;
