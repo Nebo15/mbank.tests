@@ -19,14 +19,14 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Create wallet over API, if would fail if wallet is not created
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         $this->signIn($this->wallet->phone, $this->wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             // PIN should appear
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->byElement('Skip_Button')->click();
         }
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         /// Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -41,7 +41,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // SignIn and skip to Dashboard
         $this->loadDashboard($this->wallet->phone, $this->wallet->password);
         /// Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -57,7 +57,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->signIn($this->wallet->phone, $this->wallet->password);
         // Assert Error
         $this->waitForElementDisplayedByElement('Assert_Nonactive_wallet');
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -81,7 +81,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // We should stay on login screen
         $this->waitForElementDisplayedByElement('LoginIN'); // Selecting element is an assertion by itself
         /// Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -111,7 +111,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Create wallet
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         $this->signIn($this->wallet->phone, $this->wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->skipPinCode();
         }
         // Get New Password
@@ -123,7 +123,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');
         $this->byElement('Change_password_Button')->click();
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Request_Password');
             $this->byElement('YES_Button')->click();
         }
@@ -134,15 +134,15 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Secure_Field_2')->value($code);
         $this->byElement('Confirm_Button')->click();
         // Assert the password is changed
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Change_Password_Alert');
             $this->byElement('OK_Button')->click();
             $this->waitForElementDisplayedByElement('Sign_in_Button');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->waitForElementDisplayedByElement('Your_balance_Button');
         }
         /// Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -155,7 +155,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Create wallet
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         $this->signIn($this->wallet->phone, $this->wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->skipPinCode();
         }
         // Change Password
@@ -165,7 +165,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');
         $this->byElement('Change_password_Button')->click();
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Request_Password');
             $this->byElement('YES_Button')->click();
         }
@@ -178,7 +178,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Alert Message
         $this->waitForElementDisplayedByElement('Error_Password');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -192,7 +192,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->getAPIService()->createActiveWallet($this->wallet->phone, $this->wallet->password);
         // SignIn
         $this->signIn($this->wallet->phone, $this->wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->skipPinCode();
         }
         // Change Password
@@ -202,7 +202,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Change_password_Button');
         $this->byElement('Change_password_Button')->click();
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Request_Password');
             $this->byElement('YES_Button')->click();
         }
@@ -225,7 +225,7 @@ class SignInTest extends \MBank\Tests\MBankiOSTestCase
         // Assert limit message
         $this->waitForElementDisplayedByElement('Limit_message');
         /// Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }

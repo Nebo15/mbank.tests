@@ -16,12 +16,12 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Settings_Button')->click();
         $this->waitForElementDisplayedByElement('Delete_temporary_data');
         $this->byElement('Delete_temporary_data')->click();
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->byElement('YES_Button')->click();
             $this->waitForElementDisplayedByElement('Assert_Delete_TEMP');
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -31,7 +31,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPublicOfferAndPrivacyPolicy()
     {
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->waitForElementDisplayedByElement('Public Offer');
             $this->byElement('Public Offer')->click();
             $this->waitForElementDisplayedByElement('Public_Offer_Assert');
@@ -40,7 +40,7 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Privacy Policy');
             $this->byElement('Privacy Policy')->click();
             $this->waitForElementDisplayedByElement('Privacy_Policy_Assert');
-        } elseif (APP_ENV == 'ios') {
+        } elseif (APP_PLATFORM == 'ios') {
             $this->loadDashboard('+380931254212', 'qwerty');
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();

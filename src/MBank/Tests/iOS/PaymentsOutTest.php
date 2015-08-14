@@ -18,13 +18,13 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -54,7 +54,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Pay from Card
         $this->cardPayServices();
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -73,12 +73,12 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -109,13 +109,13 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -157,7 +157,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_button')->click();
         $this->payCardToCard();
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -191,13 +191,13 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -207,7 +207,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testServicesLoad()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             // Check services views
@@ -217,7 +217,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->telephonyDirectory();
             $this->internetProviders();
             // Delete wallet
-            if (ENVIRONMENT == 'DEV') {
+            if (APP_ENVIRONMENT == 'DEV') {
                 $this->getAPIService()->deleteWallet($wallet->phone);
             }
         }
@@ -228,7 +228,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSendStatementAfterPay()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->loadDashboard('+380931254212', 'qwerty');
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
@@ -255,7 +255,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSendStatementWeek()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->loadDashboard('+380931254212', 'qwerty');
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
@@ -282,7 +282,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSendStatementMonth()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->loadDashboard('+380931254212', 'qwerty');
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
@@ -525,10 +525,10 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Done_Button')->click();
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->tap(1, 59, 461, 10); // Select card
         }
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Select_Card');
             $this->byElement('Select_Card')->click();
         }

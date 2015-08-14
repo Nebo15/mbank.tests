@@ -52,13 +52,13 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -99,7 +99,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Wallet Not Indent
         $this->waitForElementDisplayedByElement('Wallet_Not_Ident');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -140,7 +140,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Yourself Payment Impossible
         $this->waitForElementDisplayedByElement('Assert_Yourself');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -150,7 +150,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testP2PContacts()
     {
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
         $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboard();
@@ -175,7 +175,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->tap(1, 275, 244, 10);
         $this->waitForElementDisplayedByElement('Contact_screen');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }

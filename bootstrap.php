@@ -9,10 +9,6 @@ define("APP_ENVIRONMENT", $config['environment']);
 define("APP_PLATFORM", $config['platform']);
 define("APP_PATH", $config['environments'][APP_ENVIRONMENT][APP_PLATFORM]);
 
-// Remove this two lines:
-define("ENVIRONMENT", APP_ENVIRONMENT);
-define("APP_ENV", APP_PLATFORM);
-
 if (!APP_PATH || !file_exists(APP_PATH)) {
     echo APP_PATH;
     die("App did not exist!");

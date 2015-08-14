@@ -19,7 +19,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Gallery_Button')->click();
         $this->waitForElementDisplayedByElement('Moments_Button');
         $this->byElement('Moments_Button')->click();
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             // Check photo directory
             $this->waitForElementDisplayedByElement('Photo_Assert');
             $this->byElement('Photo_Assert')->click();
@@ -33,7 +33,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -53,7 +53,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Gallery_Button')->click();
         $this->waitForElementDisplayedByElement('Moments_Button');
         $this->byElement('Moments_Button')->click();
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             // Check photo directory
             $this->waitForElementDisplayedByElement('Photo_Assert');
             $this->byElement('Photo_Assert')->click();
@@ -67,9 +67,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertTrue(array_key_exists('picture_url', $wallet_data['data']), "Can't find profile image");
         // Delete photo in profile
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->submitPhotoButton();
-        } elseif (APP_ENV == 'ios') {
+        } elseif (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Photo_delete_button');
             $this->byElement('Photo_delete_button')->click();
         }
@@ -80,7 +80,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
         $this->assertFalse(array_key_exists('picture_url', $wallet_data['data']), "Profile image present");
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -109,12 +109,12 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Transfer_Button')->click();
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Assert Verification Data
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->byElement('Back_dashboard')->click();
             $this->submitProfileButton();
             $this->waitForElementDisplayedByElement('Identification_confirmed');
             $this->byElement('Identification_confirmed')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(1);
             $this->tap(1, 50, 62, 10);   // Back to dashboard
             $this->waitForElementDisplayedByElement('Your_balance_Button');
@@ -127,7 +127,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->assertEquals(trim($this->byElement('Ident_name1')->text(), '\! '), $wallet->person->family_name);
         $this->assertEquals(trim($this->byElement('Ident_name2')->text(), '\! '), $wallet->person->patronymic_name);
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -157,7 +157,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Alert
         $this->waitForElementDisplayedByElement('Invalid_Personal_Number_Alert');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -175,7 +175,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('View_limits')->click();
         $this->waitForElementDisplayedByElement('Limits_table');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }

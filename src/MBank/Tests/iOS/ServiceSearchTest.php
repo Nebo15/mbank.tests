@@ -27,7 +27,7 @@ class ServiceSearchTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Service
         $this->assertEquals('Steam', $this->byElement('SteamSearch')->text());
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }

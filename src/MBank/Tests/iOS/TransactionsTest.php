@@ -32,7 +32,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Pay from card retry
         $this->retryPayCard();
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -55,13 +55,13 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -87,12 +87,12 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -219,10 +219,10 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('YES_Button');
         $this->byElement('YES_Button')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->tap(1, 59, 461, 10); // Select card
         }
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Select_Card');
             $this->byElement('Select_Card')->click();
         }

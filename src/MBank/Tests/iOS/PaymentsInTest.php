@@ -39,13 +39,13 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         // Check Balance in Wallet (API)
         sleep(1);
         $wallet_data = $this->getAPIService()->getWallet($wallet->phone, $wallet->password);
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->assertEquals($Balance, $wallet_data['data']['amount'] . '.00a');
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->assertEquals($Balance, $wallet_data['data']['amount']);
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -74,7 +74,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Add_funds_Button')->click();
         // Pay Zero Sum
         $this->walletPayForm('0');
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             // Assert Alert Message
             $this->waitForElementDisplayedByElement('Alert_Pay_Message');
             // Pay Incorrect Sum
@@ -85,7 +85,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Alert_Message');
         }
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }

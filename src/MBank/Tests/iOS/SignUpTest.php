@@ -32,14 +32,14 @@ class SignUpTest extends MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Assert_PIN_field');
         $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
         // Getting and filling out activation code for created wallet
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Assert_PIN_field');
             $this->byElement('Assert_PIN_field')->value($code);
             $this->byElement('Confirm_Button')->click();
             // Skip PIN
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->byElement('Skip_Button')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->byElement(str_split($code)[1])->click();
             $this->byElement(str_split($code)[2])->click();
             $this->byElement(str_split($code)[3])->click();
@@ -49,7 +49,7 @@ class SignUpTest extends MBankiOSTestCase
         // Assert Dashboard
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -76,7 +76,7 @@ class SignUpTest extends MBankiOSTestCase
         $this->byElement('HaveAnAccount')->click();
         $this->waitForElementDisplayedByElement('ForgotPassword');
         $this->byElement('ForgotPassword')->click();
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->waitForElementDisplayedByElement('PasswordField');
             sleep(1);
             $this->byElement('PasswordField')->click();
@@ -86,7 +86,7 @@ class SignUpTest extends MBankiOSTestCase
         $this->byElement('Request code')->click();
         $this->waitForElementDisplayedByElement('WalletNotActiveMessage');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($this->wallet->phone);
         }
     }
@@ -133,7 +133,7 @@ class SignUpTest extends MBankiOSTestCase
     {
         $this->byElement('Registration_Button')->click();
         $this->waitForElementDisplayedByElement('Registration_Button');
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $passwords = [
                 'очень слабый' => [
                     'password' => '111111',
@@ -160,7 +160,7 @@ class SignUpTest extends MBankiOSTestCase
                 $this->fillPasswordField($data['password']);
                 $this->assertEquals($this->byElement('Strength_text')->text(), $data['text']);
             }
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $passwords = [
                 'слабый' => [
                     'password' => '!@#$%',

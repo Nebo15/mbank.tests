@@ -28,20 +28,20 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert Second Card Is Added
         $this->waitForElementDisplayedByElement('Second_Card_Assert');
         // Remove Second Card
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->byElement('Remove_Card_Button')->click();
             $this->byElement('DA_Button')->click();
             // Assert Second Is Removed
             sleep(2);
             $cardDelete = $this->byElement('Delete_Card_Assert')->text();
             $this->assertEquals('moved to row 1 of 1', $cardDelete);
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->tap(1, 350, 115, 10); // Remove card
         }
         // Assert First Card Is Present
         $this->waitForElementDisplayedByElement('Second_Card_Assert');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
@@ -63,7 +63,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
         // Assert The Map Is Displayed
         $this->waitForElementDisplayedByElement('Map_Assert');
         // Delete wallet
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }

@@ -28,7 +28,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     public function setUp()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->setDesiredCapabilities(
                 array(
                     'deviceName' => 'iPhone 6',
@@ -42,7 +42,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                     'launchTimeout' => 999999,
                 )
             );
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             $this->setDesiredCapabilities(
                 array(
                     'deviceName' => 'iPhone 6',
@@ -120,7 +120,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         if ($phone_number[0] == "+") {
             $phone_number = substr($phone_number, 1);
         }
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->waitForElementDisplayedByElement('GO_Button');
             $this->byElement('GO_Button')->click();
             $this->waitForElementDisplayedByElement('Phone_Field_Button');
@@ -129,14 +129,14 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         $phone_number_field->click();
         $phone_number_field->clear();
         $phone_number_field->value($phone_number);
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->byElement('GO_Button')->click();
         }
     }
 
     protected function fillPasswordField($password)
     {
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->waitForElementDisplayedByElement('GO_Button');
             $this->byElement('GO_Button')->click();
             $this->waitForElementDisplayedByElement('Password_Field_Button');
@@ -149,7 +149,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function fillCardForm($card, $mm, $yy, $cvv, $cardHolder)
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             // Add card number
             $this->waitForElementDisplayedByElement('Add_card_number_Button');
             $this->byElement('Add_card_number_Button')->value($card);
@@ -163,7 +163,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Done_Button')->click();
             $this->byElement('Cardholder_Button')->value($cardHolder);
             $this->byElement('Add_Card_Button')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(2);
             $this->waitForElementDisplayedByElement('Add_card_number_Button');
             // Add card
@@ -234,10 +234,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function loadDashboard($phone, $password)
     {
-        if (APP_ENV == 'web')
+        if (APP_PLATFORM == 'web')
         {
             $this->signIn($phone, $password);
-        } elseif (APP_ENV == 'ios')
+        } elseif (APP_PLATFORM == 'ios')
         {
             $this->signIn($phone, $password);
             $this->skipPinCode();
@@ -246,7 +246,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function createWalletAndLoadDashboard()
     {
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $wallet = $this->generateWalletData();
 
             // Create wallet over API
@@ -257,7 +257,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
             return $wallet;
 
-        } elseif (ENVIRONMENT == 'STG') {
+        } elseif (APP_ENVIRONMENT == 'STG') {
             $wallet = $this->generateWalletData();
 
             // SignIn and skip to Dashboard
@@ -269,10 +269,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function backToLogin()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('BackToLogin');
             $this->byElement('BackToLogin')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(3);
             $this->tap(1, 50, 62, 10); // Back To LoginForm
         }
@@ -280,10 +280,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function backToDashBoard()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Menu_Button');
             $this->byElement('Menu_Button')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(3);
             $this->tap(1, 50, 62, 10); // Back To DashBoard
         }
@@ -291,10 +291,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function backToProfile()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Back_to_Profile_Button');
             $this->byElement('Back_to_Profile_Button')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(3);
             $this->tap(1, 50, 62, 10); // Back To Profile
         }
@@ -302,10 +302,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function submitProfileButton()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Profile_Button');
             $this->byElement('Profile_Button')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(2);
             $this->tap(1, 214, 218, 10); // Web Profile Button
         }
@@ -313,10 +313,10 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function submitPhotoButton()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $this->waitForElementDisplayedByElement('Add_Photo_Button');
             $this->byElement('Add_Photo_Button')->click();
-        } elseif (APP_ENV == 'web') {
+        } elseif (APP_PLATFORM == 'web') {
             sleep(1);
             $this->tap(1, 190, 165, 10); // Web Photo Button
         }
@@ -327,7 +327,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
      */
     protected function fillVerificationForm($wallet)
     {
-        if (APP_ENV == 'web') {
+        if (APP_PLATFORM == 'web') {
             $this->waitForElementDisplayedByElement('Family_name');
             $this->waitForElementDisplayedByElement('Given_name');
             sleep(1);
@@ -355,7 +355,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Done_Button')->click();
             $this->byElement('Go')->click();
             sleep(2);
-        } elseif (APP_ENV == 'ios') {
+        } elseif (APP_PLATFORM == 'ios') {
             $this->byElement('Family_name')->value($wallet->person->family_name);
             $this->byElement('Given_name')->value($wallet->person->given_name);
             $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
@@ -372,7 +372,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function createWalletAndLoadDashboardWithPIN()
     {
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $wallet = $this->generateWalletData();
 
             // Create wallet over API
@@ -382,7 +382,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
             return $wallet;
 
-        } elseif (ENVIRONMENT == 'STG') {
+        } elseif (APP_ENVIRONMENT == 'STG') {
             $wallet = $this->generateWalletData();
 
             $this->signIn($wallet->phone, $wallet->password);

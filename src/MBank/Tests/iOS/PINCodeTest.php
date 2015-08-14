@@ -9,7 +9,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testSetPinCodeInSettings()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
@@ -33,7 +33,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPinOnLoginPage()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboardWithPIN();
             $this->waitForElementDisplayedByElement('Skip_Button');
             // Create Pin
@@ -54,7 +54,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testCanSkipOnSecondStep()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboardWithPIN();
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->fillPinCode('1234');
@@ -74,7 +74,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testFirstAskPIN()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboard();
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             // Logout and Login again
@@ -102,7 +102,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPinCode()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboardWithPIN();
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->fillPinCode('1234');
@@ -132,7 +132,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPinWithWrongCode()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboardWithPIN();
             $this->waitForElementDisplayedByElement('Skip_Button');
             $this->fillPinCode('1234');
@@ -151,7 +151,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPinTimeout()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboardWithPIN();
             $this->waitForElementDisplayedByElement('Skip_Button');
             // Create Pin
@@ -184,7 +184,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPinReset()
     {
-        if (APP_ENV == 'ios') {
+        if (APP_PLATFORM == 'ios') {
             $wallet = $this->createWalletAndLoadDashboardWithPIN();
             $this->waitForElementDisplayedByElement('Skip_Button');
             // Create Pin
@@ -210,7 +210,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             // Check SignINForm Present
             $this->waitForElementDisplayedByElement('Sign_in_Button');
             // Delete wallet
-            if (ENVIRONMENT == 'DEV') {
+            if (APP_ENVIRONMENT == 'DEV') {
                 $this->getAPIService()->deleteWallet($wallet->phone);
             }
         }

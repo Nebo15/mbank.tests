@@ -5,7 +5,7 @@ class WalletGenerationService
 {
     public function getPassword($strong = false)
     {
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
             $alpha = "abcdefghijklmnopqrstuvwxyz";
             $alpha_upper = strtoupper($alpha);
             $password_chars = $alpha . $alpha_upper;
@@ -19,7 +19,7 @@ class WalletGenerationService
             }
             return $password;
 
-        } elseif (ENVIRONMENT == 'STG') {
+        } elseif (APP_ENVIRONMENT == 'STG') {
 
             return $password = "testtedt";
         }
@@ -45,10 +45,10 @@ class WalletGenerationService
 
     public function getCellularPhoneNumber()
     {
-        if (ENVIRONMENT == 'DEV') {
+        if (APP_ENVIRONMENT == 'DEV') {
         return "+15662" . mt_rand(100000, 999999);
 
-    } elseif (ENVIRONMENT == 'STG')
+    } elseif (APP_ENVIRONMENT == 'STG')
         {
             return "+380631345678";
         }
