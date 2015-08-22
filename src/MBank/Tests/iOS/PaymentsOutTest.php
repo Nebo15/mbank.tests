@@ -205,6 +205,47 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group PayOut
      */
+    public function testOutFromCardAdd()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Add_funds_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        // Select Service
+        sleep(2);
+        $this->waitForElementDisplayedByElement('Games_networks');
+        $this->byElement('Games_networks')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->byElement('Steam')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->value('11111');
+        $this->byElement('Pay_Field2')->click();
+        $this->byElement('Pay_Field2')->value('10');
+        // Pay
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Pay_buttoN')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        sleep(2);
+        $this->tap(1, 59, 461, 10); // Select card
+        $this->waitForElementDisplayedByElement('ADD_card');
+        $this->byElement('ADD_card')->click();
+        $this->fillCardFormCustom('4652060724922338', '01', '17', '989', 'test');
+        // Check Transaction in List
+        sleep(2);
+        $this->waitForElementDisplayedByElement('Transactions_AsserT');
+        // Delete wallet
+        if (APP_ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
+    }
+
+    /**
+     * @group PayOut
+     */
     public function testServicesLoad()
     {
         if (APP_PLATFORM == 'ios') {
