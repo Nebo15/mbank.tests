@@ -110,10 +110,10 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Assert Verification Data
         if (APP_PLATFORM == 'ios') {
-            $this->byElement('Back_dashboard')->click();
+            $this->tap(1, 50, 62, 10); // Back To DashBoard
             $this->submitProfileButton();
-            $this->waitForElementDisplayedByElement('Identification_confirmed');
-            $this->byElement('Identification_confirmed')->click();
+            sleep(1);
+            $this->tap(1, 188, 429, 10); // Your wallet is verified
         } elseif (APP_PLATFORM == 'web') {
             sleep(1);
             $this->tap(1, 50, 62, 10);   // Back to dashboard
@@ -125,7 +125,8 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         // Assert User Data in Profile
         $this->waitForElementDisplayedByElement('Ident_name1');
         $this->assertEquals(trim($this->byElement('Ident_name1')->text(), '\! '), $wallet->person->family_name);
-        $this->assertEquals(trim($this->byElement('Ident_name2')->text(), '\! '), $wallet->person->patronymic_name);
+        $this->assertEquals(trim($this->byElement('Ident_name2')->text(), '\! '), $wallet->person->given_name);
+        $this->assertEquals(trim($this->byElement('Ident_name3')->text(), '\! '), "Verified");
         // Delete wallet
         if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -147,6 +148,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Family_name')->value('lol');
         $this->byElement('Given_name')->value('name');
         $this->byElement('Patronymic_name')->value('test');
+        $this->byElement('Birthday')->click();
+        $this->waitForElementDisplayedByElement('Done_Button');
+        $this->byElement('Done_Button')->click();
         $this->byElement('Passport_series_number')->value('furman');
         $this->byElement('Itn')->click();
         $this->byElement('Itn')->value('202701490562');

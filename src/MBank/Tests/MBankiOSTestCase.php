@@ -401,6 +401,9 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             $this->byElement('Family_name')->value($wallet->person->family_name);
             $this->byElement('Given_name')->value($wallet->person->given_name);
             $this->byElement('Patronymic_name')->value($wallet->person->patronymic_name);
+            $this->byElement('Birthday')->click();
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
             $this->byElement('Passport_series_number')->value($wallet->person->passport_series_number);
             $this->byElement('Itn')->click();
             $this->byElement('Itn')->value($wallet->person->itn);
