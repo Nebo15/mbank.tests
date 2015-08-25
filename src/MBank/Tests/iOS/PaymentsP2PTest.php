@@ -89,7 +89,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
         $this->byElement('Phone')->click();
-        $this->byElement('Phone')->value('15662868526');
+        $this->byElement('Phone')->value('15662449603');
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');

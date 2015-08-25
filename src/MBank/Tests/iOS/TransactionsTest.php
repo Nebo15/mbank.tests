@@ -140,7 +140,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(3);
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->waitForElementDisplayedByElement('Pay_field4');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Payment_method');
         sleep(9);
@@ -199,9 +199,14 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Done_Button')->click();
         $this->byElement('Pay_buttoN')->click();
         // Pay2
-        $this->waitForElementDisplayedByElement('Pay_field4');
-        $this->waitForElementDisplayedByElement('Pay_buttoN');
-        $this->byElement('Pay_buttoN')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('Pay_buttoN');
+            $this->byElement('Pay_buttoN')->click();
+        }
+        if (APP_PLATFORM == 'ios') {
+            $this->waitForElementDisplayedByElement('Pay_buTTON');
+            $this->byElement('Pay_buTTON')->click();
+        }
         // Pay Confirm
         $this->waitForElementDisplayedByElement('Payment_method');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
