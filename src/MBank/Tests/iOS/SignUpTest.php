@@ -129,6 +129,46 @@ class SignUpTest extends MBankiOSTestCase
     /**
      * @group SignUp
      */
+    public function testSignUpWithLongPassword()
+    {
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Phone_Field_Button');
+        $this->byElement('Phone_Field_Button')->click();
+        $this->byElement('Phone_Field_Button')->value($this->wallet->phone);
+        $this->waitForElementDisplayedByElement('Password_Field_Button');
+        $this->byElement('Password_Field_Button')->click();
+        // Fill Short password
+        $this->byElement('Password_Field_Button')->value('aaaaaaaaaaaaaaaaaaA1');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Registration_Button')->click();
+        $this->waitForElementDisplayedByElement('Assert_PIN_field');
+        $code = $this->getAPIService()->getWalletActivationCode($this->wallet->phone);
+        // Getting and filling out activation code for created wallet
+        if (APP_PLATFORM == 'ios') {
+            $this->waitForElementDisplayedByElement('Assert_PIN_field');
+            $this->byElement('Assert_PIN_field')->value($code);
+            $this->byElement('Confirm_Button')->click();
+            // Skip PIN
+            $this->waitForElementDisplayedByElement('Skip_Button');
+            $this->byElement('Skip_Button')->click();
+        } elseif (APP_PLATFORM == 'web') {
+            $this->byElement(str_split($code)[1])->click();
+            $this->byElement(str_split($code)[2])->click();
+            $this->byElement(str_split($code)[3])->click();
+            $this->byElement(str_split($code)[4])->click();
+            $this->byElement(str_split($code)[5])->click();
+        }
+        // Assert Dashboard
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        // Delete wallet
+        if (APP_ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($this->wallet->phone);
+        }
+    }
+
+    /**
+     * @group SignUp
+     */
     public function testSignUpPasswordStrengthChecker()
     {
         $this->byElement('Registration_Button')->click();
