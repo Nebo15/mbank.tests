@@ -13,6 +13,10 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
         // Set Valid Data
@@ -25,8 +29,13 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
         $this->byElement('Phone')->click();
@@ -43,6 +52,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Pay
         $this->byElement('Pay_button_P2P')->click();
         // Assert Transactions List
+        sleep(4);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
         $this->backToDashBoard();
@@ -72,6 +82,10 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
         // Set Valid Data
@@ -84,8 +98,14 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
+        $this->byElement('Your_balance_Button')->click();
+        sleep(5);
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
         $this->byElement('Phone')->click();
