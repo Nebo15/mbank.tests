@@ -142,7 +142,7 @@ class Config
             "PAY_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[2]/UIAScrollView[3]/UIAButton[1]"],
             "Alert_Pay_Message" => ["type" => "name", "selector" => "Enter the amount"],
             "Alert_Message" => ["type" => "name", "selector" => "You exceeded maximum refill amout"],
-            "Settings_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[7]"],
+            "Settings_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[5]"],
             "Delete_temporary_data" => ["type" => "name", "selector" => "Delete temporary data"],
             "YES_Button" => ["type" => "name", "selector" => "Yes"],
             "Assert_Delete_TEMP" => ["type" => "name", "selector" => "Temporary data deleted"],
