@@ -94,6 +94,10 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
         // Set Valid Data
@@ -103,10 +107,22 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
+        sleep(2);
         $this->byElement('Your_balance_Button')->click();
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        // Back To DashBoard
+        $this->backToDashBoard();
+        $this->byElement('Your_balance_Button')->click();
+        sleep(2);
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Assert Verification Data
         if (APP_PLATFORM == 'ios') {
@@ -116,7 +132,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
             $this->tap(1, 188, 429, 10); // Your wallet is verified
         } elseif (APP_PLATFORM == 'web') {
             sleep(1);
-            $this->tap(1, 50, 62, 10);   // Back to dashboard
+            $this->tap(1, 50, 62, 10); // Back to P2P screen
+            sleep(1);
+            $this->tap(1, 50, 62, 10); // Back to dashboard
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
             sleep(1);
@@ -126,7 +144,9 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Ident_name1');
         $this->assertEquals(trim($this->byElement('Ident_name1')->text(), '\! '), $wallet->person->family_name);
         $this->assertEquals(trim($this->byElement('Ident_name2')->text(), '\! '), $wallet->person->given_name);
-        $this->assertEquals(trim($this->byElement('Ident_name3')->text(), '\! '), "Verified");
+        if (APP_PLATFORM == 'ios') {
+            $this->assertEquals(trim($this->byElement('Ident_name3')->text(), '\! '), "Verified");
+        }
         // Delete wallet
         if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
@@ -142,21 +162,40 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
         // Set Invalid Data
+        $this->waitForElementDisplayedByElement('Family_name');
+        $this->waitForElementDisplayedByElement('Given_name');
+        sleep(1);
+        $this->byElement('Family_name')->click();
         $this->byElement('Family_name')->value('lol');
+        $this->byElement('Given_name')->click();
         $this->byElement('Given_name')->value('name');
+        $this->byElement('Patronymic_name')->click();
         $this->byElement('Patronymic_name')->value('test');
         $this->byElement('Birthday')->click();
+        sleep(1);
+        $this->byElement('Birthday')->value('01011975');
         $this->waitForElementDisplayedByElement('Done_Button');
-        $this->byElement('Done_Button')->click();
+        $this->byElement('Passport_series_number')->click();
         $this->byElement('Passport_series_number')->value('furman');
         $this->byElement('Itn')->click();
         $this->byElement('Itn')->value('202701490562');
+        $this->byElement('Passport_issued_at')->click();
+        sleep(1);
         $this->byElement('Passport_issued_at')->value('1970.01.01');
+        $this->waitForElementDisplayedByElement('Done_Button');
         $this->byElement('Done_Button')->click();
-        $this->byElement('Next_Button')->click();
+        if (APP_PLATFORM == 'ios') {
+            $this->byElement('Next_Button')->click();
+        } elseif (APP_PLATFORM == 'web') {
+            $this->byElement('Go')->click();
+        }
         $this->byElement('Itn')->click();
         // Assert Alert
         $this->waitForElementDisplayedByElement('Invalid_Personal_Number_Alert');

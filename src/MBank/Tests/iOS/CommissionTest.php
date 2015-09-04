@@ -14,6 +14,11 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Conversations_Button');
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
+        $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
         // Set Valid Data
@@ -37,7 +42,6 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_Field');
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_field3')->click();
         $this->byElement('Pay_field3')->value($pay_value);
         if (APP_PLATFORM == 'ios') {
             $this->byName('0')->click();
