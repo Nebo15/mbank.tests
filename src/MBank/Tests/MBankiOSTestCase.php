@@ -313,7 +313,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         if ($cardsStatus == false) {
             if (APP_ENVIRONMENT == 'DEV')
                 $this->getAPIService()->deleteWallet($wallet->phone);
-            $this->markTestSkipped('Card Status 1');
+                $this->markTestSkipped('Card Status 0');
         }
 
         return $wallet;
