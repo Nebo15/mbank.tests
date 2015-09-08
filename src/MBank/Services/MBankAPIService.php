@@ -129,6 +129,16 @@ class MBankAPIService
         return $wallet;
     }
 
+    public function getCardsStatus($phone, $password)
+    {
+        $request_url = 'https://sandbox.wallet.best/v1/wallet';
+
+        $response = $this->client->get($request_url, ['auth' => [$phone, $password]])
+                            ->json()['meta']['urgent_data']['features']['cards']['recurring'] && ['accepting'];
+
+        return $response;
+    }
+
     public function getWallet($phone, $password)
     {
             $request_url = 'https://sandbox.wallet.best/v1/wallet';

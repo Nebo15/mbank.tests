@@ -34,7 +34,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testOutFromCard()
     {
-        $wallet = $this->createWalletAndLoadDashboard();
+        $wallet = $this->createWalletAndCheckCardStatus();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
@@ -125,7 +125,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPayCardToCard()
     {
-        $wallet = $this->createWalletAndLoadDashboard();
+        $wallet = $this->createWalletAndCheckCardStatus();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');

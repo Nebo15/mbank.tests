@@ -9,7 +9,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPayInCard()
     {
-        $wallet = $this->createWalletAndLoadDashboard();
+        $wallet = $this->createWalletAndCheckCardStatus();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');
@@ -55,7 +55,7 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
      */
     public function testPayInCardNegativeSum()
     {
-        $wallet = $this->createWalletAndLoadDashboard();
+        $wallet = $this->createWalletAndCheckCardStatus();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->submitProfileButton();
         $this->waitForElementDisplayedByElement('Cards_Button');

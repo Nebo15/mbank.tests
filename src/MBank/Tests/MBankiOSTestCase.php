@@ -111,7 +111,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 return $el && $el->displayed();
             },
             $timeout
-         );
+        );
     }
 
     protected function fillPhoneNumberField($phone_number)
@@ -276,11 +276,9 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function loadDashboard($phone, $password)
     {
-        if (APP_PLATFORM == 'web')
-        {
+        if (APP_PLATFORM == 'web') {
             $this->signIn($phone, $password);
-        } elseif (APP_PLATFORM == 'ios')
-        {
+        } elseif (APP_PLATFORM == 'ios') {
             $this->signIn($phone, $password);
             $this->skipPinCode();
         }
@@ -288,25 +286,37 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
 
     protected function createWalletAndLoadDashboard()
     {
+        $wallet = $this->generateWalletData();
         if (APP_ENVIRONMENT == 'DEV') {
-            $wallet = $this->generateWalletData();
-
             // Create wallet over API
             $this->getAPIService()->createActiveWallet($wallet->phone, $wallet->password);
-
-            // SignIn and skip to Dashboard
-            $this->loadDashboard($wallet->phone, $wallet->password);
-
-            return $wallet;
-
-        } elseif (APP_ENVIRONMENT == 'STG') {
-            $wallet = $this->generateWalletData();
-
-            // SignIn and skip to Dashboard
-            $this->loadDashboard($wallet->phone, $wallet->password);
-
-            return $wallet;
         }
+        // SignIn and skip to Dashboard
+        $this->loadDashboard($wallet->phone, $wallet->password);
+
+        return $wallet;
+    }
+
+    protected function createWalletAndCheckCardStatus()
+    {
+        $wallet = $this->generateWalletData();
+        if (APP_ENVIRONMENT == 'DEV') {
+            // Create wallet over API
+            $this->getAPIService()->createActiveWallet($wallet->phone, $wallet->password);
+        }
+        // Check Card Status
+        $cardsStatus = $this->getAPIService()->getCardsStatus($wallet->phone, $wallet->password);
+        if ($cardsStatus == true) {
+            // SignIn and skip to Dashboard
+            $this->loadDashboard($wallet->phone, $wallet->password);
+        }
+        if ($cardsStatus == false) {
+            if (APP_ENVIRONMENT == 'DEV')
+                $this->getAPIService()->deleteWallet($wallet->phone);
+            $this->markTestSkipped('Card Status 1');
+        }
+
+        return $wallet;
     }
 
     protected function backToLogin()
