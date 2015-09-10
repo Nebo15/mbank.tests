@@ -13,6 +13,7 @@
             <file>src/MBank/Tests/iOS/CardsTest.php</file>
             <file>src/MBank/Tests/iOS/CommissionTest.php</file>
             <file>src/MBank/Tests/iOS/ConversationsTest.php</file>
+            <file>src/MBank/Tests/iOS/MessageCounterTest.php</file>
             <file>src/MBank/Tests/iOS/PaymentsInTest.php</file>
             <file>src/MBank/Tests/iOS/PaymentsOutTest.php</file>
             <file>src/MBank/Tests/iOS/PaymentsP2PTest.php</file>
@@ -39,6 +40,7 @@
             <group>Cards</group>
             <group>Commission</group>
             <group>Conversations</group>
+            <group>Message</group>
             <group>PayIn</group>
             <group>PayOut</group>
             <group>P2P</group>

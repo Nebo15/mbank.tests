@@ -15,3 +15,4 @@ Test Cases:
 - Transactions - повторная оплата в сервисы
 - Commission - комиссия сервисов
 - Service Search - поиск сервисов
+- Message Counter - счетчик непрочитанных сообщений
