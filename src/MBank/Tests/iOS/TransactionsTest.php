@@ -127,6 +127,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
+        sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -147,6 +148,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Repeat');
         // Check Transaction in List
+        sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -172,7 +174,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
-        sleep(1);
+        sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -213,6 +215,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(9);
         $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
+        sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -235,7 +238,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(2);
         $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
-        sleep(1);
+        sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
     }
 
@@ -255,6 +258,7 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byElement('Pay_buttoN')->click();
         // Check Transaction in List
+        sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
         // Back To DashBoard
         $this->backToDashBoard();
