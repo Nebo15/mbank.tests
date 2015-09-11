@@ -7,7 +7,10 @@ class Config
 {
     private $config = [
         "ios" => [
-//            "3DS_Alert" => ["type" => "name", "selector" => ""],
+            "Submit_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
+            "CVV_fielD_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[1]"],
+            "3DS_Window_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]"],
+            "3DS_Alert" => ["type" => "name", "selector" => "Payment Declined"],
             "Submit" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIAButton[1]"],
             "CVV_fielD" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIATextField[1]"],
             "3DS_Window" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]"],
@@ -38,7 +41,7 @@ class Config
             "Contact" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[1]/UIAButton[1]"],
             "Phone" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[3]/UIATextField[1]"],
             "MessageCounter" => ["type" => "name", "selector" => "Transfer"],
-            "PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[5]"],
+            "PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]"],
             "Sign" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAButton[1]"],
             "Pass_field" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIASecureTextField[1]"],
             "Summ" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[3]/UIATextField[2]"],
@@ -190,9 +193,13 @@ class Config
             "LoginIN" => ["type" => "name", "selector" => "Sign in"],
             "Pay_buttoN" => ["type" => "name", "selector" => "Pay"],
             "Photo_delete_button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]"],
-            "Transactions_Assert_PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]"],
+            "Transactions_Assert_PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]"],
         ],
         "web" => [
+            "Submit_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIAButton[1]"],
+            "CVV_fielD_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[1]"],
+            "3DS_Window_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]"],
+            "3DS_Alert" => ["type" => "name", "selector" => "Payment Declined"],
             "Submit" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIAButton[1]"],
             "CVV_fielD" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIATextField[1]"],
             "3DS_Window" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]"],

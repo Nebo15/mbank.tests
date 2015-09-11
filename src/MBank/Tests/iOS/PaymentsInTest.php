@@ -28,6 +28,16 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Add_funds_Button')->click();
         // Pay
         $this->walletPayForm('10');
+        // Check 3DS Window
+        $this->waitForElementDisplayedByElement('3DS_Window_2');
+        $this->waitForElementDisplayedByElement('CVV_fielD_2');
+        $this->byElement('CVV_fielD_2')->click();
+        $this->byElement('CVV_fielD_2')->value('989');
+        // Confirm
+        $this->waitForElementDisplayedByElement('Done_Button');
+        $this->byElement('Done_Button')->click();
+        $this->waitForElementDisplayedByElement('Submit_2');
+        $this->byElement('Submit_2')->click();
         // Check Transactions List
         $this->waitForElementDisplayedByElement('Transactions_Assert_PayIN');
         sleep(2);
@@ -92,7 +102,6 @@ class PaymentsInTest extends \MBank\Tests\MBankiOSTestCase
 
     public function walletPayForm($sum)
     {
-        $this->waitForElementDisplayedByElement('Wallet_Balance_View');
         $this->waitForElementDisplayedByElement('Amount_Field');
         $this->byElement('Amount_Field')->click();
         $this->byElement('Amount_Field')->value($sum);

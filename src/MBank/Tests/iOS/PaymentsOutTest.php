@@ -74,7 +74,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Cards_Button')->click();
         sleep(1);
         $this->waitForElementDisplayedByElement('Add_New_card_Button');
-        // Add Card
+        // Add Card With
         $this->byElement('Add_New_card_Button')->click();
         $this->fillCardForm('5417150396276825', '01', '17', '789', 'testtestd');
         // Assert Card Is Added
@@ -92,58 +92,53 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         }
     }
 
-//    /**
-//     * @group PayOut
-//     */
-//    public function testOutFromCardWithOut3DS()
-//    {
-//        if (APP_PLATFORM == 'web') {
-//            $this->markTestSkipped("Issue not resolved for WEB_APP");
-//        }
-//        $wallet = $this->createWalletAndCheckCardStatus();
-//        $this->waitForElementDisplayedByElement('Your_balance_Button');
-//        $this->submitProfileButton();
-//        $this->waitForElementDisplayedByElement('Cards_Button');
-//        $this->byElement('Cards_Button')->click();
-//        sleep(1);
-//        $this->waitForElementDisplayedByElement('Add_New_card_Button');
-//        // Add Card
-//        $this->byElement('Add_New_card_Button')->click();
-//        $this->fillCardForm('4652060573334999', '01', '17', '067', 'testtest');
-//        // Assert Card Is Added
-//        $this->waitForElementDisplayedByElement('Add_New_card_Button');
-//        // Back to DashBoard
-//        $this->backToProfile();
-//        $this->backToDashBoard();
-//        $this->waitForElementDisplayedByElement('Pay_button');
-//        $this->byElement('Pay_button')->click();
-//        // Pay from Card WithOut 3ds
-//        sleep(2);
-//        $this->waitForElementDisplayedByElement('Games_networks');
-//        $this->byElement('Games_networks')->click();
-//        $this->waitForElementDisplayedByElement('Steam');
-//        $this->byElement('Steam')->click();
-//        $this->waitForElementDisplayedByElement('Pay_Field');
-//        $this->waitForElementDisplayedByElement('Pay_buttoN');
-//        $this->byElement('Pay_buttoN')->click();
-//        $this->byElement('Pay_Field')->value('11111');
-//        $this->byElement('Pay_Field2')->click();
-//        $this->byElement('Pay_Field2')->value('10');
-//        // Pay
-//        $this->byElement('Done_Button')->click();
-//        $this->byElement('Pay_buttoN')->click();
-//        $this->waitForElementDisplayedByElement('Payment_method');
-//        $this->waitForElementDisplayedByElement('Select_Card');
-//        $this->byElement('Select_Card')->click();
-//        sleep(1);
-//        $this->byElement('Pay_buttoN')->click();
-//        // Assert Alert 3DS
-//        $this->waitForElementDisplayedByElement('3DS_Alert');
-//        // Delete wallet
-//        if (APP_ENVIRONMENT == 'DEV') {
-//            $this->getAPIService()->deleteWallet($wallet->phone);
-//        }
-//    }
+    /**
+     * @group PayOut
+     */
+    public function testOutFromCardWithOut3DS()
+    {
+        if (APP_PLATFORM == 'web') {
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
+        }
+        $this->loadDashboard('+380931254212', 'qwerty');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
+        $this->waitForElementDisplayedByElement('Add_funds_Button');
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        // Pay from Card WithOut 3ds
+        sleep(2);
+        $this->waitForElementDisplayedByElement('Games_networks');
+        $this->byElement('Games_networks')->click();
+        $this->waitForElementDisplayedByElement('Steam');
+        $this->byElement('Steam')->click();
+        $this->waitForElementDisplayedByElement('Pay_Field');
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
+        $this->byElement('Pay_buttoN')->click();
+        $this->byElement('Pay_Field')->value('11111');
+        $this->byElement('Pay_Field2')->click();
+        $this->byElement('Pay_Field2')->value('10');
+        // Pay
+        $this->byElement('Done_Button')->click();
+        $this->byElement('Pay_buttoN')->click();
+        $this->waitForElementDisplayedByElement('Payment_method');
+        $this->waitForElementDisplayedByElement('Select_Card');
+        $this->byElement('Select_Card')->click();
+        sleep(1);
+        $this->byElement('Pay_buttoN')->click();
+        // Check 3DS Window
+        $this->waitForElementDisplayedByElement('3DS_Window');
+        $this->waitForElementDisplayedByElement('CVV_fielD');
+        $this->byElement('CVV_fielD')->click();
+        $this->byElement('CVV_fielD')->value('067');
+        // Confirm
+        $this->waitForElementDisplayedByElement('Done_Button');
+        $this->byElement('Done_Button')->click();
+        $this->waitForElementDisplayedByElement('Submit');
+        $this->byElement('Submit')->click();
+        // Assert Alert 3DS
+        $this->waitForElementDisplayedByElement('3DS_Alert');
+    }
 
     /**
      * @group PayOut
