@@ -3,18 +3,18 @@
 //$config = [
 //    'environments' => [
 //        'PROD' => [
-//            'ios' => '',
+//            'ios' => '/Users/evgenfurman/MBankProd.app.zip',
 //            'web' => ''
 //        ],
 //        'STG' => [
-//            'ios' => '',
+//            'ios' => '/Users/evgenfurman/MBank.app',
 //            'web' => ''
 //        ],
 //        'DEV' => [
-//            'ios' => '/Users/andrew/Downloads/build/MBank/derived/Build/Products/Debug-iphonesimulator/MBank.app',
-//            'web' => ''
+//            'ios' => '/Users/evgenfurman/MBank.app',
+//            'web' => '/Users/evgenfurman/BestWallet.app'
 //        ]
 //    ],
-//    'platform' => 'ios',
+//    'platform' => 'web',
 //    'environment' => 'DEV',
 //];
