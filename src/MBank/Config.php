@@ -7,6 +7,8 @@ class Config
 {
     private $config = [
         "ios" => [
+            "TransactionsLog" => ["type" => "name", "selector" => "Transactions"],
+            "TransactionsLogAssert" => ["type" => "name", "selector" => "You have no transactions"],
             "Transactions_List2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]"],
             "Transactions_AsserT" => ["type" => "name", "selector" => "Steam"],
             "ADD_card" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAButton[10]"],
@@ -187,6 +189,8 @@ class Config
             "Transactions_Assert_PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]"],
         ],
         "web" => [
+            "TransactionsLog" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIALink[5]"],
+            "TransactionsLogAssert" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIAStaticText[4]"],
             "MessageCounter" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIALink[5]/UIALink[1]"],
             "Birthday" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIATextField[4]"],
             "P2P" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIALink[1]"],

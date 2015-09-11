@@ -100,6 +100,24 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group Transactions
      */
+    public function testEmptyTransactionsLog()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Transfer_Button');
+        $this->waitForElementDisplayedByElement('TransactionsLog');
+        $this->byElement('TransactionsLog')->click();
+        //Assert Empty Log
+        $this->waitForElementDisplayedByElement('TransactionsLogAssert');
+        // Delete wallet
+        if (APP_ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
+    }
+
+    /**
+     * @group Transactions
+     */
     public function walletPayServices()
     {
         $this->waitForElementDisplayedByElement('Add_funds_Button');
