@@ -7,6 +7,10 @@ class Config
 {
     private $config = [
         "ios" => [
+//            "3DS_Alert" => ["type" => "name", "selector" => ""],
+            "Submit" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIAButton[1]"],
+            "CVV_fielD" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIATextField[1]"],
+            "3DS_Window" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]"],
             "TransactionsLog" => ["type" => "name", "selector" => "Transactions"],
             "TransactionsLogAssert" => ["type" => "name", "selector" => "You have no transactions"],
             "Transactions_List2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]"],
@@ -108,7 +112,7 @@ class Config
             "Cards_Button" => ["type" => "name", "selector" => "My Cards"],
             "Empty_list_Button" => ["type" => "name", "selector" => "Empty list"],
             "Add_New_card_Button" => ["type" => "name", "selector" => "Add new card"],
-            "Back_to_Profile_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[4]"],
+            "Back_to_Profile_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[2]"],
             "Add_card_number_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[1]"],
             "Add_MM_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[2]"],
             "Add_YY_Button" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIATextField[3]"],
@@ -189,6 +193,9 @@ class Config
             "Transactions_Assert_PayIN" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]"],
         ],
         "web" => [
+            "Submit" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIAButton[1]"],
+            "CVV_fielD" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]/UIATextField[1]"],
+            "3DS_Window" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAScrollView[1]/UIAWebView[1]"],
             "TransactionsLog" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIALink[5]"],
             "TransactionsLogAssert" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIAStaticText[4]"],
             "MessageCounter" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAWebView[1]/UIALink[5]/UIALink[1]"],
