@@ -52,39 +52,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_button');
         $this->byElement('Pay_button')->click();
         // Pay from Card
-        $this->cardPayServices();
-        // Delete wallet
-        if (APP_ENVIRONMENT == 'DEV') {
-            $this->getAPIService()->deleteWallet($wallet->phone);
-        }
-    }
-
-    /**
-     * @group PayOut
-     */
-    public function testOutFromCardWith3DS()
-    {
-        if (APP_PLATFORM == 'web') {
-            $this->markTestSkipped("Issue not resolved for WEB_APP");
-        }
-        $wallet = $this->createWalletAndCheckCardStatus();
-        $this->waitForElementDisplayedByElement('Your_balance_Button');
-        $this->submitProfileButton();
-        $this->waitForElementDisplayedByElement('Cards_Button');
-        $this->byElement('Cards_Button')->click();
-        sleep(1);
-        $this->waitForElementDisplayedByElement('Add_New_card_Button');
-        // Add Card With
-        $this->byElement('Add_New_card_Button')->click();
-        $this->fillCardForm('5417150396276825', '01', '17', '789', 'testtestd');
-        // Assert Card Is Added
-        $this->waitForElementDisplayedByElement('Second_Card_Assert');
-        // Back to DashBoard
-        $this->backToProfile();
-        $this->backToDashBoard();
-        $this->waitForElementDisplayedByElement('Pay_button');
-        $this->byElement('Pay_button')->click();
-        // Pay from Card
         $this->cardPayServices3DS();
         // Delete wallet
         if (APP_ENVIRONMENT == 'DEV') {
@@ -355,7 +322,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
             sleep(2);
-            $this->tap(1, 247 ,233, 10); // Settings Button
+            $this->tap(1, 247, 233, 10); // Settings Button
             $this->waitForElementDisplayedByElement('Send statement');
             $this->byElement('Send statement')->click();
             $this->waitForElementDisplayedByElement('After payment');
@@ -382,7 +349,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
             sleep(2);
-            $this->tap(1, 247 ,233, 10); // Settings Button
+            $this->tap(1, 247, 233, 10); // Settings Button
             $this->waitForElementDisplayedByElement('Send statement');
             $this->byElement('Send statement')->click();
             $this->waitForElementDisplayedByElement('Once a week');
@@ -409,7 +376,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Your_balance_Button');
             $this->submitProfileButton();
             sleep(2);
-            $this->tap(1, 247 ,233, 10); // Settings Button
+            $this->tap(1, 247, 233, 10); // Settings Button
             $this->waitForElementDisplayedByElement('Send statement');
             $this->byElement('Send statement')->click();
             $this->waitForElementDisplayedByElement('Once a month');
@@ -458,32 +425,6 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->backToDashBoard();
     }
 
-    public function cardPayServices()
-    {
-        sleep(2);
-        $this->waitForElementDisplayedByElement('Games_networks');
-        $this->byElement('Games_networks')->click();
-        $this->waitForElementDisplayedByElement('Steam');
-        $this->byElement('Steam')->click();
-        $this->waitForElementDisplayedByElement('Pay_Field');
-        $this->waitForElementDisplayedByElement('Pay_buttoN');
-        $this->byElement('Pay_buttoN')->click();
-        $this->byElement('Pay_Field')->value('11111');
-        $this->byElement('Pay_Field2')->click();
-        $this->byElement('Pay_Field2')->value('10');
-        // Pay
-        $this->byElement('Done_Button')->click();
-        $this->byElement('Pay_buttoN')->click();
-        $this->waitForElementDisplayedByElement('Payment_method');
-        $this->waitForElementDisplayedByElement('Select_Card');
-        $this->byElement('Select_Card')->click();
-        sleep(1);
-        $this->byElement('Pay_buttoN')->click();
-        // Check Transaction in List
-        sleep(10);
-        $this->waitForElementDisplayedByElement('Transactions_Assert');
-    }
-
     public function cardPayServices3DS()
     {
         sleep(2);
@@ -505,16 +446,18 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Select_Card')->click();
         sleep(1);
         $this->byElement('Pay_buttoN')->click();
-        // Check 3DS Window
-        $this->waitForElementDisplayedByElement('3DS_Window');
-        $this->waitForElementDisplayedByElement('CVV_fielD');
-        $this->byElement('CVV_fielD')->click();
-        $this->byElement('CVV_fielD')->value('789');
-        // Confirm
-        $this->waitForElementDisplayedByElement('Done_Button');
-        $this->byElement('Done_Button')->click();
-        $this->waitForElementDisplayedByElement('Submit');
-        $this->byElement('Submit')->click();
+        if (APP_PLATFORM == 'ios') {
+            // Check 3DS Window
+            $this->waitForElementDisplayedByElement('3DS_Window');
+            $this->waitForElementDisplayedByElement('CVV_fielD');
+            $this->byElement('CVV_fielD')->click();
+            $this->byElement('CVV_fielD')->value('789');
+            // Confirm
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
+            $this->waitForElementDisplayedByElement('Submit');
+            $this->byElement('Submit')->click();
+        }
         // Check Transaction in List
         sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
@@ -693,6 +636,18 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         sleep(1);
         $this->byElement('Pay_buttoN')->click();
+        if (APP_PLATFORM == 'ios') {
+            // Check 3DS Window
+            $this->waitForElementDisplayedByElement('3DS_Window');
+            $this->waitForElementDisplayedByElement('CVV_fielD');
+            $this->byElement('CVV_fielD')->click();
+            $this->byElement('CVV_fielD')->value('789');
+            // Confirm
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
+            $this->waitForElementDisplayedByElement('Submit');
+            $this->byElement('Submit')->click();
+        }
         // Check Transaction in List
         sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
