@@ -451,7 +451,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('3DS_Window');
             $this->waitForElementDisplayedByElement('CVV_fielD');
             $this->byElement('CVV_fielD')->click();
-            $this->byElement('CVV_fielD')->value('789');
+            $this->byElement('CVV_fielD')->value('989');
             // Confirm
             $this->waitForElementDisplayedByElement('Done_Button');
             $this->byElement('Done_Button')->click();
@@ -641,7 +641,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('3DS_Window');
             $this->waitForElementDisplayedByElement('CVV_fielD');
             $this->byElement('CVV_fielD')->click();
-            $this->byElement('CVV_fielD')->value('789');
+            $this->byElement('CVV_fielD')->value('989');
             // Confirm
             $this->waitForElementDisplayedByElement('Done_Button');
             $this->byElement('Done_Button')->click();
