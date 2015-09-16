@@ -315,6 +315,31 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group PayOut
      */
+    public function testMobileContactsScreen()
+    {
+        if (APP_PLATFORM == 'ios') {
+            $this->loadDashboard('+380931254212', 'qwerty');
+            $this->waitForElementDisplayedByElement('Your_balance_Button');
+            $this->waitForElementDisplayedByElement('Add_funds_Button');
+            $this->waitForElementDisplayedByElement('Conversations_Button');
+            $this->waitForElementDisplayedByElement('Pay_button');
+            $this->byElement('Pay_button')->click();
+            // Select Service
+            sleep(2);
+            $this->waitForElementDisplayedByElement('Games_networks');
+            $this->waitForElementDisplayedByElement('Mobile');
+            $this->byElement('Mobile')->click();
+            // Assert Contacts button
+            $this->waitForElementDisplayedByElement('MobileContacts');
+            $this->byElement('MobileContacts')->click();
+            // Assert contacts screen
+            $this->waitForElementDisplayedByElement('MobileContactsScreen');
+        }
+    }
+
+    /**
+     * @group PayOut
+     */
     public function testSendStatementAfterPay()
     {
         if (APP_PLATFORM == 'ios') {
