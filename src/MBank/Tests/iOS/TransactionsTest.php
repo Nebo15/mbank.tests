@@ -161,8 +161,8 @@ class TransactionsTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
-        $this->waitForElementDisplayedByElement('Payment_method');
         sleep(9);
+        $this->waitForElementDisplayedByElement('Pay_buttoN');
         $this->byElement('Pay_buttoN')->click();
         $this->waitForElementDisplayedByElement('Repeat');
         // Check Transaction in List
