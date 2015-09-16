@@ -82,6 +82,57 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     /**
      * @group P2P
      */
+    public function testP2PFromCard()
+    {
+        $this->loadDashboard('+380931254212', 'qwerty');
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Transfer_Button');
+        $this->byElement('Transfer_Button')->click();
+        if (APP_PLATFORM == 'web') {
+            $this->waitForElementDisplayedByElement('P2P');
+            $this->byElement('P2P')->click();
+        }
+        $this->waitForElementDisplayedByElement('Assert_Element');
+        // Pay into friend wallet
+        $this->byElement('Phone')->click();
+        $this->byElement('Phone')->value('380631345678');
+        // Fill pay form
+        $this->byElement('Summ')->click();
+        $this->byElement('Summ')->value('10');
+        $this->waitForElementDisplayedByElement('Done_Button');
+        $this->byElement('Done_Button')->click();
+        $this->byElement('PayP2P')->click();
+        // Assert pay screen
+        $this->waitForElementDisplayedByElement('Payment_method');
+        sleep(2);
+        // Select Card
+        $this->waitForElementDisplayedByElement('Select_Card');
+        $this->byElement('Select_Card')->click();
+        // Pay
+        $this->byElement('Pay_button_P2P')->click();
+        if (APP_PLATFORM == 'ios') {
+            // Check 3DS Window
+            $this->waitForElementDisplayedByElement('3DS_Window');
+            $this->waitForElementDisplayedByElement('CVV_fielD');
+            $this->byElement('CVV_fielD')->click();
+            $this->byElement('CVV_fielD')->value('989');
+            // Confirm
+            $this->waitForElementDisplayedByElement('Done_Button');
+            $this->byElement('Done_Button')->click();
+            $this->waitForElementDisplayedByElement('Submit');
+            $this->byElement('Submit')->click();
+        }
+        // Assert Transactions List
+        sleep(10);
+        $this->waitForElementDisplayedByElement('Transactions_Assert');
+        // Back To DashBoard
+        $this->backToDashBoard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+    }
+
+    /**
+     * @group P2P
+     */
     public function testP2PPayToNonVerifiedWallet()
     {
         $wallet = $this->createWalletAndLoadDashboard();

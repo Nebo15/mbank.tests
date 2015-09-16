@@ -355,6 +355,7 @@ class PaymentsOutTest extends \MBank\Tests\MBankiOSTestCase
             $this->waitForElementDisplayedByElement('Mail_field');
             $this->byElement('Mail_field')->click();
             $this->byElement('Mail_field')->value('paul@nebo15.com');
+            $this->waitForElementDisplayedByElement('Back_dashboard');
             $this->byElement('Back_dashboard')->click();
             $this->waitForElementDisplayedByElement('Back_dashboard');
             $this->byElement('Back_dashboard')->click();

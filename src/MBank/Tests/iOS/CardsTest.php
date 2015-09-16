@@ -39,7 +39,7 @@ class CardsTest extends \MBank\Tests\MBankiOSTestCase
             $this->tap(1, 350, 115, 10); // Remove card
         }
         // Assert First Card Is Present
-        $this->waitForElementDisplayedByElement('Second_Card_Assert');
+        $this->waitForElementDisplayedByElement('First_Card_Assert');
         // Delete wallet
         if (APP_ENVIRONMENT == 'DEV') {
             $this->getAPIService()->deleteWallet($wallet->phone);
