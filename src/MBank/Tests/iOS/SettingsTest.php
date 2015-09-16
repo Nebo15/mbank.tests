@@ -59,7 +59,8 @@ class SettingsTest extends \MBank\Tests\MBankiOSTestCase
             // Assert Privacy Policy
             $this->waitForElementDisplayedByXPath('//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]');
             $this->waitForElementDisplayedByName('Back to Settings icon');
-            $this->waitForElementDisplayedByName('Log out');
+            $this->byName('Back to Settings icon')->click();
+            $this->waitForElementDisplayedByElement('Log out');
         }
     }
 }

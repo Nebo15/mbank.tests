@@ -182,6 +182,7 @@ class ProfileTest extends \MBank\Tests\MBankiOSTestCase
         sleep(1);
         $this->byElement('Birthday')->value('01011975');
         $this->waitForElementDisplayedByElement('Done_Button');
+        $this->byElement('Done_Button')->click();
         $this->byElement('Passport_series_number')->click();
         $this->byElement('Passport_series_number')->value('furman');
         $this->byElement('Itn')->click();

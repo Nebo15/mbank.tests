@@ -113,8 +113,10 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             // Change Pin
             $this->submitProfileButton();
             $this->waitForElementDisplayedByElement('Settings_Button');
+            sleep(1);
             $this->tap(1, 247, 233, 10); // Settings Button
-            $this->byName('Change the PIN')->click();
+            $this->waitForElementDisplayedByElement('Change the PIN');
+            $this->byElement('Change the PIN')->click();
             $this->fillPinCode('1234');
             $this->fillPinCode('5678');
             $this->waitForElementDisplayedByName('Enter the PIN once again');
@@ -163,6 +165,7 @@ class PINCodeTest extends \MBank\Tests\MBankiOSTestCase
             // Check timeout Pin Immediately In Settings
             $this->byElement('Profile_Button')->click();
             $this->waitForElementDisplayedByElement('Settings_Button');
+            sleep(1);
             $this->tap(1, 247, 233, 10); // Settings Button
             $this->waitForElementDisplayedByName('Immediately');
             // Lock Phone
