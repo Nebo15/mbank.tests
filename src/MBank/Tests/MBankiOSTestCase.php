@@ -15,8 +15,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
             'seleniumServerRequestsTimeout' => 120,
             'browserName' => '',
             'desiredCapabilities' => array(
-                'deviceName' => 'iPhone 6',
-                'platformVersion' => '8.4',
+                'deviceName' => 'iPhone 6s',
+                'platformVersion' => '9.0',
                 'platformName' => 'iOS',
                 'app' => APP_PATH,
                 'newCommandTimeout' => 5000,
@@ -31,8 +31,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         if (APP_PLATFORM == 'ios') {
             $this->setDesiredCapabilities(
                 array(
-                    'deviceName' => 'iPhone 6',
-                    'platformVersion' => '8.4',
+                    'deviceName' => 'iPhone 6s',
+                    'platformVersion' => '9.0',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
                     'newCommandTimeout' => 999999,
@@ -45,8 +45,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         } elseif (APP_PLATFORM == 'web') {
             $this->setDesiredCapabilities(
                 array(
-                    'deviceName' => 'iPhone 6',
-                    'platformVersion' => '8.4',
+                    'deviceName' => 'iPhone 6s',
+                    'platformVersion' => '9.0',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
                     'newCommandTimeout' => 999999,
