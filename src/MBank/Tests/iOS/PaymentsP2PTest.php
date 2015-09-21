@@ -110,16 +110,16 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Select_Card')->click();
         // Pay
         $this->byElement('Pay_button_P2P')->click();
-            // Check 3DS Window
-            $this->waitForElementDisplayedByElement('3DS_Window');
-            $this->waitForElementDisplayedByElement('CVV_fielD');
-            $this->byElement('CVV_fielD')->click();
-            $this->byElement('CVV_fielD')->value('989');
-            // Confirm
-            $this->waitForElementDisplayedByElement('Done_Button');
-            $this->byElement('Done_Button')->click();
-            $this->waitForElementDisplayedByElement('Submit');
-            $this->byElement('Submit')->click();
+        // Check 3DS Window
+        $this->waitForElementDisplayedByElement('3DS_Window');
+        $this->waitForElementDisplayedByElement('CVV_fielD');
+        $this->byElement('CVV_fielD')->click();
+        $this->byElement('CVV_fielD')->value('989');
+        // Confirm
+        $this->waitForElementDisplayedByElement('Done_Button');
+        $this->byElement('Done_Button')->click();
+        $this->waitForElementDisplayedByElement('Submit');
+        $this->byElement('Submit')->click();
         // Assert Transactions List
         sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
@@ -225,7 +225,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Assert_Element');
         // Pay into friend wallet
         $this->byElement('Phone')->click();
-        $this->byElement('Phone')->value(preg_replace('/\+/','',$wallet->phone));
+        $this->byElement('Phone')->value(preg_replace('/\+/', '', $wallet->phone));
         // Fill pay form
         $this->byElement('Summ')->click();
         $this->byElement('Summ')->value('10');
@@ -246,7 +246,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
     public function testP2PContacts()
     {
         if (APP_PLATFORM == 'web') {
-        $this->markTestSkipped("Issue not resolved for WEB_APP");
+            $this->markTestSkipped("Issue not resolved for WEB_APP");
         }
         $wallet = $this->createWalletAndLoadDashboard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
