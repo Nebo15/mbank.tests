@@ -134,7 +134,7 @@ class MBankAPIService
         $request_url = 'https://sandbox.wallet.best/v1/wallet';
 
         $response = $this->client->get($request_url, ['auth' => [$phone, $password]])
-                            ->json()['meta']['urgent_data']['features']['cards']['accepting'];
+                            ->json()['meta']['urgent_data']['features']['accepting'];
 
         return $response;
     }
