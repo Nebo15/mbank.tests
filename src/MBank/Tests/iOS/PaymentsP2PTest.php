@@ -110,16 +110,6 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         $this->byElement('Select_Card')->click();
         // Pay
         $this->byElement('Pay_button_P2P')->click();
-        // Check 3DS Window
-        $this->waitForElementDisplayedByElement('3DS_Window');
-        $this->waitForElementDisplayedByElement('CVV_fielD');
-        $this->byElement('CVV_fielD')->click();
-        $this->byElement('CVV_fielD')->value('989');
-        // Confirm
-        $this->waitForElementDisplayedByElement('Done_Button');
-        $this->byElement('Done_Button')->click();
-        $this->waitForElementDisplayedByElement('Submit');
-        $this->byElement('Submit')->click();
         // Assert Transactions List
         sleep(10);
         $this->waitForElementDisplayedByElement('Transactions_Assert');
