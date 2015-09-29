@@ -46,8 +46,8 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
         } elseif (APP_PLATFORM == 'web') {
             $this->setDesiredCapabilities(
                 array(
-                    'deviceName' => 'iPhone 6',
-                    'platformVersion' => '9.0',
+                    'deviceName' => 'iPhone 5s',
+                    'platformVersion' => '8.4',
                     'platformName' => 'iOS',
                     'app' => APP_PATH,
                     'newCommandTimeout' => 999999,
