@@ -21,6 +21,7 @@ abstract class MBankiOSTestCase extends \PHPUnit_Extensions_AppiumTestCase
                 'app' => APP_PATH,
                 'newCommandTimeout' => 5000,
                 'sendKeyStrategy' => 'setValue',
+                'waitForAppScript' => true,
                 'launchTimeout' => 15000,
 //                'noReset' => true,
             )
