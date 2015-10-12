@@ -31,4 +31,24 @@ class ServiceSearchTest extends \MBank\Tests\MBankiOSTestCase
             $this->getAPIService()->deleteWallet($wallet->phone);
         }
     }
+
+    /**
+     * @group ServiceSearch
+     */
+    public function testServiceTips()
+    {
+        $wallet = $this->createWalletAndLoadDashboard();
+        $this->waitForElementDisplayedByElement('Your_balance_Button');
+        $this->waitForElementDisplayedByElement('Conversations_Button');
+        // Select Service
+        $this->waitForElementDisplayedByElement('Pay_button');
+        $this->byElement('Pay_button')->click();
+        // Assert Tips
+        $this->byElement('ServiceTip')->click();
+        $this->waitForElementDisplayedByElement('ServiceTips');
+        // Delete wallet
+        if (APP_ENVIRONMENT == 'DEV') {
+            $this->getAPIService()->deleteWallet($wallet->phone);
+        }
+    }
 }

@@ -7,6 +7,8 @@ class Config
 {
     private $config = [
         "ios" => [
+            "ServiceTip" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]"],
+            "ServiceTips" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATextView[2]"],
             "Submit_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
             "CVV_fielD_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIATextField[4]"],
             "3DS_Window_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]"],
