@@ -7,6 +7,7 @@ class Config
 {
     private $config = [
         "ios" => [
+            "P2P" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]"],
             "ServiceTip" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]"],
             "ServiceTips" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATextView[2]"],
             "Submit_2" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[2]/UIAWebView[1]/UIAButton[1]"],
@@ -165,7 +166,7 @@ class Config
             "View_limits" => ["type" => "name", "selector" => "View limits"],
             "Limits_table" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]"],
             "Transfer_Button" => ["type" => "name", "selector" => "Transfer"],
-            "Verification_Button1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]"],
+            "Verification_Button1" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIAButton[4]"],
             "Family_name" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[2]/UIATextField[1]"],
             "Given_name" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIATextField[1]"],
             "Patronymic_name" => ["type" => "xpath", "selector" => "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[4]/UIATextField[1]"],

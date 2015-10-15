@@ -15,10 +15,8 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $this->waitForElementDisplayedByElement('Transfer_Button');
         $this->byElement('Transfer_Button')->click();
         $this->byElement('Transfer_Button')->click();
-        if (APP_PLATFORM == 'web') {
-            $this->waitForElementDisplayedByElement('P2P');
-            $this->byElement('P2P')->click();
-        }
+        $this->waitForElementDisplayedByElement('P2P');
+        $this->byElement('P2P')->click();
         $this->waitForElementDisplayedByElement('Verification_Button1');
         $this->byElement('Verification_Button1')->click();
         // Set Valid Data
@@ -69,7 +67,7 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         $commissionAPP = $this->byElement('Commission')->text();
         // Assert Service Commission API
         $get_commission_values = $this->getAPIService()
-                                      ->getServiceCommission($wallet->phone, $wallet->password, '1691'); // 1691 Multibank
+            ->getServiceCommission($wallet->phone, $wallet->password, '1691'); // 1691 Multibank
         $percent_value = $get_commission_values['data']['rate']['percent'];
         $fix_value = $get_commission_values['data']['rate']['fix'];
         $commissionAPI = $pay_value * $percent_value / "100" + $fix_value;

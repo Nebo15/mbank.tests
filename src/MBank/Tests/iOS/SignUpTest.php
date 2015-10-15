@@ -76,12 +76,6 @@ class SignUpTest extends MBankiOSTestCase
         $this->byElement('HaveAnAccount')->click();
         $this->waitForElementDisplayedByElement('ForgotPassword');
         $this->byElement('ForgotPassword')->click();
-//        if (APP_PLATFORM == 'web') {
-//            $this->waitForElementDisplayedByElement('PasswordField');
-//            sleep(1);
-//            $this->byElement('PasswordField')->click();
-//            $this->byElement('PasswordField')->value(trim(($this->wallet->phone), "+"));
-//        }
         $this->waitForElementDisplayedByElement('Request code');
         $this->byElement('Request code')->click();
         $this->waitForElementDisplayedByElement('WalletNotActiveMessage');
