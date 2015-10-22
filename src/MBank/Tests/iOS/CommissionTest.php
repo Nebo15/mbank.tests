@@ -26,6 +26,7 @@ class CommissionTest extends \MBank\Tests\MBankiOSTestCase
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
+        $this->backToDashBoard();
         $this->byElement('Your_balance_Button')->click();
         $this->byElement('Your_balance_Button')->click();
         // Select Service

@@ -24,6 +24,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
+        $this->backToDashBoard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         sleep(2);
@@ -132,6 +133,7 @@ class PaymentsP2PTest extends \MBank\Tests\MBankiOSTestCase
         // Personified User
         $this->getAPIService()->verifyWallet($wallet->phone);
         // Check P2P Button
+        $this->backToDashBoard();
         $this->waitForElementDisplayedByElement('Your_balance_Button');
         $this->byElement('Your_balance_Button')->click();
         sleep(2);
